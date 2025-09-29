@@ -1,26 +1,45 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
+  # Import delle app Home-Manager (moduli)
   imports = [
-    ../../modules/nixos/system/fonts.nix
-    ../../modules/nixos/system/locale.nix
-    ../../modules/nixos/system/nix.nix
-    ../../modules/nixos/system/env.nix
-    ../../modules/home/apps/neovim.nix
-    ../../modules/home/apps/firefox.nix
+    ../../modules/home/apps
   ];
 
-  networking.hostName = "host__1__";
+  # Identità + versione HM
+  home.username = "user1";
+  home.homeDirectory = "/home/user1";
+  home.stateVersion = "24.05";
 
-  time.timeZone = "Europe/Rome";
-
-  users.users.emoriver = {
-    isNormalUser = true;
-    home = "/home/emoriver";
-    shell = pkgs.zsh;
-    extraGroups = [ "wheel" "networkmanager" ];
+  # Abilita le app che vuoi su questo host
+  apps.git = {
+    enable = true;
+    userName = "Andrea Riva";
+    userEmail = "emoriver@live.it";
   };
 
-  services.openssh.enable = true;
-  system.stateVersion = "25.05";
+  apps = {
+    zsh.enable = true;
+    git.enable = true;
+    neovim.enable = true;
+    ssh.enable = true;
+    direnv.enable = true;
+    zoxide.enable = true;
+    starship.enable = true;
+    kdeconnect.enable = true;
+    alacritty.enable = false; # metti true se lo usi
+  };
+
+  # Pacchetti utente (se vuoi aggiunte "sciolte")
+  home.packages = with pkgs; [
+    bat eza fd ripgrep fzf jq yq-go
+  ];
+
+  # Esempio di file utente gestito da HM
+  home.file.".config/myapp/config.toml".text = ''
+    # Config specifica per host__1__
+    enabled = true
+  '';
+
+  systemd.user.startServices = "sd-switch";
 }

@@ -1,60 +1,112 @@
 {
-  description = "Configurazione modulare NixOS + Home Manager per host e utenti specifici";
+  description = "Configurazione modulare NixOS + Home Manager con host minimale e modulo utente";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    #nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     flake-utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = { self, nixpkgs, home-manager, flake-utils, ... }:
-    flake-utils.lib.eachDefaultSystem (system:
-      let
-        pkgs = import nixpkgs {
-          inherit system;
-          config.allowUnfree = true;
-        };
+  outputs = { self, nixpkgs, home-manager, ... }:
+  let
+    system = "x86_64-linux";
+    pkgs = import nixpkgs {
+      inherit system;
+      config.allowUnfree = true;
+    };
+    lib = nixpkgs.lib;
 
-        lib = pkgs.lib;
+    #userHomes = {
+      #carpinox1vm1 = ./home/emoriver/carpinox1vm1.nix;
+    #  macpnixos    = ./home/emoriver/macpnixos.nix;   # facoltativo, se/quando lo userai
+    #};
+    userHomes = {
+      #carpinox1vm1 = ./home/emoriver/carpinox1vm1.nix;
+      macpnixos    = ./home/emoriver/macpnixos.nix;   # <— userHomes che volevi mantenere
+    };
+  in
+  {
+    nixosConfigurations = {
+      carpinox1vm1 = lib.nixosSystem {
+        inherit system;
+        modules = [
+          ./hosts/carpinox1vm1
+          #./hosts/carpinox1vm1/hardware-configuration.nix
+          home-manager.nixosModules.home-manager
+          {
+            #networking.hostName = "carpinox1vm1";
+            home-manager.users.emoriver = import userHomes.carpinox1vm1;
+          }
+        ];
+      };
 
-        # Configurazioni per host
-        hostConfigs = {
-          host__1__ = ./hosts/host__1__/configuration.nix;
-          host__2__ = ./hosts/host__2__/configuration.nix;
-        };
-
-        # Configurazioni Home Manager per utenti per host specifico
-        userHomes = {
-          emoriver_host__1__ = ./home/emoriver/host__1__.nix;
-          emoriver_host__2__ = ./home/emoriver/host__2__.nix;
-          user2_host__2__ = ./home/user2/host__2__.nix;
-        };
-      in {
-        nixosConfigurations = {
-          host__1__ = lib.nixosSystem {
-            inherit system;
-            modules = [
-              hostConfigs.host__1__
-              home-manager.nixosModules.home-manager
-              {
-                home-manager.users.emoriver = import userHomes.emoriver_host__1__;
-              }
-            ];
-          };
-
-          host__2__ = lib.nixosSystem {
-            inherit system;
-            modules = [
-              hostConfigs.host__2__
-              home-manager.nixosModules.home-manager
-              {
-                home-manager.users.emoriver = import userHomes.emoriver_host__2__;
-                home-manager.users.user2 = import userHomes.user2_host__2__;
-              }
-            ];
-          };
-        };
-      }
-    );
+      macpnixos = lib.nixosSystem {
+        inherit system;
+        modules = [
+          ./hosts/macpnixos
+          #./hosts/macpnixos/hardware-configuration.nix
+          home-manager.nixosModules.home-manager
+          {
+            #networking.hostName = "macpnixos";
+            home-manager.users.emoriver = import userHomes.macpnixos;
+          }
+        ];
+      };
+    };
+  };
 }
+/*
+
+
+@@
+   outputs = { self, nixpkgs, home-manager, ... }:
+   let
+     system = "x86_64-linux";
+     pkgs = import nixpkgs {
+       inherit system;
+       config.allowUnfree = true;
+     };
+     lib = pkgs.lib;
+
+-    userHomes = {
+-      carpinox1vm1 = ./home/emoriver/carpinox1vm1.nix;
+-      macpnixos    = ./home/emoriver/macpnixos.nix;   # facoltativo, se/quando lo userai
+-    };
++    userHomes = {
++      carpinox1vm1 = ./home/emoriver/carpinox1vm1.nix;
++      macpnixos    = ./home/emoriver/macpnixos.nix;   # <— userHomes che volevi mantenere
++    };
+   in
+   {
+     nixosConfigurations = {
+       carpinox1vm1 = lib.nixosSystem {
+         inherit system;
+         modules = [
+           ./hosts/carpinox1vm1/configuration.nix
+           ./hosts/carpinox1vm1/hardware-configuration.nix
+           home-manager.nixosModules.home-manager
+           {
+             networking.hostName = "carpinox1vm1";
+             home-manager.users.emoriver = import userHomes.carpinox1vm1;
+           }
+         ];
+       };
+
++      macpnixos = lib.nixosSystem {
++        inherit system;
++        modules = [
++          ./hosts/macpnixos/configuration.nix
++          ./hosts/macpnixos/hardware-configuration.nix
++          home-manager.nixosModules.home-manager
++          {
++            networking.hostName = "macpnixos";
++            home-manager.users.emoriver = import userHomes.macpnixos;
++          }
++        ];
++      };
+     };
+   };
+
+*/
