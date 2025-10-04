@@ -13,11 +13,11 @@
     wayland.enable = true;  # Enable if using Wayland
     
     #package = pkgs.kdePackages.sddm;  # Use KDE 6 version
-    theme = "breeze dark"; 
+    theme = "breeze"; 
     
     settings = {
       Theme = {
-        Current = "breeze dark";
+        Current = "breeze";
         Background = "/etc/nixos/wallpapers/dark_mnt.png";  # Put your image path here
       };
     };

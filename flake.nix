@@ -51,6 +51,7 @@
           {
             #networking.hostName = "macpnixos";
             home-manager.users.emoriver = import userHomes.macpnixos;
+            home-manager.backupFileExtension = "backup";
           }
         ];
       };

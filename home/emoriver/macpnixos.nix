@@ -7,36 +7,41 @@
     ../../modules/home/apps/git.nix
     ../../modules/home/apps/firefox.nix
     ../../modules/home/apps/vscodium.nix
+    ../../modules/home/apps/rclone/rclone.nix
+    ../../modules/home/apps/rclone/rclone-sync.nix
+    ../../modules/home/apps/rclone/rclone-mount.nix
   ];
 
+  nixpkgs.config.allowUnfree = true;
+  
   # Identità + versione HM
   home.username = "emoriver";
   home.homeDirectory = "/home/emoriver";
   home.stateVersion = "25.05";
 
-  # Abilita le app che vuoi su questo host
-  #apps.git = {
-  #  #enable = true;
-  #  userName = "Andrea Riva";
-  #  userEmail = "emoriver@live.it";
-  #};
+  # rclone
+  apps.rclone.enable = true;
+  apps.rclone.withExampleOneDrive = true; # solo se vuoi un esempio base
 
-  #apps = {
-    #zsh.enable = true;
-    #git.enable = true;
-    #neovim.enable = true;
-    #ssh.enable = true;
-    #direnv.enable = true;
-    #zoxide.enable = true;
-    #starship.enable = true;
-    #kdeconnect.enable = true;
-    #alacritty.enable = false; # metti true se lo usi
-  #};
+  apps.rcloneSync = {
+    enable = true;
+    remoteName = "onedrive";         # nome del remote configurato
+    targetDir = "/home/emoriver/OneDriveSync";  # cartella locale
+    frequency = "hourly";            # oppure "daily", "weekly", ecc.
+  };
+
+  apps.rcloneMount = {
+    enable = true;
+    remoteName = "onedrive";               # nome del remote configurato
+    mountPoint = "/home/emoriver/OneDrive"; # cartella locale
+    extraOptions = [ "--vfs-cache-mode" "writes" ]; # opzioni rclone mount
+  };
 
   # Pacchetti utente (se vuoi aggiunte "sciolte")
   home.packages = with pkgs; [
     bat eza fd ripgrep fzf jq yq-go
-    #spotify
+    spotify
+    dbeaver-bin
   ];
 
   # Esempio di file utente gestito da HM
@@ -44,8 +49,6 @@
   #  # Config specifica per host__1__
   #  enabled = true
   #'';
-
-  home-manager.backupFileExtension = "backup";
 
   systemd.user.startServices = "sd-switch";
 }

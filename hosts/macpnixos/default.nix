@@ -59,9 +59,19 @@
     };
   };
 
+  i18n = {
+    defaultLocale = "en_US.UTF-8";
+    extraLocaleSettings = {
+      LC_TIME = "it_IT.UTF-8";
+    };
+    supportedLocales =  [
+      "en_US.UTF-8/UTF-8"
+      "it_IT.UTF-8/UTF-8"
+    ];
+  };
+  #location.provider = "geoclue2";
   time.timeZone = "Europe/Rome";
-  i18n.defaultLocale = "it_IT.UTF-8";
-  #console.keyMap = "it";
+
 
   # ----- impostazioni di nix -----
   nixpkgs.config.allowUnfree = true;
@@ -79,7 +89,7 @@
   nix.gc = {
     automatic = true;
     dates = "weekly";
-    options = "--delete-older-than 30d";
+    options = "--delete-older-than 7d";
   };
 
 
