@@ -3,6 +3,10 @@
 {
   services.xserver.enable = true; # Requiered for SDDM and KDE Plasma 6 even if you use Wayland
   services.xserver.videoDrivers = [ "amdgpu" ];
+  services.xserver.xkb = {
+      layout = "it";
+      variant = "";
+  };
 
   services.displayManager.sddm = {
     enable = true;

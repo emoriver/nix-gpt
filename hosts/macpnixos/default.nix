@@ -19,8 +19,8 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   # Blacklist conflicting open-source drivers
-  boot.blacklistedKernelModules = [ "amdgpu" "b43" "bcma" "ssb" "brcmsmac" "brcmfmac" ];
-  boot.initrd.kernelModules = [ "radeon" ];
+  boot.blacklistedKernelModules = [ "b43" "bcma" "ssb" "brcmsmac" "brcmfmac" ];
+  boot.initrd.kernelModules = [ "amdgpu" ];
 
   boot.kernelParams = [ 
       #"radeon.dpm=0" 
@@ -123,12 +123,12 @@
   ];
 
 
-  # ----- utenti e home-manager -----
-  #programs.home-manager.enable = true;
+  # ----- btrfs -----
+  services.btrfs.autoScrub = {
+    enable = true;
+    interval = "monthly";
+    fileSystems = [ "/" ];
+  };
 
-  #home.username = "emoriver";
-  #home.homeDirectory = "/home/emoriver";
-
-  # -----  
   system.stateVersion = "25.05";
 }

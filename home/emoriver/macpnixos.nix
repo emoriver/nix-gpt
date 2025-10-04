@@ -5,6 +5,8 @@
   imports = [
     ../../modules/home/apps/zsh.nix
     ../../modules/home/apps/git.nix
+    ../../modules/home/apps/firefox.nix
+    ../../modules/home/apps/vscodium.nix
   ];
 
   # Identità + versione HM
@@ -34,6 +36,7 @@
   # Pacchetti utente (se vuoi aggiunte "sciolte")
   home.packages = with pkgs; [
     bat eza fd ripgrep fzf jq yq-go
+    #spotify
   ];
 
   # Esempio di file utente gestito da HM
@@ -41,6 +44,8 @@
   #  # Config specifica per host__1__
   #  enabled = true
   #'';
+
+  home-manager.backupFileExtension = "backup";
 
   systemd.user.startServices = "sd-switch";
 }
