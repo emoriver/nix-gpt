@@ -18,8 +18,11 @@
   boot.blacklistedKernelModules = [ "amdgpu" "b43" "bcma" "ssb" "brcmsmac" "brcmfmac" ];
   boot.initrd.kernelModules = [ "radeon" ];
 
-  boot.kernelParams = [ "radeon.dpm=0" ];
-  
+  boot.kernelParams = [ 
+      #"radeon.dpm=0" 
+      "radeon.si_support=0" "amdgpu.si_support=1"
+    ];
+    
   boot.kernelModules = [ 
     "applesmc"      # Apple System Management Controller
     "coretemp"      # CPU temperature sensors
