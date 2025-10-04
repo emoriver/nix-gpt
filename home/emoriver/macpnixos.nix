@@ -25,14 +25,14 @@
 
   apps.rcloneSync = {
     enable = true;
-    remoteName = "onedrive";         # nome del remote configurato
+    remoteName = "onedrive_personale";         # nome del remote configurato
     targetDir = "/home/emoriver/OneDriveSync";  # cartella locale
     frequency = "hourly";            # oppure "daily", "weekly", ecc.
   };
 
   apps.rcloneMount = {
     enable = true;
-    remoteName = "onedrive";               # nome del remote configurato
+    remoteName = "onedrive_personale";               # nome del remote configurato
     mountPoint = "/home/emoriver/OneDrive"; # cartella locale
     extraOptions = [ "--vfs-cache-mode" "writes" ]; # opzioni rclone mount
   };
