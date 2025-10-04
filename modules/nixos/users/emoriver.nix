@@ -1,9 +1,9 @@
 { pkgs, ... }:
 
 {
-  users.users.user1 = {
+  users.users.emoriver = {
     isNormalUser = true;
-    description = "User One";
+    description = "Andrea Riva";
     extraGroups = [ "wheel" "networkmanager" "audio" "git" "video" "sudo" ]; # aggiungi "docker" se lo usi
     shell = pkgs.zsh;
     # Impostazione password (scegli UNO dei metodi):

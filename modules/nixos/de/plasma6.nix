@@ -8,7 +8,7 @@
     enable = true;
     wayland.enable = true;  # Enable if using Wayland
     
-    package = pkgs.kdePackages.sddm;  # Use KDE 6 version
+    #package = pkgs.kdePackages.sddm;  # Use KDE 6 version
     theme = "breeze dark"; 
     
     settings = {

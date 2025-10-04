@@ -5,8 +5,12 @@
   imports = [
     ./hardware-configuration.nix
 
+    # pacchetti di sistema
     ../../modules/nixos/system/audio.nix
     ../../modules/nixos/de/plasma6.nix
+
+    # utenti - !! -
+     ../../modules/nixos/users/emoriver.nix
   ];
   
 
@@ -22,7 +26,7 @@
       #"radeon.dpm=0" 
       "radeon.si_support=0" "amdgpu.si_support=1"
     ];
-    
+
   boot.kernelModules = [ 
     "applesmc"      # Apple System Management Controller
     "coretemp"      # CPU temperature sensors
@@ -38,7 +42,8 @@
 
   # You might need this if you get insecure package warnings
   nixpkgs.config.permittedInsecurePackages = [
-    "broadcom-sta-6.30.223.271"
+    #"broadcom-sta-6.30.223.271"
+    "broadcom-sta-6.30.223.271-57-6.12.48"
   ];
 
 
@@ -56,8 +61,7 @@
 
   time.timeZone = "Europe/Rome";
   i18n.defaultLocale = "it_IT.UTF-8";
-  console.keyMap = "it
-  ";
+  #console.keyMap = "it";
 
   # ----- impostazioni di nix -----
   nixpkgs.config.allowUnfree = true;
@@ -89,14 +93,14 @@
   };
 
   # Stampa/Bluetooth (abilita se ti servono su questo host)
-  printing.enable = true;   #CUPS
+  services.printing.enable = true;   #CUPS
   # hardware.bluetooth.enable = true;
 
 
   # ----- programmi e pacchetti di sistema host-level  -----
   programs = {
     zsh.enable = true;
-    git.enable = true;
+    #git.enable = true;
     ssh.startAgent = true;
   };
 
@@ -120,10 +124,10 @@
 
 
   # ----- utenti e home-manager -----
-  programs.home-manager.enable = true;
+  #programs.home-manager.enable = true;
 
-  home.username = "emoriver";
-  home.homeDirectory = "/home/emoriver";
+  #home.username = "emoriver";
+  #home.homeDirectory = "/home/emoriver";
 
   # -----  
   system.stateVersion = "25.05";

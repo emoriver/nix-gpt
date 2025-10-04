@@ -1,4 +1,5 @@
 { lib, config, ... }:
+/*
 let
   inherit (lib) mkIf mkEnableOption mkOption types;
   cfg = config.apps.git;
@@ -28,5 +29,14 @@ in
         pull.rebase = true;
       };
     };
+  };
+}
+*/
+
+{
+  programs.git = {
+    enable = true;
+    userName = "Andrea Riva";
+    userEmail = "emoriver@live.it";
   };
 }
