@@ -44,6 +44,8 @@
     spotify
     dbeaver-bin
     keepassxc
+    digikam
+    logseq
   ];
 
   # Esempio di file utente gestito da HM
