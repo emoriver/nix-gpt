@@ -11,6 +11,9 @@
 
     # utenti - !! -
      ../../modules/nixos/users/emoriver.nix
+
+    # servizi
+    ../../modules/nixos/services/mariadb.nix
   ];
   
 
@@ -100,6 +103,14 @@
       PasswordAuthentication = false;
       PermitRootLogin = "no";
     };
+  };
+
+  services.mysql.custom = {
+    enable = true;
+    user = "emoriver";
+    password = "supersecure";
+    database = "digikam";
+    privileges = "ALL PRIVILEGES";
   };
 
   # Stampa/Bluetooth (abilita se ti servono su questo host)
