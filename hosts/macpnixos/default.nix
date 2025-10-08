@@ -14,6 +14,7 @@
 
     # servizi
     ../../modules/nixos/services/postgresql.nix
+    ../../modules/nixos/services/docker.nix
   ];
   
 
@@ -108,6 +109,8 @@
   services.postgresql = {
     enable = true;
   };
+
+  enableDocker = true;
 
   # Stampa/Bluetooth (abilita se ti servono su questo host)
   services.printing.enable = true;   #CUPS

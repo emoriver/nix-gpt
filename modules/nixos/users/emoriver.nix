@@ -4,7 +4,7 @@
   users.users.emoriver = {
     isNormalUser = true;
     description = "Andrea Riva";
-    extraGroups = [ "wheel" "networkmanager" "audio" "git" "video" "sudo" ]; # aggiungi "docker" se lo usi
+    extraGroups = [ "wheel" "networkmanager" "audio" "git" "video" "sudo" "docker" ]; # aggiungi "docker" se lo usi
     shell = pkgs.zsh;
     # Impostazione password (scegli UNO dei metodi):
     # 1) Temporaneo: imposterai la password con `sudo passwd user1` dopo il deploy
