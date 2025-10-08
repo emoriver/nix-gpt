@@ -13,7 +13,7 @@
      ../../modules/nixos/users/emoriver.nix
 
     # servizi
-    ../../modules/nixos/services/mariadb.nix
+    ../../modules/nixos/services/postgresql.nix
   ];
   
 
@@ -105,12 +105,8 @@
     };
   };
 
-  services.mysql.custom = {
+  services.postgresql = {
     enable = true;
-    user = "emoriver";
-    password = "supersecure";
-    database = "testdb";
-    privileges = "ALL PRIVILEGES";
   };
 
   # Stampa/Bluetooth (abilita se ti servono su questo host)
