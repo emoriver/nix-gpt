@@ -45,6 +45,7 @@
     dbeaver-bin
     keepassxc
     logseq
+    thunderbird
   ];
 
   # Esempio di file utente gestito da HM
