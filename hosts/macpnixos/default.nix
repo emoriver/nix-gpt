@@ -109,7 +109,7 @@
     enable = true;
     user = "emoriver";
     password = "supersecure";
-    database = "digikam";
+    database = "testdb";
     privileges = "ALL PRIVILEGES";
   };
 

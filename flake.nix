@@ -14,17 +14,13 @@
     system = "x86_64-linux";
     pkgs = import nixpkgs {
       inherit system;
-      config.allowUnfree = true;
+      config.allowUnfree = true;   
     };
     lib = nixpkgs.lib;
 
-    #userHomes = {
-      #carpinox1vm1 = ./home/emoriver/carpinox1vm1.nix;
-    #  macpnixos    = ./home/emoriver/macpnixos.nix;   # facoltativo, se/quando lo userai
-    #};
     userHomes = {
       #carpinox1vm1 = ./home/emoriver/carpinox1vm1.nix;
-      macpnixos    = ./home/emoriver/macpnixos.nix;   # <— userHomes che volevi mantenere
+      macpnixos    = ./home/emoriver/macpnixos.nix; 
     };
   in
   {
@@ -33,10 +29,8 @@
         inherit system;
         modules = [
           ./hosts/carpinox1vm1
-          #./hosts/carpinox1vm1/hardware-configuration.nix
           home-manager.nixosModules.home-manager
           {
-            #networking.hostName = "carpinox1vm1";
             home-manager.users.emoriver = import userHomes.carpinox1vm1;
           }
         ];
@@ -46,10 +40,8 @@
         inherit system;
         modules = [
           ./hosts/macpnixos
-          #./hosts/macpnixos/hardware-configuration.nix
           home-manager.nixosModules.home-manager
           {
-            #networking.hostName = "macpnixos";
             home-manager.users.emoriver = import userHomes.macpnixos;
             home-manager.backupFileExtension = "backup";
           }

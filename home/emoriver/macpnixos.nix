@@ -44,7 +44,6 @@
     spotify
     dbeaver-bin
     keepassxc
-    digikam
     logseq
   ];
 

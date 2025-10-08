@@ -47,7 +47,6 @@ in {
       initialScript = sqlScript;
       settings = {
         mysqld = {
-          #"bind-address" = "127.0.0.1";
           "bind-address" = "0.0.0.0";
           "port" = 3306;
         };
