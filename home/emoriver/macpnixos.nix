@@ -7,6 +7,7 @@
     ../../modules/home/apps/git.nix
     ../../modules/home/apps/firefox.nix
     ../../modules/home/apps/vscodium.nix
+    ../../modules/home/apps/logseq_nogpu.nix
 
     ../../modules/home/apps/rclone/rclone.nix
     ../../modules/home/apps/rclone/rclone-sync.nix
@@ -44,8 +45,9 @@
     spotify
     dbeaver-bin
     keepassxc
-    logseq
+    #logseq
     thunderbird
+    rawtherapee
   ];
 
   # Esempio di file utente gestito da HM

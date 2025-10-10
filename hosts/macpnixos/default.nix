@@ -13,7 +13,7 @@
      ../../modules/nixos/users/emoriver.nix
 
     # servizi
-    ../../modules/nixos/services/postgresql.nix
+    #../../modules/nixos/services/postgresql.nix
     ../../modules/nixos/services/docker.nix
   ];
   
@@ -106,9 +106,9 @@
     };
   };
 
-  services.postgresql = {
-    enable = true;
-  };
+  #services.postgresql = {
+  #  enable = true;
+  #};
 
   enableDocker = true;
 
