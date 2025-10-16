@@ -48,6 +48,7 @@
     #logseq
     thunderbird
     rawtherapee
+    remmina
   ];
 
   # Esempio di file utente gestito da HM
