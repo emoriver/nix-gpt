@@ -8,6 +8,7 @@
     ../../modules/home/apps/firefox.nix
     ../../modules/home/apps/vscodium.nix
     ../../modules/home/apps/logseq_nogpu.nix
+    #../../modules/home/apps/karousel.nix
 
     ../../modules/home/apps/rclone/rclone.nix
     ../../modules/home/apps/rclone/rclone-sync.nix
@@ -38,6 +39,9 @@
     mountPoint = "/home/emoriver/OneDrive"; # cartella locale
     extraOptions = [ "--vfs-cache-mode" "writes" ]; # opzioni rclone mount
   };
+
+  # karousel - tiling nativo di plasma
+  #karousel.enable = true;
 
   # Pacchetti utente (se vuoi aggiunte "sciolte")
   home.packages = with pkgs; [
