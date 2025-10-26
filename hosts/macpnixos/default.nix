@@ -15,6 +15,7 @@
     # servizi
     #../../modules/nixos/services/postgresql.nix
     ../../modules/nixos/services/docker.nix
+    ../../modules/nixos/services/vpn.nix
   ];
   
 
@@ -143,6 +144,10 @@
     mission-center  # Modern system monitor with thermal info
   ];
 
+  environment.etc."ipsec.d/00-global.conf".text = ''
+    config setup
+      ikev1-policy=accept
+  '';
 
   # ----- btrfs -----
   services.btrfs.autoScrub = {

@@ -52,6 +52,7 @@
     #logseq
     thunderbird
     rawtherapee
+    exiftool
     remmina
   ];
 
