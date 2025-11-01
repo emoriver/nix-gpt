@@ -37,6 +37,7 @@
     kdePackages.isoimagewriter
     kdePackages.partitionmanager
     kdePackages.sddm-kcm        # Configuration module for SDDM
+    kdePackages.filelight 
     # --- Altri tool utili ---
     kdiff3
     # Nota: se la tua nixpkgs non ha "hardinfo2", usa "hardinfo"
