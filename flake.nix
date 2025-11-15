@@ -47,6 +47,18 @@
           }
         ];
       };
+
+      w541onnixos = lib.nixosSystem {
+        inherit system;
+        modules = [
+          ./hosts/w541onnixos
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.users.emoriver = import userHomes.w541onnixos;
+            home-manager.backupFileExtension = "backup";
+          }
+        ];
+      };      
     };
   };
 }
