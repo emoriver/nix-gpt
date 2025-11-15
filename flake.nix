@@ -20,7 +20,8 @@
 
     userHomes = {
       #carpinox1vm1 = ./home/emoriver/carpinox1vm1.nix;
-      macpnixos    = ./home/emoriver/macpnixos.nix; 
+      macpnixos = ./home/emoriver/macpnixos.nix;
+      w541onnixos = ./home/emoriver/w541onnixos.nix;
     };
   in
   {

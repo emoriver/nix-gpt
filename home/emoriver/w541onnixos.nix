@@ -22,7 +22,7 @@
     bat eza fd ripgrep fzf jq yq-go
     #spotify
     dbeaver-bin
-    keepassxc
+    #keepassxc
     #logseq
     #thunderbird
     #rawtherapee
