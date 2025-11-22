@@ -43,6 +43,8 @@
   # karousel - tiling nativo di plasma
   #karousel.enable = true;
 
+  apps.logseq.enable = true;
+
   # Pacchetti utente (se vuoi aggiunte "sciolte")
   home.packages = with pkgs; [
     bat eza fd ripgrep fzf jq yq-go
