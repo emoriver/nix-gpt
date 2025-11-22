@@ -27,9 +27,10 @@
     isNormalUser = true;
     home = "/home/emoriver";
     extraGroups = [ "wheel" "networkmanager" "sudo" ];
-    shell = pkgs.zsh;
-    initialPassword = "nixos";
+    #shell = pkgs.zsh;
+    #initialPassword = "nixos";
   };
+
 
   # ----- impostazioni di nix -----
   nixpkgs.config.allowUnfree = true;
@@ -50,6 +51,29 @@
     options = "--delete-older-than 7d";
   };
 
+
+  # ----- servizi di base -----
+  services.openssh = {
+    enable = true;
+    settings = {
+        PermitRootLogin = "yes";
+        PasswordAuthentication = true;
+        PermitEmptyPasswords = "no";
+        ClientAliveInterval = 300;
+        ClientAliveCountMax = 3;
+    };
+  };
+
+  enableDocker = true;
+
+
+  # ----- programmi e pacchetti di sistema host-level  -----
+  programs = {
+    zsh.enable = true;
+    #git.enable = true;
+    ssh.startAgent = true;
+  };
+
   environment.systemPackages = with pkgs; [
     #vim
     git 
@@ -66,17 +90,6 @@
   ];
 
   services.fstrim.enable = false; # Let Proxmox host handle fstrim
-
-  services.openssh = {
-    enable = true;
-    settings = {
-        PermitRootLogin = "yes";
-        PasswordAuthentication = true;
-        PermitEmptyPasswords = "no";
-        ClientAliveInterval = 300;
-        ClientAliveCountMax = 3;
-        };
-  };
 
   # Cache DNS lookups to improve performance
   services.resolved = {

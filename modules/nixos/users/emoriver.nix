@@ -10,5 +10,6 @@
     # 1) Temporaneo: imposterai la password con `sudo passwd user1` dopo il deploy
     # 2) Dichiarativo (consigliato): file hash esterno
     # hashedPasswordFile = "/etc/nixos/secrets/user1.hash";
+    initialPassword = "nixos";
   };
 }

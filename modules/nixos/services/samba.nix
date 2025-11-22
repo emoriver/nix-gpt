@@ -12,30 +12,30 @@
         #"use sendfile" = "yes";
         #"max protocol" = "smb2";
         # note: localhost is the ipv6 localhost ::1
-        "hosts allow" = "192.168.0. 127.0.0.1 localhost";
+        "hosts allow" = "192.168. 127.0.0.1 localhost";
         "hosts deny" = "0.0.0.0/0";
         "guest account" = "nobody";
         "map to guest" = "bad user";
         };
         "public" = {
-        "path" = "/mnt/Shares/Public";
+        "path" = "/srv/shares/public";
         "browseable" = "yes";
         "read only" = "no";
         "guest ok" = "yes";
         "create mask" = "0644";
         "directory mask" = "0755";
-        "force user" = "username";
-        "force group" = "groupname";
+        "force user" = "emoriver";
+        "force group" = "users";
         };
         "private" = {
-        "path" = "/mnt/Shares/Private";
+        "path" = "/srv/shares/private";
         "browseable" = "yes";
         "read only" = "no";
         "guest ok" = "no";
         "create mask" = "0644";
         "directory mask" = "0755";
-        "force user" = "username";
-        "force group" = "groupname";
+        "force user" = "emoriver";
+        "force group" = "users";
         };
     };
   };
