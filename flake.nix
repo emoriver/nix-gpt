@@ -22,6 +22,7 @@
       #carpinox1vm1 = ./home/emoriver/carpinox1vm1.nix;
       macpnixos = ./home/emoriver/macpnixos.nix;
       w541onnixos = ./home/emoriver/w541onnixos.nix;
+      nix-immich-70 = ./home/emoriver/nix-immich-70.nix;
     };
   in
   {
@@ -59,7 +60,19 @@
             home-manager.backupFileExtension = "backup";
           }
         ];
-      };      
+      };
+
+      nix-immich-70 = lib.nixosSystem {
+        inherit system;
+        modules = [
+          ./hosts/nix-immich-70
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.users.emoriver = import userHomes.nix-immich-70;
+            home-manager.backupFileExtension = "backup";
+          }
+        ];
+      }; 
     };
   };
 }
