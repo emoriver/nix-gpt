@@ -38,6 +38,7 @@
     kdePackages.partitionmanager
     kdePackages.sddm-kcm        # Configuration module for SDDM
     kdePackages.filelight 
+    kdePackages.kdenlive
     # --- Altri tool utili ---
     kdiff3
     # Nota: se la tua nixpkgs non ha "hardinfo2", usa "hardinfo"
