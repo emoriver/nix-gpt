@@ -56,6 +56,8 @@
     rawtherapee
     exiftool
     remmina
+    darktable
+    #rapidraw
   ];
 
   # Esempio di file utente gestito da HM
