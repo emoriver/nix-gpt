@@ -11,5 +11,9 @@
     # 2) Dichiarativo (consigliato): file hash esterno
     # hashedPasswordFile = "/etc/nixos/secrets/user1.hash";
     initialPassword = "nixos";
+
+    openssh.authorizedKeys.keys = [
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMW7C8X/k4K9qmbvrOWorpDz0v1lPcvBTA9psCtWIOtQ emoriver@live.it"
+      ];
   };
 }

@@ -56,11 +56,9 @@
   services.openssh = {
     enable = true;
     settings = {
-        PermitRootLogin = "yes";
-        PasswordAuthentication = true;
-        PermitEmptyPasswords = "no";
-        ClientAliveInterval = 300;
-        ClientAliveCountMax = 3;
+      PasswordAuthentication = false;
+      KbdInteractiveAuthentication = false;
+      PermitRootLogin = "no";
     };
   };
 
