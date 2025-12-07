@@ -39,7 +39,6 @@
   ];
 
   # WiFi Configuration for BCM4360
-  #nixpkgs.config.allowUnfree = true;
   hardware.enableRedistributableFirmware = true;
 
   # Broadcom BCM4360

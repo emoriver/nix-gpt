@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, pkgsUnstable,... }:
 
 {
   # Import delle app Home-Manager (moduli)
@@ -14,8 +14,6 @@
     ../../modules/home/apps/rclone/rclone-sync.nix
     ../../modules/home/apps/rclone/rclone-mount.nix
   ];
-
-  nixpkgs.config.allowUnfree = true;
   
   # Identità + versione HM
   home.username = "emoriver";
@@ -46,19 +44,23 @@
   apps.logseq.enable = true;
 
   # Pacchetti utente (se vuoi aggiunte "sciolte")
-  home.packages = with pkgs; [
-    bat eza fd ripgrep fzf jq yq-go
-    spotify
-    dbeaver-bin
-    keepassxc
-    #logseq
-    thunderbird
-    rawtherapee
-    exiftool
-    remmina
-    darktable
-    #rapidraw
-  ];
+  home.packages =
+    (with pkgs; [
+      bat eza fd ripgrep fzf jq yq-go
+      spotify
+      dbeaver-bin
+      keepassxc
+      thunderbird
+      rawtherapee
+      exiftool
+      remmina
+      darktable
+    ])
+    ++(with pkgsUnstable; [
+      kiro
+      rapidraw
+  ]);
+
 
   # Esempio di file utente gestito da HM
   #home.file.".config/myapp/config.toml".text = ''
