@@ -7,9 +7,6 @@
     #../../modules/nixos/system/audio.nix
     #../../modules/nixos/de/plasma6.nix
 
-    # utenti - !! -
-     ../../modules/nixos/users/emoriver.nix
-
     # servizi
     #../../modules/nixos/services/postgresql.nix
     ../../modules/nixos/services/docker.nix
@@ -21,14 +18,6 @@
   proxmoxLXC = {
     manageNetwork = false;
     privileged = true;
-  };
-
-  users.users.emoriver = {
-    isNormalUser = true;
-    home = "/home/emoriver";
-    extraGroups = [ "wheel" "networkmanager" "sudo" ];
-    #shell = pkgs.zsh;
-    #initialPassword = "nixos";
   };
 
 
@@ -53,14 +42,16 @@
 
 
   # ----- servizi di base -----
+  security.pam.services.sshd.allowNullPassword = true;
   services.openssh = {
     enable = true;
+    openFirewall = true;
     settings = {
-      PasswordAuthentication = false;
-      KbdInteractiveAuthentication = false;
-      PermitRootLogin = "no";
+        PermitRootLogin = "yes";
+        PasswordAuthentication = true;
+        PermitEmptyPasswords = "yes";
     };
-  };
+  };  
 
   enableDocker = true;
 
@@ -102,5 +93,5 @@
     enable = false;
   }];
 
-  system.stateVersion = "25.05";
+  system.stateVersion = "25.11";
 }
