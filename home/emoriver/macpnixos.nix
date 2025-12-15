@@ -7,7 +7,6 @@
     ../../modules/home/apps/git.nix
     ../../modules/home/apps/firefox.nix
     ../../modules/home/apps/vscodium.nix
-    ../../modules/home/apps/logseq_nogpu.nix
     #../../modules/home/apps/karousel.nix
 
     ../../modules/home/apps/rclone/rclone.nix
@@ -41,8 +40,6 @@
   # karousel - tiling nativo di plasma
   #karousel.enable = true;
 
-  apps.logseq.enable = true;
-
   # Pacchetti utente (se vuoi aggiunte "sciolte")
   home.packages =
     (with pkgs; [
@@ -55,6 +52,7 @@
       exiftool
       remmina
       darktable
+      obsidian
     ])
     ++(with pkgsUnstable; [
       kiro

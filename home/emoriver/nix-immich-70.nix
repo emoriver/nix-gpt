@@ -21,7 +21,6 @@
     #spotify
     #dbeaver-bin
     #keepassxc
-    #logseq
     #thunderbird
     #rawtherapee
     #exiftool
