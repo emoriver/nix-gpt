@@ -9,8 +9,6 @@
     ../../modules/home/apps/vscodium.nix
 
   ];
-
-  nixpkgs.config.allowUnfree = true;
   
   # Identità + versione HM
   home.username = "emoriver";

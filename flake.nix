@@ -74,29 +74,3 @@
     # ).packages;
   };
 }
-
-
-
-
-# nel let del flake: mkNixos = name: cfg:
-lib.nixosSystem {
-  inherit system;
-  modules = [
-    cfg.hostModule
-    home-manager.nixosModules.home-manager
-    {
-      # definizione utente sempre presente
-      users.users.emoriver = {
-        isNormalUser = true;
-        home = "/home/emoriver";
-        extraGroups = [ "wheel" "networkmanager" ];
-      };
-
-      home-manager.useGlobalPkgs = true;
-      home-manager.extraSpecialArgs = { inherit pkgsUnstable; };
-      home-manager.users.emoriver = import cfg.homeModule;
-      home-manager.backupFileExtension = "backup";
-    }
-  ];
-  specialArgs = { inherit pkgsUnstable; };
-}
