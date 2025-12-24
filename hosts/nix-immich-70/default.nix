@@ -7,6 +7,9 @@
     #../../modules/nixos/system/audio.nix
     #../../modules/nixos/de/plasma6.nix
 
+    # utenti - !! -
+    ../../modules/nixos/users/emoriver.nix
+
     # servizi
     #../../modules/nixos/services/postgresql.nix
     ../../modules/nixos/services/docker.nix
@@ -42,16 +45,20 @@
 
 
   # ----- servizi di base -----
-  security.pam.services.sshd.allowNullPassword = true;
   services.openssh = {
     enable = true;
     openFirewall = true;
     settings = {
-        PermitRootLogin = "yes";
-        PasswordAuthentication = true;
-        PermitEmptyPasswords = "yes";
+      PermitRootLogin = "no";
+      PasswordAuthentication = true;
+      KbdInteractiveAuthentication = false;
+      UsePAM = true;
+      AllowUsers = [ "emoriver" ];
+      PermitEmptyPasswords = "no";
     };
-  };  
+  };
+
+  security.pam.services.sshd.allowNullPassword = false;
 
   enableDocker = true;
 

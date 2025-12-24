@@ -4,6 +4,8 @@
   users.users.emoriver = {
     isNormalUser = true;
     description = "Andrea Riva";
+    home = "/home/emoriver";
+    createHome = true;
     extraGroups = [ "wheel" "networkmanager" "audio" "git" "video" "sudo" "docker" ]; # aggiungi "docker" se lo usi
     shell = pkgs.zsh;
     # Impostazione password (scegli UNO dei metodi):
@@ -12,8 +14,8 @@
     # hashedPasswordFile = "/etc/nixos/secrets/user1.hash";
     initialPassword = "nixos";
 
-    openssh.authorizedKeys.keys = [
-        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMW7C8X/k4K9qmbvrOWorpDz0v1lPcvBTA9psCtWIOtQ emoriver@live.it"
-    ];
+    #openssh.authorizedKeys.keys = [
+    #    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMW7C8X/k4K9qmbvrOWorpDz0v1lPcvBTA9psCtWIOtQ emoriver@live.it"
+    #];
   };
 }
