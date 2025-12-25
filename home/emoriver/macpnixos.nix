@@ -47,7 +47,7 @@
       spotify
       dbeaver-bin
       keepassxc
-      thunderbird
+      mailspring
       rawtherapee
       exiftool
       remmina
