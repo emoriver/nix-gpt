@@ -53,6 +53,7 @@
       remmina
       darktable
       obsidian
+      gimp
     ])
     ++(with pkgsUnstable; [
       kiro
