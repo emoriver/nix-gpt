@@ -34,6 +34,27 @@
       allowedTCPPorts = [ 22 ];
       # allowedUDPPorts = [ ];
     };
+
+    bridges = {
+      "br0" = {
+        interfaces = [ "enp0s25" ];
+      };
+    };
+
+    interfaces = {
+      "enp0s25".useDHCP = false;     # L'interfaccia fisica non deve avere IP
+      "br0" = {
+        useDHCP = true;
+
+        #useDHCP = false;
+        #ipv4.addresses = [{
+        #  address = "192.168.0.100";
+        #  prefixLength = 24;
+        #}];
+      };
+    };
+
+    firewall.trustedInterfaces = [ "br0" ];       # Fondamentale per far passare il traffico della VM verso la CPU Siemens
   };
 
   i18n = {
