@@ -17,7 +17,7 @@
   # Identità + versione HM
   home.username = "emoriver";
   home.homeDirectory = "/home/emoriver";
-  home.stateVersion = "25.05";
+  home.stateVersion = "25.11";
 
   # rclone
   apps.rclone.enable = true;
@@ -54,6 +54,7 @@
       darktable
       obsidian
       gimp
+      hugin
     ])
     ++(with pkgsUnstable; [
       kiro

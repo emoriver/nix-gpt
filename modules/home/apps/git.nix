@@ -36,7 +36,7 @@ in
 {
   programs.git = {
     enable = true;
-    userName = "Andrea Riva";
-    userEmail = "emoriver@live.it";
+    settings.user.name = "Andrea Riva";
+    settings.user.email = "emoriver@live.it";
   };
 }
