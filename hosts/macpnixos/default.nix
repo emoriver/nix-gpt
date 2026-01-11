@@ -25,11 +25,12 @@
 
   # Blacklist conflicting open-source drivers
   boot.blacklistedKernelModules = [ "b43" "bcma" "ssb" "brcmsmac" "brcmfmac" ];
-  boot.initrd.kernelModules = [ "amdgpu" ];
 
   boot.kernelParams = [ 
-      #"radeon.dpm=0" 
-      "radeon.si_support=0" "amdgpu.si_support=1"
+      "radeon.si_support=0" 
+      "amdgpu.si_support=1" 
+      "radeon.cik_support=0" # Per sicurezza, disabilita anche Sea Islands
+      "amdgpu.cik_support=1" 
     ];
 
   boot.kernelModules = [ 
@@ -37,6 +38,26 @@
     "coretemp"      # CPU temperature sensors
     "wl"            # Broadcom BCM4360 requires the proprietary wl driver
   ];
+
+  # Config for Radeon D dual card
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true; # Essenziale per app a 32 bit e Wine/Steam
+    extraPackages = with pkgs; [
+      vaapiVdpau
+      libvdpau-va-gl
+
+      vulkan-loader
+      vulkan-validation-layers
+
+      #vaapiIntel         # Anche se hai AMD, alcuni pacchetti dipendono da questi base
+    ];
+  };
+
+  services.xserver.videoDrivers = [ "amdgpu" ];
+  # Fan module (!!)
+  services.mbpfan.enable = true;
+
 
   # WiFi Configuration for BCM4360
   hardware.enableRedistributableFirmware = true;
