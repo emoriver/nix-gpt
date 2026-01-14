@@ -13,7 +13,7 @@
   # Identità + versione HM
   home.username = "emoriver";
   home.homeDirectory = "/home/emoriver";
-  home.stateVersion = "25.05";
+  home.stateVersion = "25.11";
 
   # Pacchetti utente (se vuoi aggiunte "sciolte")
   home.packages = with pkgs; [
