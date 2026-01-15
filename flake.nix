@@ -1,3 +1,4 @@
+/*
 {
   description = "NixOS + Home Manager multi-host compatto";
 
@@ -60,6 +61,7 @@
             home-manager.useGlobalPkgs = true;
             home-manager.extraSpecialArgs = { inherit pkgsUnstable; };
             home-manager.users.emoriver = import cfg.homeModule;
+            home-manager.users.carpinera = import cfg.homeModule;
             home-manager.backupFileExtension = "backup";
           }
         ];
@@ -76,5 +78,76 @@
     #   let pkgsFor = import nixpkgs { inherit system; };
     #   in { default = pkgsFor.hello; }
     # ).packages;
+  };
+}
+*/
+
+
+{
+  description = "NixOS + Home Manager multi-host multi-user";
+
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+
+    home-manager.url = "github:nix-community/home-manager/release-25.11";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+
+    flake-utils.url = "github:numtide/flake-utils";
+  };
+
+  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, flake-utils, ... }:
+  let
+    lib = nixpkgs.lib;
+    system = "x86_64-linux";
+    
+    pkgsUnstable = import nixpkgs-unstable {
+      inherit system;
+      config.allowUnfree = true;
+    };
+
+    # Definiamo i moduli home per utente per ogni host
+    hosts = {
+      macpnixos = {
+        hostModule = ./hosts/macpnixos;
+        users = {
+          emoriver = ./home/emoriver/macpnixos.nix;
+          #carpinera = ./home/carpinera/macpnixos.nix; # Aggiungi se necessario
+        };
+      };
+      t4801onnixos = {
+        hostModule = ./hosts/t4801onnixos;
+        users = {
+          carpinera = ./home/carpinera/t4801onnixos.nix;
+          #emoriver = ./home/emoriver/t4801onnixos.nix;
+        };
+      };
+      # ... aggiungi gli altri host seguendo questo schema
+      #w541
+      #nix-immich
+    };
+
+    mkNixos = name: cfg:
+      lib.nixosSystem {
+        inherit system;
+        specialArgs = { inherit pkgsUnstable; };
+        modules = [
+          cfg.hostModule
+          home-manager.nixosModules.home-manager
+          {
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              extraSpecialArgs = { inherit pkgsUnstable; };
+              # Mappiamo dinamicamente gli utenti definiti in 'hosts'
+              users = lib.mapAttrs (user: path: import path) cfg.users;
+              backupFileExtension = "backup";
+            };
+          }
+        ];
+      };
+  in
+  {
+    nixosConfigurations = lib.mapAttrs mkNixos hosts;
   };
 }

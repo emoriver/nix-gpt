@@ -8,7 +8,7 @@
     [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "ehci_pci" "ahci" "usb_storage" "sd_mod" "sr_mod" "sdhci_pci" ];
+  boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "usb_storage" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
@@ -18,29 +18,24 @@
       fsType = "zfs";
     };
 
-  fileSystems."/home" =
-    { device = "zroot/home";
-      fsType = "zfs";
-    };
-
   fileSystems."/nix" =
-    { device = "zroot/nix";
+    { device = "zroot/root/nix";
       fsType = "zfs";
     };
 
-  fileSystems."/persist" =
-    { device = "zroot/persist";
+  fileSystems."/home" =
+    { device = "zroot/root/home";
       fsType = "zfs";
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/5B15-1E46";
+    { device = "/dev/disk/by-uuid/59BB-2DF1";
       fsType = "vfat";
       options = [ "fmask=0022" "dmask=0022" ];
     };
 
   fileSystems."/boot-fallback" =
-    { device = "/dev/disk/by-uuid/5B4B-6C99";
+    { device = "/dev/disk/by-uuid/5A2B-700F";
       fsType = "vfat";
       options = [ "fmask=0022" "dmask=0022" ];
     };
@@ -52,7 +47,7 @@
   # still possible to use this option, but it's recommended to use it in conjunction
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = lib.mkDefault true;
-  # networking.interfaces.enp0s25.useDHCP = lib.mkDefault true;
+  # networking.interfaces.enp0s31f6.useDHCP = lib.mkDefault true;
   # networking.interfaces.wlp3s0.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";

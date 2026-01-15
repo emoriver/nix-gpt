@@ -6,7 +6,7 @@
     ./hardware-configuration.nix
 
     #boot
-    ../../modules/nixos/system/boot/mirroredgrubboot.nix
+    ../../modules/nixos/system/boot/mirrorgrubboot_w541.nix
 
     # pacchetti di sistema
     ../../modules/nixos/system/audio.nix

@@ -6,7 +6,7 @@
     ./hardware-configuration.nix
 
     #boot
-    ../../modules/nixos/system/boot/mirroredgrubboot.nix
+    ../../modules/nixos/system/boot/mirrorgrubboot_t4801.nix
 
     # pacchetti di sistema
     ../../modules/nixos/system/audio.nix
@@ -14,7 +14,7 @@
     ../../modules/nixos/de/plasma6.nix
 
     # utenti - !! -
-     ../../modules/nixos/users/emoriver.nix
+     ../../modules/nixos/users/carpinera.nix
 
     # servizi
     #../../modules/nixos/services/postgresql.nix
@@ -25,8 +25,8 @@
 
   # ----- rete e localizzazione -----
   networking = {
-    hostName = "w541onnixos";
-    hostId = "f6118264";
+    hostName = "t4801onnixos";
+    hostId = "7aad8868";
     networkmanager.enable = true;
     wireless.enable = false; # Don't conflict with NetworkManager
     firewall = {
@@ -37,12 +37,12 @@
 
     bridges = {
       "br0" = {
-        interfaces = [ "enp0s25" ];
+        interfaces = [ "enp0s31f6" ];
       };
     };
 
     interfaces = {
-      "enp0s25".useDHCP = false;     # L'interfaccia fisica non deve avere IP
+      "enp0s31f6".useDHCP = false;     # L'interfaccia fisica non deve avere IP
       "br0" = {
         useDHCP = true;
 
