@@ -44,6 +44,10 @@
         hostModule = ./hosts/nix-immich-70;
         homeModule = ./home/emoriver/nix-immich-70.nix;
       };
+      t4801onnixos = {
+        hostModule = ./hosts/t4801onnixos;
+        homeModule = ./home/carpinera/t4801onnixos.nix;
+      };      
     };
 
     mkNixos = name: cfg:
