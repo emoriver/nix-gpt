@@ -45,16 +45,15 @@
     (with pkgs; [
       bat eza fd ripgrep fzf jq yq-go
       spotify
-      dbeaver-bin
       keepassxc
       mailspring
       rawtherapee
       exiftool
-      remmina
       darktable
       obsidian
       gimp
       hugin
+      arduino-ide
     ])
     ++(with pkgsUnstable; [
       kiro
