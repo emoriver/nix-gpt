@@ -59,6 +59,11 @@
   # Fan module (!!)
   services.mbpfan.enable = true;
 
+  # Regole per Digispark ATtiny85 (Micronucleus)
+  services.udev.extraRules = ''
+    SUBSYSTEMS=="usb", ATTRS{idVendor}=="16d0", ATTRS{idProduct}=="0753", MODE:="0666"
+    KERNEL=="ttyACM*", ATTRS{idVendor}=="16d0", ATTRS{idProduct}=="0753", MODE:="0666", ENV{ID_MM_DEVICE_IGNORE}="1"
+  '';
 
   # WiFi Configuration for BCM4360
   hardware.enableRedistributableFirmware = true;
