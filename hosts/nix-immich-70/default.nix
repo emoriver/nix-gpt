@@ -83,6 +83,7 @@
     zip 
     gnupg 
     tmux
+    yazi
   ];
 
   services.fstrim.enable = false; # Let Proxmox host handle fstrim
