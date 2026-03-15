@@ -49,7 +49,6 @@
       mailspring
       rawtherapee
       exiftool
-      darktable
       obsidian
       gimp
       hugin
