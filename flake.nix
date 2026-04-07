@@ -55,7 +55,7 @@
       };
       nixerrypie = {
         system     = "aarch64-linux";
-        impermanence ) true;
+        impermanence = true;
         hostModule = ./hosts/nixerrypie;
         users = {
           emoriver = ./home/emoriver/nixerrypie;
