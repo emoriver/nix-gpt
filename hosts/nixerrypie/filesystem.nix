@@ -2,9 +2,16 @@
 
 # ── Filesystem ─────────────────────────────────────────────────────────────
 # Struttura:
-#   tmpfs          →  /              (si azzera ad ogni riavvio)
-#   /dev/mmcblk0p2 →  /persist       (sopravvive ai riavvii)
-#   /dev/mmcblk0p1 →  /boot/firmware (invariata)
+# SD card (mmcblk0)
+# ├── p1  vfat   /boot/firmware   (boot, read-only nella pratica)
+# └── p2  ext4   /nix/store       (generazioni NixOS, read-only dopo il boot)
+
+# Chiavetta USB (sda)
+# └── p1  ext4   /persist         (tutto quello che sopravvive ai riavvii)
+
+# RAM
+# └── tmpfs      /                (root effimera, si azzera ad ogni riavvio)
+
 #   //nas/musica   →  /mnt/musica    (opzionale, nofail)
 # ───────────────────────────────────────────────────────────────────────────
 {
@@ -19,10 +26,9 @@
   };
 
   fileSystems."/persist" = {
-    # Usa la label che hai assegnato con: e2label /dev/mmcblk0p2 nixos-persist
-    device       = "/dev/disk/by-label/nixos-persist";
+    device       = "/dev/disk/by-label/persist";  # label sulla chiavetta
     fsType       = "ext4";
-    options      = [ "relatime" "commit=60" ];  # riduce scritture sulla SD
+    options      = [ "relatime" "commit=60" ];
     neededForBoot = true;
   };
 

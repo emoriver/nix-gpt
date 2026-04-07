@@ -6,7 +6,7 @@
     ./hardware-configuration.nix
 
     # pacchetti di sistema
-    ../../modules/nixos/system/audio.nix
+    ../../modules/nixos/system/audio
     ../../modules/nixos/de/plasma6.nix
 
     # utenti - !! -

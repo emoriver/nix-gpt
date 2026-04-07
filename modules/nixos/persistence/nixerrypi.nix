@@ -2,7 +2,7 @@
 
 # ── Impermanence — cosa sopravvive ai riavvii ──────────────────────────────
 # Tutto ciò che NON è elencato qui viene cancellato ad ogni riavvio.
-# La radice / vive su tmpfs; /persist è la SD card.
+# La radice / vive su tmpfs; /persist è su USB.
 # ───────────────────────────────────────────────────────────────────────────
 {
   environment.persistence."/persist" = {

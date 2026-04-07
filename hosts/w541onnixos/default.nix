@@ -9,7 +9,7 @@
     ../../modules/nixos/system/boot/mirrorgrubboot_w541.nix
 
     # pacchetti di sistema
-    ../../modules/nixos/system/audio.nix
+    ../../modules/nixos/system/audio
     ../../modules/nixos/system/virt-manager.nix
     ../../modules/nixos/de/plasma6.nix
 
