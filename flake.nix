@@ -58,7 +58,7 @@
         impermanence = true;
         hostModule = ./hosts/nixerrypie;
         users = {
-          emoriver = ./home/emoriver/nixerrypie;
+          emoriver = ./home/emoriver/nixerrypie.nix;
         };
       };
     };

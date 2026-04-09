@@ -65,16 +65,22 @@
       addresses   = true;
       workstation = true;
     };
+  };
 
   # Aspetta che la rete sia operativa prima dei mount _netdev
   systemd.services.NetworkManager-wait-online.enable = lib.mkForce false;
   systemd.network.wait-online.enable = true;
 
   # ── Pacchetti di sistema ───────────────────────────────────────────────────
+  programs = {
+    zsh.enable = true;
+    ssh.startAgent = true;
+  };
+
   environment.systemPackages = with pkgs; [
     htop
-    ncmpc       # client MPD da terminale
-    mpc-cli     # controllo MPD da script
+    #ncmpc       # client MPD da terminale
+    #mpc         # controllo MPD da script
     ffmpeg      # decoder audio aggiuntivi
     yt-dlp      # resolver stream SoundCloud
 

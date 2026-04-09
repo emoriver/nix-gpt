@@ -84,9 +84,9 @@
         echo "Errore: impossibile ottenere l'URL dello stream" >&2
         exit 1
       fi
-      ${mpc-cli}/bin/mpc clear
-      ${mpc-cli}/bin/mpc add "$URL"
-      ${mpc-cli}/bin/mpc play
+      ${mpc}/bin/mpc clear
+      ${mpc}/bin/mpc add "$URL"
+      ${mpc}/bin/mpc play
     '')
   ];
 }

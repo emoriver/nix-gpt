@@ -53,8 +53,8 @@
   services.mympd = {
     enable = true;
     settings = {
-      http_port  = "80";
-      ssl        = "false";
+      http_port  = 80;
+      ssl        = false;
     };
   };
 
@@ -72,7 +72,7 @@
     wantedBy      = [ "mnt-musica.mount" ];
     serviceConfig = {
       Type      = "oneshot";
-      ExecStart = "${pkgs.mpc-cli}/bin/mpc update";
+      ExecStart = "${pkgs.mpc}/bin/mpc update";
       User      = "mpd";
     };
   };

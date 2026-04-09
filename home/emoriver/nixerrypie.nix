@@ -17,8 +17,8 @@
     fd
     ripgrep
     fzf
-    mpc-cli     # controllo MPD da riga di comando
-    ncmpc       # client MPD interattivo da terminale
+    mpc     # controllo MPD da riga di comando
+    ncmpc   # client MPD interattivo da terminale
   ];
 
   systemd.user.startServices = "sd-switch";
