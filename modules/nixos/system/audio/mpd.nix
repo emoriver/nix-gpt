@@ -15,9 +15,12 @@
     extraConfig = ''
       # ── Output audio ────────────────────────────────────────────────────
       audio_output {
-        type        "pipewire"
+        type        "alsa"
         name        "DragonFly Black"
         device      "plughw:v15"
+        mixer_type  "software"        # Controllo volume da myMPD
+        auto_resample   "no"          # Bit-perfect!
+        auto_format     "no"          # Lascia che la DragonFly decida
       }
 
       # ── Qualità ──────────────────────────────────────────────────────────
@@ -47,7 +50,7 @@
   };
 
   # MPD deve poter leggere i file montati via NAS
-  users.users.mpd.extraGroups = [ "audio" "pipewire" "video" ];
+  users.users.mpd.extraGroups = [ "audio" ];
 
   # ── myMPD — Web UI ────────────────────────────────────────────────────────
   # Accessibile da browser su http://rpi-player:80
@@ -56,14 +59,7 @@
     settings = {
       http_port  = 80;
       ssl        = false;
-    };
-
-    # permesso all'utente mpd di accedere alle config di emoriver (utente 1002)
-    environment = {
-      "PULSE_SERVER" = "unix:/run/user/1002/pulse/native";
-      "PIPEWIRE_RUNTIME_DIR" = "/run/user/1002";
-      "PIPEWIRE_LATENCY" = "512/96000";
-    };    
+    };  
   };
 
   # Apri le porte nel firewall
