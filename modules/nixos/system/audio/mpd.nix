@@ -17,6 +17,7 @@
       audio_output {
         type        "pipewire"
         name        "DragonFly Black"
+        device      "plughw:v15"
       }
 
       # ── Qualità ──────────────────────────────────────────────────────────
@@ -26,8 +27,8 @@
       volume_normalization  "no"   # usa ReplayGain, non normalizzazione brutale
 
       # ── Rete ─────────────────────────────────────────────────────────────
-      bind_to_address  "0.0.0.0"
-      port             "6600"
+      #bind_to_address  "0.0.0.0"
+      #port             "6600"      # genera un errore di porta già in uso!
 
       # ── Database ─────────────────────────────────────────────────────────
       # MPD non va in errore se la musicDirectory non è montata
@@ -46,7 +47,7 @@
   };
 
   # MPD deve poter leggere i file montati via NAS
-  users.users.mpd.extraGroups = [ "audio" ];
+  users.users.mpd.extraGroups = [ "audio" "pipewire" "video" ];
 
   # ── myMPD — Web UI ────────────────────────────────────────────────────────
   # Accessibile da browser su http://rpi-player:80
@@ -56,6 +57,13 @@
       http_port  = 80;
       ssl        = false;
     };
+
+    # permesso all'utente mpd di accedere alle config di emoriver (utente 1002)
+    environment = {
+      "PULSE_SERVER" = "unix:/run/user/1002/pulse/native";
+      "PIPEWIRE_RUNTIME_DIR" = "/run/user/1002";
+      "PIPEWIRE_LATENCY" = "512/96000";
+    };    
   };
 
   # Apri le porte nel firewall
