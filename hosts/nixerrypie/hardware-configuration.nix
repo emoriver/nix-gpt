@@ -12,6 +12,7 @@
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
+  boot.kernelParams = [ "console=tty1" "loglevel=7" "rd.systemd.log_level=debug" ];
 
   /*
   fileSystems."/" =
