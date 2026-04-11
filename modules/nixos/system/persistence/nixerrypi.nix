@@ -11,6 +11,7 @@
 
     directories = [
       # ── Sistema ──────────────────────────────────────────────────────────
+      "/var/lib/nixos"
       "/etc/nixos"               # configurazione NixOS (questo flake)
       "/etc/ssh"                 # host keys SSH — evita fingerprint che cambia
       "/var/log"                 # log di sistema
