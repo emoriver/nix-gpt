@@ -67,10 +67,6 @@
     };
   };
 
-  # Aspetta che la rete sia operativa prima dei mount _netdev
-  systemd.services.NetworkManager-wait-online.enable = lib.mkForce false;
-  systemd.network.wait-online.enable = true;
-
   # ── Pacchetti di sistema ───────────────────────────────────────────────────
   programs = {
     zsh.enable = true;
