@@ -8,7 +8,8 @@
     [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "usbhid" "usb_storage" ];
+  #boot.initrd.availableKernelModules = [ "xhci_pci" "usbhid" "usb_storage" ];
+  boot.initrd.availableKernelModules = [ "xhci_pci" "usbhid" "usb_storage" "uas" "sd_mod" "ext4" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
@@ -47,16 +48,18 @@
   fileSystems."/nix" = {
     device  = "/dev/disk/by-label/nixos-store";
     fsType  = "ext4";
-    options = [ "relatime" "commit=300" ];
+    #options = [ "relatime" "commit=300" ];
     neededForBoot = true;
+    options       = [ "x-systemd.makefs" "relatime" ];
   };
 
   # ── /persist sulla chiavetta USB — tutto ciò che sopravvive ──────────
   fileSystems."/persist" = {
     device        = "/dev/disk/by-uuid/6d26ad56-53c2-4051-9939-52f153d9d23c";
     fsType        = "ext4";
-    options       = [ "relatime" "commit=60" ];
+    #options       = [ "relatime" "commit=60" ];
     neededForBoot = true;
+    options       = [ "x-systemd.makefs" "relatime" ];
   };
 
   # ── /boot/firmware sulla SD card ─────────────────────────────────────
