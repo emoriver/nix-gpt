@@ -48,6 +48,7 @@
     device  = "/dev/disk/by-label/nixos-store";
     fsType  = "ext4";
     options = [ "relatime" "commit=300" ];
+    neededForBoot = true;
   };
 
   # ── /persist sulla chiavetta USB — tutto ciò che sopravvive ──────────
