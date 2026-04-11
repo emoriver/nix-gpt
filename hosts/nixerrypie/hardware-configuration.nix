@@ -13,6 +13,7 @@
   boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
   boot.kernelParams = [ "console=tty1" "loglevel=7" "rd.systemd.log_level=debug" ];
+  boot.initrd.systemd.enable = true;
 
   /*
   fileSystems."/" =
@@ -51,7 +52,7 @@
 
   # ── /persist sulla chiavetta USB — tutto ciò che sopravvive ──────────
   fileSystems."/persist" = {
-    device        = "/dev/disk/by-label/persist";
+    device        = "/dev/disk/by-uuid/6d26ad56-53c2-4051-9939-52f153d9d23c";
     fsType        = "ext4";
     options       = [ "relatime" "commit=60" ];
     neededForBoot = true;
