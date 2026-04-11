@@ -103,6 +103,8 @@
     };
   };
 
+  users.users.root.initialHashedPassword = "";
+
   # ── Nix ────────────────────────────────────────────────────────────────────
   nixpkgs.config.allowUnfree = true;
   nix.settings = {
