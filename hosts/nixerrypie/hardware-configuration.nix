@@ -13,13 +13,12 @@
   boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
 
+  /*
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/44444444-4444-4444-8888-888888888888";
       fsType = "ext4";
     };
-
-
-  /*
+  */
 
   # ── Filesystem ─────────────────────────────────────────────────────────────
   # Struttura:
@@ -35,29 +34,36 @@
 
   #   //nas/musica   →  /mnt/musica    (opzionale, nofail)
   # ───────────────────────────────────────────────────────────────────────────
+  # ── Root su tmpfs — si azzera ad ogni riavvio ──────────────────────────
   fileSystems."/" = {
-      device  = "none";
-      fsType  = "tmpfs";
-      options = [
-        "defaults"
-        "size=512M"   # adatta in base alla RAM disponibile (4GB → puoi alzare)
-        "mode=755"
-      ];
-    };
+    device  = "none";
+    fsType  = "tmpfs";
+    options = [ "defaults" "size=512M" "mode=755" ];
+  };
 
+  # ── /nix sulla SD card — scritto solo da nixos-rebuild ────────────────
+  fileSystems."/nix" = {
+    device  = "/dev/disk/by-label/nixos-store";
+    fsType  = "ext4";
+    options = [ "relatime" "commit=300" ];
+  };
+
+  # ── /persist sulla chiavetta USB — tutto ciò che sopravvive ──────────
   fileSystems."/persist" = {
-      device       = "/dev/disk/by-label/persist";  # label sulla chiavetta
-      fsType       = "ext4";
-      options      = [ "relatime" "commit=60" ];
-      neededForBoot = true;
-    };
+    device        = "/dev/disk/by-label/persist";
+    fsType        = "ext4";
+    options       = [ "relatime" "commit=60" ];
+    neededForBoot = true;
+  };
 
+  # ── /boot/firmware sulla SD card ─────────────────────────────────────
   fileSystems."/boot/firmware" = {
-      device  = "/dev/disk/by-label/BOOT";
-      fsType  = "vfat";
-      options = [ "defaults" ];
-    };
+    device  = "/dev/disk/by-label/FIRMWARE";
+    fsType  = "vfat";
+    options = [ "defaults" ];
+  };
 
+  /*
   # ── Mount NAS / USB esterno via SMB ───────────────────────────────────────
   # Il mount è opzionale: nofail + automount garantiscono che il sistema
   # si avvii normalmente anche se il NAS non è raggiungibile.
@@ -92,7 +98,6 @@
 
   # Pacchetti necessari per CIFS
   environment.systemPackages = [ pkgs.cifs-utils ];
-
   */
 
   swapDevices = [ ];

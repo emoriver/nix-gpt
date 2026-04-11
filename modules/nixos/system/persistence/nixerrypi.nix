@@ -25,7 +25,7 @@
       }
       {
         directory = "/var/lib/spotifyd";
-        user      = "player";    # deve corrispondere all'utente spotifyd
+        user      = "emoriver";    # deve corrispondere all'utente spotifyd
         group     = "audio";
         mode      = "0700";
       }
