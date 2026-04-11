@@ -29,6 +29,11 @@
     generic-extlinux-compatible.enable = true;
   };
 
+  boot.initrd.postMountCommands = lib.mkBefore ''
+    mkdir -p /mnt-root/nix
+    mkdir -p /mnt-root/persist
+  '';
+
   # ── Rete ───────────────────────────────────────────────────────────────────
   # Ethernet via DHCP (consigliato per stabilità audio).
   # WiFi configurabile opzionalmente.
@@ -102,8 +107,6 @@
       AllowUsers = [ "emoriver" ];
     };
   };
-
-  users.users.root.initialHashedPassword = "";
 
   # ── Nix ────────────────────────────────────────────────────────────────────
   nixpkgs.config.allowUnfree = true;

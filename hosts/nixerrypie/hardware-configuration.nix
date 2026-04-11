@@ -40,7 +40,7 @@
   fileSystems."/" = {
     device  = "none";
     fsType  = "tmpfs";
-    options = [ "defaults" "size=512M" "mode=755" ];
+    options = [ "defaults" "size=1G" "mode=755" ];
   };
 
   # ── /nix sulla SD card — scritto solo da nixos-rebuild ────────────────
