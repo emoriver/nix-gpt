@@ -8,13 +8,12 @@
     [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-  #boot.initrd.availableKernelModules = [ "xhci_pci" "usbhid" "usb_storage" ];
+  #boot.initrd.availableKernelModules = [ "xhci_pci" "usb_storage" ];
   boot.initrd.availableKernelModules = [ "xhci_pci" "usbhid" "usb_storage" "uas" "sd_mod" "ext4" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
-  boot.kernelParams = [ "console=tty1" "loglevel=7" "rd.systemd.log_level=debug" ];
-  boot.initrd.systemd.enable = true;
+
 
   /*
   fileSystems."/" =
@@ -23,50 +22,20 @@
     };
   */
 
-  # ── Filesystem ─────────────────────────────────────────────────────────────
-  # Struttura:
-  # SD card (mmcblk0)
-  # ├── p1  vfat   /boot/firmware   (boot, read-only nella pratica)
-  # └── p2  ext4   /nix/store       (generazioni NixOS, read-only dopo il boot)
-
-  # Chiavetta USB (sda)
-  # └── p1  ext4   /persist         (tutto quello che sopravvive ai riavvii)
-
-  # RAM
-  # └── tmpfs      /                (root effimera, si azzera ad ogni riavvio)
-
-  #   //nas/musica   →  /mnt/musica    (opzionale, nofail)
-  # ───────────────────────────────────────────────────────────────────────────
-  # ── Root su tmpfs — si azzera ad ogni riavvio ──────────────────────────
-  fileSystems."/" = {
-    device  = "none";
-    fsType  = "tmpfs";
-    options = [ "defaults" "size=1G" "mode=755" ];
+ fileSystems."/" = {
+    device = "/dev/disk/by-label/NIXOS_USB"; # La partizione da 20GB
+    fsType = "ext4";
   };
 
-  # ── /nix sulla SD card — scritto solo da nixos-rebuild ────────────────
-  fileSystems."/nix" = {
-    device  = "/dev/disk/by-label/nixos-store";
-    fsType  = "ext4";
-    #options = [ "relatime" "commit=300" ];
-    neededForBoot = true;
-    options       = [ "x-systemd.makefs" "relatime" ];
-  };
-
-  # ── /persist sulla chiavetta USB — tutto ciò che sopravvive ──────────
-  fileSystems."/persist" = {
-    device        = "/dev/disk/by-uuid/6d26ad56-53c2-4051-9939-52f153d9d23c";
-    fsType        = "ext4";
-    #options       = [ "relatime" "commit=60" ];
-    neededForBoot = true;
-    options       = [ "x-systemd.makefs" "relatime" ];
-  };
-
-  # ── /boot/firmware sulla SD card ─────────────────────────────────────
   fileSystems."/boot/firmware" = {
-    device  = "/dev/disk/by-label/FIRMWARE";
-    fsType  = "vfat";
-    options = [ "defaults" ];
+    device = "/dev/disk/by-label/FIRMWARE"; # La partizione FAT sulla SD
+    fsType = "vfat";
+    neededForBoot = true;
+  };
+
+  fileSystems."/mnt/data" = {
+    device = "/dev/disk/by-label/USB_DATA"; # La partizione dati da 40GB
+    fsType = "ext4";
   };
 
   /*

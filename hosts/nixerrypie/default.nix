@@ -14,7 +14,7 @@
     # utenti - !! -
     ../../modules/nixos/users/emoriver.nix
 
-    ../../modules/nixos/system/persistence/nixerrypi.nix
+    #../../modules/nixos/system/persistence/nixerrypi.nix
   ];
 
   # ── Identità macchina ──────────────────────────────────────────────────────

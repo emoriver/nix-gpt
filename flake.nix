@@ -55,7 +55,7 @@
       };
       nixerrypie = {
         system     = "aarch64-linux";
-        impermanence = true;
+        #impermanence = true;
         hostModule = ./hosts/nixerrypie;
         users = {
           emoriver = ./home/emoriver/nixerrypie.nix;
@@ -68,9 +68,9 @@
       system        = cfg.system;
       pkgsUnstable  = mkPkgsUnstable system;
 
-      extraModules  = if name == "nixerrypie"
-                      then [ impermanence.nixosModules.impermanence ]
-                      else [];
+      #extraModules  = if name == "nixerrypie"
+      #                then [ impermanence.nixosModules.impermanence ]
+      #                else [];
     in
       lib.nixosSystem {
         inherit system;
