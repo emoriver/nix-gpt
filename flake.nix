@@ -71,6 +71,7 @@
       #extraModules  = if name == "nixerrypie"
       #                then [ impermanence.nixosModules.impermanence ]
       #                else [];
+      extraModules = [];
     in
       lib.nixosSystem {
         inherit system;

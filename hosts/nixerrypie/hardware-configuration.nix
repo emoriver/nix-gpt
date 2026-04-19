@@ -30,6 +30,7 @@
   fileSystems."/boot/firmware" = {
     device = "/dev/disk/by-label/FIRMWARE"; # La partizione FAT sulla SD
     fsType = "vfat";
+    options = [ "relatime" "nofail" "umask=0077" ]; # umask aumenta anche la sicurezza
     neededForBoot = true;
   };
 
