@@ -74,7 +74,7 @@
   # You might need this if you get insecure package warnings
   nixpkgs.config.permittedInsecurePackages = [
     #"broadcom-sta-6.30.223.271-59-6.12.77"
-    "broadcom-sta-6.30.223.271-59-6.12.77"
+    "broadcom-sta-6.30.223.271-59-6.12.81"
   ];
 
 
@@ -165,6 +165,7 @@
     zip 
     gnupg 
     tmux
+    parted
 
     lm_sensors      # For temperature/fan monitoring
     mission-center  # Modern system monitor with thermal info

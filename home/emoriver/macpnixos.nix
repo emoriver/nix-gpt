@@ -53,6 +53,7 @@
       gimp
       hugin
       arduino-ide
+      nicotine-plus
     ])
     ++(with pkgsUnstable; [
       kiro
