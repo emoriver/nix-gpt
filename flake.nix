@@ -53,12 +53,12 @@
           carpinera = ./home/carpinera/t4801onnixos.nix;
         };
       };
-      nixerrypie = {
+      nixerrypi2 = {
         system     = "aarch64-linux";
         #impermanence = true;
-        hostModule = ./hosts/nixerrypie;
+        hostModule = ./hosts/nixerrypi2;
         users = {
-          emoriver = ./home/emoriver/nixerrypie.nix;
+          emoriver = ./home/emoriver/nixerrypi2.nix;
         };
       };
     };
@@ -68,7 +68,7 @@
       system        = cfg.system;
       pkgsUnstable  = mkPkgsUnstable system;
 
-      #extraModules  = if name == "nixerrypie"
+      #extraModules  = if name == "nixerrypi2"
       #                then [ impermanence.nixosModules.impermanence ]
       #                else [];
       extraModules = [];

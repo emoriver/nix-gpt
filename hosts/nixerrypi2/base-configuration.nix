@@ -15,12 +15,12 @@
   # Enables the generation of /boot/extlinux/extlinux.conf
   boot.loader.generic-extlinux-compatible.enable = true;
 
-  #networking.hostName = "nixerrypie"; # Define your hostname.
+  #networking.hostName = "nixerrypi2"; # Define your hostname.
 
   # Configure network connections interactively with nmcli or nmtui.
   #networking.networkmanager.enable = true;
   networking = {
-    hostName = "nixerrypie";
+    hostName = "nixerrypi2";
     networkmanager.enable = true;
     #wireless.enable = false; # Don't conflict with NetworkManager
     firewall = {

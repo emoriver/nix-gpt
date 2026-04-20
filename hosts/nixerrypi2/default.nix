@@ -18,7 +18,7 @@
   ];
 
   # ── Identità macchina ──────────────────────────────────────────────────────
-  networking.hostName = "nixerrypie";
+  networking.hostName = "nixerrypi2";
   time.timeZone       = "Europe/Rome";
   i18n.defaultLocale  = "it_IT.UTF-8";
 
