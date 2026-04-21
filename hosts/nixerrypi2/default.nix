@@ -1,8 +1,10 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 {
   imports = [
     ./hardware-configuration.nix
+
+    inputs.nixos-hardware.nixosModules.raspberry-pi-4
 
     # audio
     ../../modules/nixos/system/audio
@@ -23,11 +25,11 @@
   i18n.defaultLocale  = "it_IT.UTF-8";
 
   # ── Raspberry Pi 4B ───────────────────────────────────────────────────────
-  hardware.enableRedistributableFirmware = true;
-  boot.loader = {
-    grub.enable = false;
-    generic-extlinux-compatible.enable = true;
-  };
+  #hardware.enableRedistributableFirmware = true;
+  #boot.loader = {
+  #  grub.enable = false;
+  #  generic-extlinux-compatible.enable = true;
+  #};
 
   # ── Rete ───────────────────────────────────────────────────────────────────
   # Ethernet via DHCP (consigliato per stabilità audio).

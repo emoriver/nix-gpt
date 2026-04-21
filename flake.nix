@@ -11,6 +11,8 @@
     impermanence.url = "github:nix-community/impermanence";
 
     flake-utils.url = "github:numtide/flake-utils";
+
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
   };
 
   outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, impermanence, flake-utils, ... }:
@@ -75,7 +77,7 @@
     in
       lib.nixosSystem {
         inherit system;
-        specialArgs = { inherit pkgsUnstable; };
+        specialArgs = { inherit pkgsUnstable inputs; };
         modules = extraModules ++ [
           cfg.hostModule
           home-manager.nixosModules.home-manager
