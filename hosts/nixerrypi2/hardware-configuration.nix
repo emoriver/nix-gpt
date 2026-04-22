@@ -9,8 +9,8 @@
     ];
 
   #boot.initrd.availableKernelModules = [ "xhci_pci" "usb_storage" ];
-  boot.initrd.availableKernelModules = [ "xhci_pci" "usbhid" "usb_storage" "uas" "sd_mod" "ext4" ];
-  boot.initrd.kernelModules = [ ];
+  boot.initrd.availableKernelModules = [ "xhci_pci" "usbhid" ];
+  boot.initrd.kernelModules = [ "usb_storage" ];
   boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
 
