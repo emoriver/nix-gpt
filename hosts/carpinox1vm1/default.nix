@@ -60,15 +60,10 @@
     # trusted-public-keys = [ ... ];
   };
 
-  nix = {
-    settings = {
-      auto-optimise-store = true;
-    };
-    gc = {
-      automatic = true;
-      dates = "weekly";
-      options = "--delete-older-than 7d";
-    };
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 7d";
   };
 
 
@@ -80,6 +75,8 @@
       PermitRootLogin = "no";
     };
   };
+
+  services.qemuGuest.enable = true;
 
 
   # ----- programmi e pacchetti di sistema host-level  -----

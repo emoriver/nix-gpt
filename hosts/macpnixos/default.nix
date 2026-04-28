@@ -117,17 +117,12 @@
     # trusted-public-keys = [ ... ];
   };
 
-  nix = {
-    settings = {
-      # Ottimizza lo store eliminando i file duplicati (hardlink)
-      auto-optimise-store = true;
-    };
-    gc = {
-      automatic = true;
-      dates = "weekly";
-      options = "--delete-older-than 7d";
-    };
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 7d";
   };
+
 
   # ----- servizi di base -----
   services.openssh = {
