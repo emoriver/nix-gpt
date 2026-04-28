@@ -63,6 +63,14 @@
           emoriver = ./home/emoriver/nixerrypi2.nix;
         };
       };
+      carpinox1vm1 = {
+        system     = "aarch64-linux";
+        #impermanence = true;
+        hostModule = ./hosts/carpinox1vm1;
+        users = {
+          carpinera = ./home/carpinera/carpinox1vm1.nix;
+        };
+      };      
     };
 
     mkNixos = name: cfg:
