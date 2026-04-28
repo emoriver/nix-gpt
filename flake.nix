@@ -15,7 +15,7 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, impermanence, flake-utils, ... }:
+  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, impermanence, flake-utils, ... } @ inputs:
   let
     lib = nixpkgs.lib;
 
