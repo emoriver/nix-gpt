@@ -64,8 +64,7 @@
         };
       };
       carpinox1vm1 = {
-        system     = "aarch64-linux";
-        #impermanence = true;
+        system     = "x86_64-linux";
         hostModule = ./hosts/carpinox1vm1;
         users = {
           carpinera = ./home/carpinera/carpinox1vm1.nix;
