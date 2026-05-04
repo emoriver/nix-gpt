@@ -15,7 +15,7 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, impermanence, flake-utils, ... }:
+  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, impermanence, flake-utils, ... } @ inputs:
   let
     lib = nixpkgs.lib;
 
@@ -63,6 +63,13 @@
           emoriver = ./home/emoriver/nixerrypi2.nix;
         };
       };
+      carpinox1vm1 = {
+        system     = "x86_64-linux";
+        hostModule = ./hosts/carpinox1vm1;
+        users = {
+          carpinera = ./home/carpinera/carpinox1vm1.nix;
+        };
+      };      
     };
 
     mkNixos = name: cfg:
