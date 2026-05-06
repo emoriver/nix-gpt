@@ -8,36 +8,15 @@
     [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-  #boot.initrd.availableKernelModules = [ "xhci_pci" "usb_storage" ];
-  boot.initrd.availableKernelModules = [ "xhci_pci" "usbhid" ];
-  boot.initrd.kernelModules = [ "usb_storage" ];
+  boot.initrd.availableKernelModules = [ "xhci_pci" ];
+  boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
 
-
-  /*
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/44444444-4444-4444-8888-888888888888";
       fsType = "ext4";
     };
-  */
-
- fileSystems."/" = {
-    device = "/dev/disk/by-label/NIXOS_USB"; # La partizione da 20GB
-    fsType = "ext4";
-  };
-
-  fileSystems."/boot/firmware" = {
-    device = "/dev/disk/by-label/FIRMWARE"; # La partizione FAT sulla SD
-    fsType = "vfat";
-    options = [ "relatime" "nofail" "umask=0077" ]; # umask aumenta anche la sicurezza
-    neededForBoot = true;
-  };
-
-  fileSystems."/mnt/data" = {
-    device = "/dev/disk/by-label/USB_DATA"; # La partizione dati da 40GB
-    fsType = "ext4";
-  };
 
   /*
   # ── Mount NAS / USB esterno via SMB ───────────────────────────────────────
