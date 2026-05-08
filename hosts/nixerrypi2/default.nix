@@ -4,6 +4,7 @@
   imports = [
     ./hardware-configuration.nix
 
+    #questa maledetta piccola riga causava la compilazione del kernel localmente...!!
     #inputs.nixos-hardware.nixosModules.raspberry-pi-4
 
     # audio
@@ -26,10 +27,10 @@
 
   # ── Raspberry Pi 4B ───────────────────────────────────────────────────────
   #hardware.enableRedistributableFirmware = true;
-  #boot.loader = {
-  #  grub.enable = false;
-  #  generic-extlinux-compatible.enable = true;
-  #};
+  boot.loader = {
+    grub.enable = false;
+    generic-extlinux-compatible.enable = true;
+  };
 
   # ── Rete ───────────────────────────────────────────────────────────────────
   # Ethernet via DHCP (consigliato per stabilità audio).
