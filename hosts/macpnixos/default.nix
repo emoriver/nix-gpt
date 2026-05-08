@@ -39,6 +39,9 @@
     "wl"            # Broadcom BCM4360 requires the proprietary wl driver
   ];
 
+  # serve per emulare arm e compilare localmente
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+
   # Config for Radeon D dual card
   hardware.graphics = {
     enable = true;

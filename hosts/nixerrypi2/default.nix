@@ -4,7 +4,7 @@
   imports = [
     ./hardware-configuration.nix
 
-    inputs.nixos-hardware.nixosModules.raspberry-pi-4
+    #inputs.nixos-hardware.nixosModules.raspberry-pi-4
 
     # audio
     ../../modules/nixos/system/audio
