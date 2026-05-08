@@ -4,7 +4,7 @@
   imports = [
     ./hardware-configuration.nix
 
-    #questa maledetta piccola riga causava la compilazione del kernel localmente...!!
+    #questa maledetta piccola riga causa la compilazione del kernel localmente...!!
     #inputs.nixos-hardware.nixosModules.raspberry-pi-4
 
     # audio
@@ -40,33 +40,33 @@
     # Ethernet — DHCP automatico
     interfaces.eth0.useDHCP = true;
 
-    # ── WiFi (opzionale) ────────────────────────────────────────────────────
-    # Decommentare se si usa WiFi invece di Ethernet.
-    # Le credenziali sono in /persist/wpa_supplicant.conf
-    #
-    # wireless = {
-    #   enable = true;
-    #   environmentFile = "/persist/wifi-credentials";
-    #   networks = {
-    #     "NomeRete".psk = "@PSK_NOMRETE@";  # variabile dal file
-    #   };
-    # };
-
-    # Risoluzione nome locale (rpi-player.local)
-    firewall = {
-      enable          = true;
-      allowedTCPPorts = [ 22 ];   # SSH (MPD e myMPD aperti nel modulo mpd.nix)
+    #── WiFi (opzionale) ────────────────────────────────────────────────────
+    wireless = {
+      enable = true;
+      fallbackToConfigured = true;
+      networks = {
+        "aegm3" = {
+          psk = "password_1";
+          priority = 10;
+        };
+        "aegm1" = {
+          psk = "password_2";
+          priority = 5;
+        };
+      };
     };
-  };
 
-  # mDNS — permette di raggiungere il Pi come rpi-player.local
-  services.avahi = {
-    enable   = true;
-    nssmdns4 = true;
-    publish = {
-      enable      = true;
-      addresses   = true;
-      workstation = true;
+    firewall = {
+      enable = true;
+      allowedTCPPorts = [ 
+        22    # SSH
+        80    # myMPD (se lo usi sulla porta 80)
+        4533  # Navidrome
+        4070  # Spotifyd
+      ];
+      allowedUDPPorts = [ 
+        5353  # Utile per mDNS/Avahi (per trovare il Pi come nixerrypi2.local)
+      ];
     };
   };
 
@@ -78,15 +78,10 @@
 
   environment.systemPackages = with pkgs; [
     htop
-    #ncmpc       # client MPD da terminale
-    #mpc         # controllo MPD da script
-    ffmpeg      # decoder audio aggiuntivi
-    yt-dlp      # resolver stream SoundCloud
-
+    #btop 
     git 
     curl 
     wget 
-    #btop 
     ripgrep 
     fd 
     unzip 
@@ -94,15 +89,47 @@
     gnupg 
     tmux
     yazi
+
+    ffmpeg      # decoder audio aggiuntivi
+    yt-dlp      # resolver stream SoundCloud
   ];
 
   # ── SSH ────────────────────────────────────────────────────────────────────
-  services.openssh = {
-    enable = true;
-    settings = {
-      PasswordAuthentication = true;
-      PermitRootLogin = "no";
-      AllowUsers = [ "emoriver" ];
+  services = {
+    # SSH: Per l'accesso remoto
+    openssh = {
+      enable = true;
+      settings = {
+        PasswordAuthentication = true;
+        PermitRootLogin = "no";
+        AllowUsers = [ "emoriver" ];
+      };
+    };
+
+    # Spotifyd: Per Spotify Connect
+    spotifyd = {
+      enable = true;
+      settings = {
+        global = {
+          device_name = "nixerrypi2";
+          bitrate = 320;
+          backend = "alsa";
+          # Nota: "hw:0" è spesso la scheda integrata. 
+          # Se il DragonFly non suona, proveremo con "hw:1" o il nome specifico.
+          device = "hw:0"; 
+        };
+      };
+    };
+
+    # mDNS — permette di raggiungere il Pi come rpi-player.local
+    avahi = {
+      enable   = true;
+      nssmdns4 = true;
+      publish = {
+        enable      = true;
+        addresses   = true;
+        workstation = true;
+      };
     };
   };
 
