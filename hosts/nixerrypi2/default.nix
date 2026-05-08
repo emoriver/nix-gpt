@@ -43,7 +43,6 @@
     #── WiFi (opzionale) ────────────────────────────────────────────────────
     wireless = {
       enable = true;
-      fallbackToConfigured = true;
       networks = {
         "aegm3" = {
           psk = "password_1";
@@ -103,21 +102,6 @@
         PasswordAuthentication = true;
         PermitRootLogin = "no";
         AllowUsers = [ "emoriver" ];
-      };
-    };
-
-    # Spotifyd: Per Spotify Connect
-    spotifyd = {
-      enable = true;
-      settings = {
-        global = {
-          device_name = "nixerrypi2";
-          bitrate = 320;
-          backend = "alsa";
-          # Nota: "hw:0" è spesso la scheda integrata. 
-          # Se il DragonFly non suona, proveremo con "hw:1" o il nome specifico.
-          device = "hw:0"; 
-        };
       };
     };
 

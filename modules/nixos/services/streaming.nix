@@ -15,7 +15,8 @@
         device_name = "RPI Player";
 
         # Usa PipeWire (compatibilità PulseAudio)
-        backend     = "pulseaudio";
+        #backend     = "pulseaudio";
+        backend     = "alsa";
 
         # Bitrate: 96 = 96kbps, 160 = 160kbps (default), 320 = alta qualità
         bitrate     = 320;
