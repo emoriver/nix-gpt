@@ -8,7 +8,8 @@
 {
   services.mpd = {
     enable         = true;
-    user           = "mpd";
+    user           = "emoriver";
+    group          = "audio";
     musicDirectory = "/mnt/usb_hp_musica/usb_k2/musica";
     dataDir        = "/var/lib/mpd";
 
