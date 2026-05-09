@@ -72,12 +72,6 @@
     };  
   };
 
-  # Apri le porte nel firewall
-  networking.firewall.allowedTCPPorts = [
-    6600   # MPD
-    80     # myMPD web UI
-  ];
-
   # ── Aggiornamento libreria al mount del NAS ────────────────────────────────
   # Quando il mount SMB torna disponibile, notifica MPD di aggiornare
   systemd.services.mpd-update-on-mount = {

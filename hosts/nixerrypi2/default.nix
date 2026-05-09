@@ -58,15 +58,25 @@
     firewall = {
       enable = true;
       allowedTCPPorts = [ 
-        22    # SSH
-        4070  # Spotifyd
+        22     # SSH
+        6600   # MPD
+        80     # myMPD web UI
       ];
       allowedUDPPorts = [ 
-        5353  # Utile per mDNS/Avahi (per trovare il Pi come nixerrypi2.local)
+        5353   # Utile per mDNS/Avahi (per trovare il Pi come nixerrypi2.local)
+        1900   # UPnP/SSDP
       ];
-      extraCommands = ''
-        iptables -A INPUT -p udp --dport 5353 -j ACCEPT
-        iptables -A INPUT -p udp --sport 5353 -j ACCEPT
+      allowedTCPPortRanges = [
+        { from = 57621; to = 57621; }
+        { from = 49152; to = 65535; }   # porte dinamiche
+      ];
+      allowedUDPPortRanges = [
+       { from = 57621; to = 57621; }
+       { from = 49152; to = 65535; }
+      ];
+      extraCommands   = ''
+        iptables -A INPUT -p udp -d 224.0.0.251 --dport 5353 -j ACCEPT
+        iptables -A INPUT -p udp -s 224.0.0.251 --sport 5353 -j ACCEPT
       '';
     };
   };
