@@ -34,23 +34,6 @@
     };
   };
 
-  # Spotifyd gira come utente di sistema, ma ha bisogno di PipeWire
-  # Nota: spotifyd di default crea il suo utente, ma deve accedere
-  # all'istanza PipeWire dell'utente system o player.
-  # La soluzione più semplice è farlo girare come utente player:
-  # Spotifyd deve accedere alla socket PulseAudio di emoriver
-  systemd.services.spotifyd = {
-    environment = {
-      # UID di emoriver — verifica con: id emoriver
-      PULSE_SERVER = "unix:/run/user/1001/pulse/native";
-    };
-    serviceConfig = {
-      User  = "emoriver";
-      Group = "audio";
-    };
-  };
-
-
   # ── SoundCloud ────────────────────────────────────────────────────────────
   # Non esiste un client nativo per SoundCloud su Linux embedded.
   # Il flusso consigliato:
@@ -74,9 +57,9 @@
         echo "Errore: impossibile ottenere l'URL dello stream" >&2
         exit 1
       fi
-      ${mpc-cli}/bin/mpc clear
-      ${mpc-cli}/bin/mpc add "$URL"
-      ${mpc-cli}/bin/mpc play
+      ${mpc}/bin/mpc clear
+      ${mpc}/bin/mpc add "$URL"
+      ${mpc}/bin/mpc play
     '')
   ];
 }

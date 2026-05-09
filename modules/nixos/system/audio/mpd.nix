@@ -43,6 +43,10 @@
     ''; 
   };
 
+  systemd.services.mpd.environment = {
+    PIPEWIRE_RUNTIME_DIR = "/run/user/1001";  # UID di emoriver
+  };
+  
   # MPD deve poter leggere i file montati via NAS
   users.users.mpd.extraGroups = [ "audio" ];
 
