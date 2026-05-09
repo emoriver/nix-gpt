@@ -19,9 +19,9 @@
     };
 
   fileSystems."/mnt/usb_hp_musica" = {
-    device = "/dev/disk/by-uuid/INSERc37a6a04-6e18-4030-a16d-49997c210440";
+    device = "/dev/disk/by-uuid/c37a6a04-6e18-4030-a16d-49997c210440";
     fsType = "ext4";
-    options = [ "nofail" "umask=000" ]; # "nofail" evita che il Pi si blocchi se scordi la chiavetta
+    options = [ "nofail" "relatime" ]; # "nofail" evita che il Pi si blocchi se scordi la chiavetta
   };    
 
   /*
