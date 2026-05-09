@@ -13,12 +13,12 @@
       device_name    = "nixerrypie2";
       backend        = "pulseaudio";   # compatibilità PipeWire via pulse socket
       bitrate        = 320;
-      initial_volume = "80";
+      initial_volume = 80;
       volume_normalisation = true;
       normalisation_pregain = -10;
       cache_path     = "/var/lib/spotifyd/cache";
-      # username = "tuoemail@example.com";
-      # password_cmd = "cat /persist/spotify-password";
+      username = "emoriver@live.it";
+      password_cmd = "cat /persist/spotify-password";
     };
   };
 
