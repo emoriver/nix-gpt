@@ -10,27 +10,16 @@
   services.spotifyd = {
     enable = true;
     settings.global = {
-      device_name    = "nixerrypie2";
-      backend        = "pulseaudio";   # compatibilità PipeWire via pulse socket
-      bitrate        = 320;
+      device_name  = "nixerrypie2";
+      backend      = "alsa";
+      device       = "hw:v15,0";
+      bitrate      = 320;
       initial_volume = 80;
-      volume_normalisation = true;
+      volume_normalisation  = true;
       normalisation_pregain = -10;
-      cache_path     = "/var/lib/spotifyd/cache";
-      username = "emoriver@live.it";
+      cache_path   = "/var/lib/spotifyd/cache";
+      username     = "emoriver@live.it";
       password_cmd = "cat /var/lib/spotifyd/password";
-    };
-  };
-
-  # Spotifyd deve accedere alla socket PulseAudio di emoriver
-  systemd.services.spotifyd = {
-    environment = {
-      # UID di emoriver — verifica con: id emoriver
-      PULSE_SERVER = "unix:/run/user/1001/pulse/native";
-    };
-    serviceConfig = {
-      User  = "emoriver";
-      Group = "audio";
     };
   };
 
