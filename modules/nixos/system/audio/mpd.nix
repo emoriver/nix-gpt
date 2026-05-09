@@ -9,7 +9,7 @@
   services.mpd = {
     enable        = true;
     user          = "mpd";
-    musicDirectory = "/mnt/musica";
+    musicDirectory = "/mnt/usb_hp_musica/musica";
     dataDir       = "/var/lib/mpd";  # persiste tramite /persist
 
     extraConfig = ''

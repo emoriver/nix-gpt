@@ -59,7 +59,6 @@
       enable = true;
       allowedTCPPorts = [ 
         22    # SSH
-        80    # myMPD (se lo usi sulla porta 80)
         4533  # Navidrome
         4070  # Spotifyd
       ];

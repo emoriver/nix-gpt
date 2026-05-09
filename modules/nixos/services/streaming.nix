@@ -12,7 +12,7 @@
     settings = {
       global = {
         # Nome che appare nell'app Spotify
-        device_name = "RPI Player";
+        device_name = "nixerrypie2";
 
         # Usa PipeWire (compatibilità PulseAudio)
         #backend     = "pulseaudio";
