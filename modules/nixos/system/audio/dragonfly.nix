@@ -9,7 +9,7 @@
 {
   services.pipewire.extraConfig.pipewire."10-dragonfly" = {
     "context.properties" = {
-      "default.clock.rate"          = 96000;
+      #"default.clock.rate"          = 96000;
       "default.clock.allowed-rates" = [ 44100 48000 88200 96000 ];
       "default.clock.quantum"       = 1024;
       "default.clock.min-quantum"   = 512;

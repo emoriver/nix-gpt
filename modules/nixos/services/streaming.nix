@@ -9,39 +9,28 @@
 {
   services.spotifyd = {
     enable = true;
-    settings = {
-      global = {
-        # Nome che appare nell'app Spotify
-        device_name = "nixerrypie2";
+    settings.global = {
+      device_name    = "nixerrypie2";
+      backend        = "pulseaudio";   # compatibilità PipeWire via pulse socket
+      bitrate        = 320;
+      initial_volume = "80";
+      volume_normalisation = true;
+      normalisation_pregain = -10;
+      cache_path     = "/var/lib/spotifyd/cache";
+      # username = "tuoemail@example.com";
+      # password_cmd = "cat /persist/spotify-password";
+    };
+  };
 
-        # Usa PipeWire (compatibilità PulseAudio)
-        #backend     = "pulseaudio";
-        backend     = "alsa";
-
-        # Bitrate: 96 = 96kbps, 160 = 160kbps (default), 320 = alta qualità
-        bitrate     = 320;
-
-        # Volume iniziale (0-100)
-        initial_volume = "80";
-
-        # Normalizzazione volume Spotify (opzionale)
-        volume_normalisation    = true;
-        normalisation_pregain   = -10;
-
-        # Credenziali da file — NON mettere username/password qui!
-        # Il file viene letto da /persist e non finisce nel Nix store.
-        # Formato del file (una riga per campo):
-        #   [global]
-        #   username = tuoemail@example.com
-        #   password = tuapassword
-        #
-        # Oppure usa cache_path con token OAuth (più sicuro):
-        cache_path = "/var/lib/spotifyd/cache";
-
-        # username e password: specificali qui oppure usa un file separato
-        # username = "tuoemail@example.com";
-        # password_cmd = "cat /persist/spotify-password";
-      };
+  # Spotifyd deve accedere alla socket PulseAudio di emoriver
+  systemd.services.spotifyd = {
+    environment = {
+      # UID di emoriver — verifica con: id emoriver
+      PULSE_SERVER = "unix:/run/user/1001/pulse/native";
+    };
+    serviceConfig = {
+      User  = "emoriver";
+      Group = "audio";
     };
   };
 
@@ -49,17 +38,18 @@
   # Nota: spotifyd di default crea il suo utente, ma deve accedere
   # all'istanza PipeWire dell'utente system o player.
   # La soluzione più semplice è farlo girare come utente player:
+  # Spotifyd deve accedere alla socket PulseAudio di emoriver
   systemd.services.spotifyd = {
     environment = {
-      # Punta alla socket PipeWire dell'utente player (uid 1000 di default)
-      # Verifica con: id player
-      PULSE_SERVER = "unix:/run/user/1000/pulse/native";
+      # UID di emoriver — verifica con: id emoriver
+      PULSE_SERVER = "unix:/run/user/1001/pulse/native";
     };
     serviceConfig = {
-      User  = "player";
+      User  = "emoriver";
       Group = "audio";
     };
   };
+
 
   # ── SoundCloud ────────────────────────────────────────────────────────────
   # Non esiste un client nativo per SoundCloud su Linux embedded.
@@ -77,7 +67,6 @@
   # In alternativa, installa yt-dlp come helper e crea uno script:
   environment.systemPackages = with pkgs; [
     yt-dlp
-    # Script di esempio installato in PATH:
     (writeShellScriptBin "sc-play" ''
       # Uso: sc-play "https://soundcloud.com/artista/traccia"
       URL=$(${yt-dlp}/bin/yt-dlp -g "$1" 2>/dev/null | head -1)
@@ -85,9 +74,9 @@
         echo "Errore: impossibile ottenere l'URL dello stream" >&2
         exit 1
       fi
-      ${mpc}/bin/mpc clear
-      ${mpc}/bin/mpc add "$URL"
-      ${mpc}/bin/mpc play
+      ${mpc-cli}/bin/mpc clear
+      ${mpc-cli}/bin/mpc add "$URL"
+      ${mpc-cli}/bin/mpc play
     '')
   ];
 }

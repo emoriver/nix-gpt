@@ -7,27 +7,22 @@
 # ───────────────────────────────────────────────────────────────────────────
 {
   services.mpd = {
-    enable        = true;
-    user          = "mpd";
-    musicDirectory = "/mnt/usb_hp_musica/musica";
-    dataDir       = "/var/lib/mpd";  # persiste tramite /persist
+    enable         = true;
+    user           = "mpd";
+    musicDirectory = "/mnt/usb_hp_musica/usb_k2/musica";
+    dataDir        = "/var/lib/mpd";
 
     extraConfig = ''
       # ── Output audio ────────────────────────────────────────────────────
       audio_output {
-        type        "alsa"
-        name        "DragonFly Black"
-        device      "plughw:v15"
-        mixer_type  "software"        # Controllo volume da myMPD
-        auto_resample   "no"          # Bit-perfect!
-        auto_format     "no"          # Lascia che la DragonFly decida
+        type  "pipewire"
+        name  "DragonFly Black"
       }
 
       # ── Qualità ──────────────────────────────────────────────────────────
-      audio_output_format   "96000:24:2"
-      replaygain            "auto"
-      replaygain_preamp     "0"
-      volume_normalization  "no"   # usa ReplayGain, non normalizzazione brutale
+      replaygain           "auto"
+      replaygain_preamp    "0"
+      volume_normalization "no"
 
       # ── Rete ─────────────────────────────────────────────────────────────
       #bind_to_address  "0.0.0.0"
@@ -35,18 +30,17 @@
 
       # ── Database ─────────────────────────────────────────────────────────
       # MPD non va in errore se la musicDirectory non è montata
-      auto_update         "yes"
-      auto_update_depth   "3"
+      auto_update       "yes"
+      auto_update_depth "3"
 
       # ── Playlist ─────────────────────────────────────────────────────────
-      playlist_directory  "/var/lib/mpd/playlists"
+      playlist_directory           "/var/lib/mpd/playlists"
       save_absolute_paths_in_playlists "no"
-
       # ── SoundCloud via yt-dlp ────────────────────────────────────────────
       # Aggiungi URL di stream SoundCloud direttamente come playlist .m3u
       # MPD li risolve con curl; usa yt-dlp per ottenere l'URL diretto:
       #   yt-dlp -g "https://soundcloud.com/..."
-    '';
+    ''; 
   };
 
   # MPD deve poter leggere i file montati via NAS
