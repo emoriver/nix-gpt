@@ -23,6 +23,7 @@
         auto_resample   "no"
         auto_format     "no"
         auto_channels   "no"
+        close_on_pause  "yes"
       }
 
       # ── Qualità ──────────────────────────────────────────────────────────

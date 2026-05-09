@@ -23,6 +23,12 @@
     };
   };
 
+  firewall = {
+    allowedTCPPortRanges = [ 
+      { from = 57621; to = 57621; }    # porta zeroconf di Spotify
+    ];
+  };
+
   # ── SoundCloud ────────────────────────────────────────────────────────────
   # Non esiste un client nativo per SoundCloud su Linux embedded.
   # Il flusso consigliato:
