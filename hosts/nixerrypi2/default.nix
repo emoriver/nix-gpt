@@ -59,12 +59,15 @@
       enable = true;
       allowedTCPPorts = [ 
         22    # SSH
-        4533  # Navidrome
         4070  # Spotifyd
       ];
       allowedUDPPorts = [ 
         5353  # Utile per mDNS/Avahi (per trovare il Pi come nixerrypi2.local)
       ];
+      extraCommands = ''
+        iptables -A INPUT -p udp --dport 5353 -j ACCEPT
+        iptables -A INPUT -p udp --sport 5353 -j ACCEPT
+      '';
     };
   };
 
