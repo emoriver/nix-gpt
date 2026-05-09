@@ -34,8 +34,8 @@
       auto_update_depth "3"
 
       # ── Playlist ─────────────────────────────────────────────────────────
-      playlist_directory           "/var/lib/mpd/playlists"
-      save_absolute_paths_in_playlists "no"
+      playlist_directory           "/home/emoriver/.config/mpd/playlists"
+      save_absolute_paths_in_playlists "no"      
       # ── SoundCloud via yt-dlp ────────────────────────────────────────────
       # Aggiungi URL di stream SoundCloud direttamente come playlist .m3u
       # MPD li risolve con curl; usa yt-dlp per ottenere l'URL diretto:
@@ -43,10 +43,12 @@
     ''; 
   };
 
-  systemd.services.mpd.environment = {
-    PIPEWIRE_RUNTIME_DIR = "/run/user/1001";  # UID di emoriver
-  };
-  
+  # Crea le directory necessarie
+  systemd.tmpfiles.rules = [
+    "d /home/emoriver/.config/mpd          0755 emoriver audio -"
+    "d /home/emoriver/.config/mpd/playlists 0755 emoriver audio -"
+  ];
+
   # MPD deve poter leggere i file montati via NAS
   users.users.mpd.extraGroups = [ "audio" ];
 
