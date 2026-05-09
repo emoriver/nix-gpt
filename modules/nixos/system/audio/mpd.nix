@@ -16,14 +16,20 @@
     extraConfig = ''
       # ── Output audio ────────────────────────────────────────────────────
       audio_output {
-        type  "pipewire"
-        name  "DragonFly Black"
+        type        "alsa"
+        name        "DragonFly Black"
+        device      "hw:v15,0"
+        mixer_type  "software"
+        auto_resample   "no"
+        auto_format     "no"
+        auto_channels   "no"
       }
 
       # ── Qualità ──────────────────────────────────────────────────────────
       replaygain           "auto"
       replaygain_preamp    "0"
       volume_normalization "no"
+      zeroconf_enabled     "no"
 
       # ── Rete ─────────────────────────────────────────────────────────────
       #bind_to_address  "0.0.0.0"
@@ -44,14 +50,16 @@
     ''; 
   };
 
+  users.users.mpd = {
+    isSystemUser = true;
+    group        = "audio";
+  };
+
   # Crea le directory necessarie
   systemd.tmpfiles.rules = [
-    "d /home/emoriver/.config/mpd          0755 emoriver audio -"
-    "d /home/emoriver/.config/mpd/playlists 0755 emoriver audio -"
+    "d /var/lib/mpd          0755 emoriver audio -"
+    "d /var/lib/mpd/playlists 0755 emoriver audio -"
   ];
-
-  # MPD deve poter leggere i file montati via NAS
-  users.users.mpd.extraGroups = [ "audio" ];
 
   # ── myMPD — Web UI ────────────────────────────────────────────────────────
   # Accessibile da browser su http://rpi-player:80

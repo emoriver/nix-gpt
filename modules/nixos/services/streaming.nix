@@ -18,7 +18,7 @@
       normalisation_pregain = -10;
       cache_path     = "/var/lib/spotifyd/cache";
       username = "emoriver@live.it";
-      password_cmd = "cat /persist/spotify-password";
+      password_cmd = "cat /var/lib/spotifyd/password";
     };
   };
 
