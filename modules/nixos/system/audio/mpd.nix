@@ -14,10 +14,6 @@
     dataDir        = "/var/lib/mpd";
     network.listenAddress = "any"; 
 
-    # deve partire dopo che è stato fatto il mount della chiavetta
-    after = [ "mnt-usb_hp_musica.mount" ];
-    requires = [ "mnt-usb_hp_musica.mount" ];
-
     extraConfig = ''
       # ── Output audio ────────────────────────────────────────────────────
       audio_output {
@@ -50,6 +46,12 @@
       # MPD li risolve con curl; usa yt-dlp per ottenere l'URL diretto:
       #   yt-dlp -g "https://soundcloud.com/..."
     ''; 
+  };
+
+  # deve partire dopo che è stato fatto il mount della chiavetta
+  systemd.services.mpd = {
+    after    = [ "mnt-usb_hp_musica.mount" "network.target" ];
+    requires = [ "mnt-usb_hp_musica.mount" ];
   };
 
   users.users.mpd = {
