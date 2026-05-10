@@ -1,7 +1,6 @@
 {
   services.slskd = {
     enable = true;
-    openFirewall = true;
     domain = null;
     nginx.enable = false;
     environmentFile = "/etc/slskd/credentials.env";
@@ -13,6 +12,10 @@
       };
       shares = {
         directories = [ "/mnt/usb_hp_musica/usb_k2/musica" ];
+      };
+      authentication = {
+        username = "soul"; 
+        password = "soul";
       };
     };
   };
