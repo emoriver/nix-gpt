@@ -1,3 +1,5 @@
+{ config, pkgs, lib, ... }:
+
 {
   services.slskd = {
     enable = true;
@@ -22,12 +24,13 @@
 
   systemd.services.slskd.serviceConfig = {
     StateDirectory = "slskd";
-    ProtectHome = pkgs.lib.mkForce "read-only"; 
-    ProtectSystem = pkgs.lib.mkForce "full";
+    
+    ProtectHome = lib.mkForce "read-only"; 
+    ProtectSystem = lib.mkForce "full";
     ReadWritePaths = [ "/mnt/usb_hp_musica/usb_k2/musica/downloads" ];
     
-    PrivateDevices = pkgs.lib.mkForce false;
-    RestrictNamespaces = pkgs.lib.mkForce false;
+    PrivateDevices = lib.mkForce false;
+    RestrictNamespaces = lib.mkForce false;
   };
 }
 
