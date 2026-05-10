@@ -50,6 +50,7 @@
       hugin
       arduino-ide
       nicotine-plus
+      filezilla
     ])
     ++(with pkgsUnstable; [
       kiro
