@@ -14,6 +14,10 @@
     dataDir        = "/var/lib/mpd";
     network.listenAddress = "any"; 
 
+    # deve partire dopo che è stato fatto il mount della chiavetta
+    after = [ "mnt-usb_hp_musica.mount" ];
+    requires = [ "mnt-usb_hp_musica.mount" ];
+
     extraConfig = ''
       # ── Output audio ────────────────────────────────────────────────────
       audio_output {
