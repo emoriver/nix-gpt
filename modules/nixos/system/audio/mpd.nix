@@ -12,6 +12,7 @@
     group          = "audio";
     musicDirectory = "/mnt/usb_hp_musica/usb_k2/musica";
     dataDir        = "/var/lib/mpd";
+    network.listenAddress = "any"; 
 
     extraConfig = ''
       # ── Output audio ────────────────────────────────────────────────────
@@ -31,10 +32,6 @@
       replaygain_preamp    "0"
       volume_normalization "no"
       zeroconf_enabled     "no"
-
-      # ── Rete ─────────────────────────────────────────────────────────────
-      #bind_to_address  "0.0.0.0"
-      #port             "6600"      # genera un errore di porta già in uso!
 
       # ── Database ─────────────────────────────────────────────────────────
       # MPD non va in errore se la musicDirectory non è montata
@@ -61,6 +58,12 @@
     "d /var/lib/mpd          0755 emoriver audio -"
     "d /var/lib/mpd/playlists 0755 emoriver audio -"
   ];
+
+  systemd.services.mympd.serviceConfig = {
+    BindReadOnlyPaths = [ 
+      "/mnt/usb_hp_musica/usb_k2/musica:/mnt/usb_hp_musica/usb_k2/musica:rbind"
+    ];
+  };
 
   # ── myMPD — Web UI ────────────────────────────────────────────────────────
   # Accessibile da browser su http://rpi-player:80

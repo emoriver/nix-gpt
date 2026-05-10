@@ -13,6 +13,7 @@
     ../../modules/nixos/system/audio/mpd.nix
 
     ../../modules/nixos/services/streaming.nix
+    ../../modules/nixos/services/soulseek.nix
     
     # utenti - !! -
     ../../modules/nixos/users/emoriver.nix
