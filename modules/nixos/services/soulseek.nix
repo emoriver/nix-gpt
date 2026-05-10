@@ -2,6 +2,8 @@
     services.slskd = {
         enable = true;
         openFirewall = true; # Apre le porte per i download e l'interfaccia web
+        domain = "192.168.88.192";
+        environmentFile = "/etc/slskd/credentials.env";
         settings = {
             directories = {
                 # Dove scaricherai la musica (magari sulla tua nuova chiavetta USB!)
@@ -17,5 +19,6 @@
                 };
             };
         };
+        systemd.services.slskd.serviceConfig.StateDirectory = "slskd";
     };
 }
