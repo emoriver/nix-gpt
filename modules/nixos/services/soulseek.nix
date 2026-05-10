@@ -21,8 +21,8 @@
       };
 
       directories = {
-        downloads = "/mnt/usb_hp_musica/usb_k2/musica/downloads";
-        incomplete = "/mnt/usb_hp_musica/usb_k2/musica/downloads/incomplete";
+        downloads = "/mnt/usb_hp_musica/downloads";
+        incomplete = "/mnt/usb_hp_musica/downloads/incomplete";
       };
       shares = {
         directories = [ "/mnt/usb_hp_musica/usb_k2/musica" ];
@@ -38,7 +38,7 @@
       StateDirectory = "slskd";
       ProtectHome = lib.mkForce "read-only"; 
       ProtectSystem = lib.mkForce "full";
-      ReadWritePaths = [ "/mnt/usb_hp_musica/usb_k2/musica/downloads" ];
+      ReadWritePaths = [ "/mnt/usb_hp_musica/downloads" ];
       
       PrivateDevices = lib.mkForce false;
       RestrictNamespaces = lib.mkForce false;

@@ -60,10 +60,11 @@
       enable = true;
       allowedTCPPorts = [ 
         22     # SSH
-        6600   # MPD
         80     # myMPD web UI
-        5030    # Interfaccia Web slskd
-        50300   # Porta P2P Soulseek
+        5030   # Interfaccia Web slskd
+        6600   # MPD
+        46855  # spotifyd zeroconf
+        50300  # Porta P2P Soulseek
       ];
       allowedUDPPorts = [ 
         5353   # Utile per mDNS/Avahi (per trovare il Pi come nixerrypi2.local)
