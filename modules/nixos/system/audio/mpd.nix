@@ -33,6 +33,9 @@
       save_absolute_paths_in_playlists "no"
 
       bind_to_address "/run/mpd/socket"
+
+      bind_to_address "0.0.0.0"
+      port "6600"
     '';
   };
 
