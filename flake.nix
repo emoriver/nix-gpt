@@ -13,6 +13,11 @@
     flake-utils.url = "github:numtide/flake-utils";
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+
+    noctalia = {
+      url = "github:noctalia-dev/noctalia-shell";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
   };
 
   outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, impermanence, flake-utils, ... } @ inputs:
@@ -92,7 +97,7 @@
             home-manager = {
               useGlobalPkgs    = true;
               useUserPackages  = true;
-              extraSpecialArgs = { inherit pkgsUnstable; };
+              extraSpecialArgs = { inherit pkgsUnstable inputs; };
               users            = lib.mapAttrs (user: path: import path) cfg.users;
               backupFileExtension = "backup";
             };

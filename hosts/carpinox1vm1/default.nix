@@ -78,6 +78,11 @@
 
   services.qemuGuest.enable = true;
 
+  services.upower.enable = true;
+  services.power-profiles-daemon.enable = true;
+
+  security.pam.services.noctalia = {};
+
 
   # ----- programmi e pacchetti di sistema host-level  -----
   programs = {
