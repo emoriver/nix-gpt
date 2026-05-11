@@ -78,6 +78,8 @@
   };
 
   services.qemuGuest.enable = true;
+  services.xserver.videoDrivers = [ "virtio" ];
+  hardware.graphics.enable = true;
 
   services.upower.enable = true;
   services.power-profiles-daemon.enable = true;

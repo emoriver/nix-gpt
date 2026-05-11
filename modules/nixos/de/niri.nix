@@ -11,6 +11,10 @@
             "org.freedesktop.impl.portal.Secret" = [ "kwallet" ]; 
         };
     };
+
+    xdg.configFile."niri/config.kdl" = {
+      source = ./niri-config.kdl;
+    }
   };
 
   environment.systemPackages = with pkgs; [

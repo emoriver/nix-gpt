@@ -9,6 +9,7 @@
     ../../modules/home/apps/vscodium.nix
 
     ../../modules/home/de/noctalia.nix
+    ../../modules/home/de/niri.nix
 
   ];
   
