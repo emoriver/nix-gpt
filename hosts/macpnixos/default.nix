@@ -76,8 +76,8 @@
 
   # You might need this if you get insecure package warnings
   nixpkgs.config.permittedInsecurePackages = [
-    #"broadcom-sta-6.30.223.271-59-6.12.81"
-    "broadcom-sta-6.30.223.271-59-6.12.85"
+    #"broadcom-sta-6.30.223.271-59-6.12.85"
+    "broadcom-sta-6.30.223.271-59-6.12.87"
   ];
 
 
@@ -109,15 +109,30 @@
 
   # ----- impostazioni di nix -----
   nixpkgs.config.allowUnfree = true;
+
+  nixpkgs.overlays = [
+    (final: prev: {
+      niri = prev.niri.overrideAttrs (old: {
+        doCheck = false; # Salta i test unitari di Rust che falliscono sul Trashcan
+      });
+    })
+  ];
+
   nix.settings = {
     experimental-features = [ "nix-command" "flakes" ];
     auto-optimise-store = true;
     warn-dirty = false;
     substituters = [
       "https://cache.nixos.org/"
-      # Aggiungi altri se li usi (es. Cachix)
+      "https://niri.cachix.org"
+      "https://noctalia.cachix.org"
     ];
-    # trusted-public-keys = [ ... ];
+
+    trusted-public-keys = [
+      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+      "niri.cachix.org-1:Wv0OmO7PsuocRKzfry9qGridkHN5sXFcBrpVOaBi8JQ="
+      "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
+    ];
   };
 
   nix.gc = {

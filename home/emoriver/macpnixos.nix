@@ -11,6 +11,9 @@
     ../../modules/home/apps/rclone/rclone.nix
     ../../modules/home/apps/rclone/rclone-sync.nix
     ../../modules/home/apps/rclone/rclone-mount.nix
+
+    ../../modules/home/de/noctalia.nix
+    ../../modules/home/de/niri.nix
   ];
   
   # Identità + versione HM
