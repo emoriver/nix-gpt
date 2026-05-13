@@ -1,8 +1,6 @@
 { inputs, pkgs, ... }:
 
 {
-  imports = [ inputs.niri-flake.homeModules.config ];
-
   programs.niri = {
     package = pkgs.niri;
     settings = {

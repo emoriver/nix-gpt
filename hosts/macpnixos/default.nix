@@ -8,6 +8,7 @@
     # pacchetti di sistema
     ../../modules/nixos/system/audio
     ../../modules/nixos/de/plasma6.nix
+    ../../modules/nixos/de/niri.nix
 
     # utenti - !! -
      ../../modules/nixos/users/emoriver.nix
@@ -170,6 +171,8 @@
     #git.enable = true;
     ssh.startAgent = true;
   };
+
+  services.gnome.gcr-ssh-agent.enable = false;
 
   environment.systemPackages = with pkgs; [
     #vim
