@@ -122,6 +122,7 @@
     experimental-features = [ "nix-command" "flakes" ];
     auto-optimise-store = true;
     warn-dirty = false;
+    
     substituters = [
       "https://cache.nixos.org/"
       "https://niri.cachix.org"
