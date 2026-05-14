@@ -39,6 +39,23 @@
     extraOptions = [ "--vfs-cache-mode" "writes" ]; # opzioni rclone mount
   };
 
+  programs.yazi = {
+    enable = true;
+    settings = {
+      plugin = {
+        prepend_previewers = [
+          # Estensioni RAW per Nikon, Fuji e Olympus
+          { name = "*.nef"; run = "exiftool"; }
+          { name = "*.NEF"; run = "exiftool"; }
+          { name = "*.raf"; run = "exiftool"; }
+          { name = "*.RAF"; run = "exiftool"; }
+          { name = "*.orf"; run = "exiftool"; }
+          { name = "*.ORF"; run = "exiftool"; }
+        ];
+      };
+    };
+  };
+
   # Pacchetti utente (se vuoi aggiunte "sciolte")
   home.packages =
     (with pkgs; [
@@ -55,6 +72,9 @@
       nicotine-plus
       filezilla
       winbox
+      ripgrep 
+      fd 
+      imagemagick
     ])
     ++(with pkgsUnstable; [
       kiro

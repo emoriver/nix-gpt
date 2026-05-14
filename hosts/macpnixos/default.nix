@@ -176,18 +176,17 @@
 
   environment.systemPackages = with pkgs; [
     #vim
-    git 
+    #git 
     curl 
     wget 
     htop 
     btop 
-    ripgrep 
-    fd 
     unzip 
     zip 
     gnupg 
     tmux
     parted
+    nh
 
     lm_sensors      # For temperature/fan monitoring
     mission-center  # Modern system monitor with thermal info
