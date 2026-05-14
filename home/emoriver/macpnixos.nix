@@ -54,6 +54,7 @@
       arduino-ide
       nicotine-plus
       filezilla
+      winbox
     ])
     ++(with pkgsUnstable; [
       kiro
