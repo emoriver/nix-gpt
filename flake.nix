@@ -79,7 +79,15 @@
         users = {
           carpinera = ./home/carpinera/carpinox1vm1.nix;
         };
-      };      
+      };
+      nixthint630 = {
+        system     = "x86_64-linux";
+        #impermanence = true;
+        hostModule = ./hosts/nixthint630;
+        users = {
+          emoriver = ./home/emoriver/nixthint630.nix;
+        };
+      }; 
     };
 
     mkNixos = name: cfg:
