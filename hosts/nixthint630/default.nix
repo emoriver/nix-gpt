@@ -100,7 +100,6 @@
 
   # ── Blocco del Risparmio Energetico (Sempre Acceso) ───────────────────────
   services.logind = {
-    enable = true;
     settings = {
       Login = {
         # Ignora lo stato di inattività del sistema (previene la sospensione)
@@ -178,6 +177,7 @@
       "https://cache.nixos.org/"
       # Aggiungi altri se li usi (es. Cachix)
     ];
+    trusted-users = [ "root" "emoriver" ];
     # trusted-public-keys = [ ... ];
   };
 
