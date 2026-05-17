@@ -19,7 +19,7 @@
     #../../modules/nixos/services/vpn.nix
   ];
   
-    # ----- boot e hardware/configurazioni di base -----
+  # ----- boot e hardware/configurazioni di base -----
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
