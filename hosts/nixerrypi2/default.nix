@@ -21,6 +21,13 @@
     #../../modules/nixos/system/persistence/nixerrypi.nix
   ];
 
+  services.myAudioSuite = {
+    enable         = true;
+    musicDirectory = "/mnt/usb_hp_musica/usb_k2/musica";
+    mountUnit      = "mnt-usb_hp_musica.mount";
+    mountRoot      = "/mnt/usb_hp_musica";
+  };
+
   # ── Identità macchina ──────────────────────────────────────────────────────
   networking.hostName = "nixerrypi2";
   time.timeZone       = "Europe/Rome";

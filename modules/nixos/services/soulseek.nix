@@ -1,47 +1,69 @@
-{ config, pkgs, lib, ... }:
+{ config, lib, pkgs, ... }:
 
-{
-  services.slskd = {
-    enable = true;
-    domain = null;
-    nginx.enable = false;
-    environmentFile = "/etc/slskd/credentials.env";
+with lib;
 
-    settings = {
-      ui = {
-        web = {
-          port = 5030;
-          address = "0.0.0.0";
-        };
-        # non funziona...
-        #authentication = {
-        #  username = "soul"; 
-        #  password = "soul";
-        #};
-      };
+let
+  cfg = config.services.mySlskdSuite;
+in {
+  options.services.mySlskdSuite = {
+    enable = mkEnableOption "Configurazione Soulseek (slskd) Parametrizzata";
 
-      directories = {
-        downloads = "/mnt/usb_hp_musica/downloads";
-        incomplete = "/mnt/usb_hp_musica/downloads/incomplete";
-      };
-      shares = {
-        directories = [ "/mnt/usb_hp_musica/usb_k2/musica" ];
-      };
+    musicDirectory = mkOption {
+      type = types.str;
+      description = "Cartella della musica da condividere (shares).";
+    };
+
+    downloadDir = mkOption {
+      type = types.str;
+      description = "Path dove salvare i download completati.";
+    };
+
+    incompleteDir = mkOption {
+      type = types.str;
+      description = "Path per i download parziali.";
+    };
+
+    mountUnit = mkOption {
+      type = types.str;
+      default = "";
+      description = "Nome del file .mount di Systemd (opzionale).";
     };
   };
 
-  systemd.services.slskd = {
-    after = [ "mnt-usb_hp_musica.mount" "network.target" ];
-    requires = [ "mnt-usb_hp_musica.mount" ];
+  config = mkIf cfg.enable {
+    services.slskd = {
+      enable = true;
+      domain = null;
+      nginx.enable = false;
+      environmentFile = "/etc/slskd/credentials.env";
 
-    serviceConfig = {
-      StateDirectory = "slskd";
-      ProtectHome = lib.mkForce "read-only"; 
-      ProtectSystem = lib.mkForce "full";
-      ReadWritePaths = [ "/mnt/usb_hp_musica/downloads" ];
-      
-      PrivateDevices = lib.mkForce false;
-      RestrictNamespaces = lib.mkForce false;
+      settings = {
+        ui.web = {
+          port = 5030;
+          address = "0.0.0.0";
+        };
+        directories = {
+          downloads = cfg.downloadDir;
+          incomplete = cfg.incompleteDir;
+        };
+        shares = {
+          directories = [ cfg.musicDirectory ];
+        };
+      };
+    };
+
+    systemd.services.slskd = {
+      after = [ "network.target" ] ++ (optional (cfg.mountUnit != "") cfg.mountUnit);
+      requires = optional (cfg.mountUnit != "") cfg.mountUnit;
+
+      serviceConfig = {
+        StateDirectory = "slskd";
+        ProtectHome = lib.mkForce "read-only"; 
+        ProtectSystem = lib.mkForce "full";
+        ReadWritePaths = [ cfg.downloadDir ];
+        PrivateDevices = lib.mkForce false;
+        RestrictNamespaces = lib.mkForce false;
+      };
     };
   };
 }

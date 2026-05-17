@@ -3,37 +3,34 @@
 with lib;
 
 let
-  cfg = config.services.myAudioSuite;
+  cfg = config.services.myMpdSuite;
 in {
-  # ── 1. DEFINIZIONE DELLE VARIABILI DELL'HOST ──────────────────────────────
-  options.services.myAudioSuite = {
+  options.services.myMpdSuite = {
     enable = mkEnableOption "Suite Audio MPD + myMPD";
 
     musicDirectory = mkOption {
-      type = types.path;
-      description = "Path assoluto della cartella musica (usato da MPD).";
+      type = types.str;
+      description = "Path della cartella musica (usato da MPD).";
     };
 
     mountUnit = mkOption {
       type = types.str;
       default = "";
-      description = "Il nome del file .mount di Systemd (es. 'mnt-usb_hp_musica.mount'). Lasciare vuoto se non necessario.";
+      description = "Nome del file .mount di Systemd (opzionale).";
     };
 
     mountRoot = mkOption {
-      type = types.path;
-      description = "La radice del mount point da esporre in sola lettura a myMPD (es. '/mnt/usb_hp_musica').";
+      type = types.str;
+      description = "La radice del mount point da esporre in sola lettura a myMPD.";
     };
   };
 
-  # ── 2. CONFIGURAZIONE LOGICA COMUNE ───────────────────────────────────────
   config = mkIf cfg.enable {
-    
     services.mpd = {
       enable         = true;
       user           = "emoriver";
       group          = "audio";
-      musicDirectory = cfg.musicDirectory; # <--- Dinamico
+      musicDirectory = cfg.musicDirectory;
       dataDir        = "/var/lib/mpd";
       network.listenAddress = "any";
 
@@ -48,41 +45,25 @@ in {
           auto_channels "no"
           close_on_pause "yes"
         }
-
-        replaygain           "auto"
-        replaygain_preamp    "0"
+        replaygain "auto"
+        replaygain_preamp "0"
         volume_normalization "no"
-        zeroconf_enabled     "no"
-
-        auto_update       "yes"
+        zeroconf_enabled "no"
+        auto_update "yes"
         auto_update_depth "3"
-
-        playlist_directory           "/var/lib/mpd/playlists"
+        playlist_directory "/var/lib/mpd/playlists"
         save_absolute_paths_in_playlists "no"
-
         bind_to_address "/run/mpd/socket"
         bind_to_address "0.0.0.0"
         port "6600"
       '';
     };
 
-    # Gestione dinamica dell'ordine di avvio di Systemd
     systemd.services.mpd = {
       after = [ "network.target" ] ++ (optional (cfg.mountUnit != "") cfg.mountUnit);
       wants = optional (cfg.mountUnit != "") cfg.mountUnit;
     };
 
-    users.users.mpd = {
-      isSystemUser = true;
-      group        = "audio";
-    };
-
-    systemd.tmpfiles.rules = [
-      "d /var/lib/mpd           0755 emoriver audio -"
-      "d /var/lib/mpd/playlists 0755 emoriver audio -"
-    ];
-
-    # ── myMPD — Web UI ──────────────────────────────────────────────────────
     services.mympd = {
       enable = true;
       settings = {
@@ -94,9 +75,13 @@ in {
 
     systemd.services.mympd = {
       after         = [ "mpd.service" ];
-      serviceConfig = {
-        BindReadOnlyPaths = [ (builtins.toString cfg.mountRoot) ]; # <--- Dinamico
-      };
+      serviceConfig.BindReadOnlyPaths = [ cfg.mountRoot ];
     };
+
+    users.users.mpd = { isSystemUser = true; group = "audio"; };
+    systemd.tmpfiles.rules = [
+      "d /var/lib/mpd           0755 emoriver audio -"
+      "d /var/lib/mpd/playlists 0755 emoriver audio -"
+    ];
   };
 }

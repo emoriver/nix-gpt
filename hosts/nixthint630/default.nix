@@ -21,12 +21,21 @@
     #../../modules/nixos/system/persistence/nixthint630.nix
   ];
 
-  # ── Configurazione Specifica di questo Host ────────────────
-  services.myAudioSuite = {
+  # ── Configurazione Servizio MPD ──────────────────────────
+  services.myMpdSuite = {
     enable         = true;
-    musicDirectory = /mnt/usb_hp_musica/usb_k2/musica;
-    mountUnit      = "mnt-usb_hp_musica.mount";
-    mountRoot      = /mnt/usb_hp_musica;
+    musicDirectory = "/home/emoriver/musica";
+    mountUnit      = ""; 
+    mountRoot      = "/home/emoriver";
+  };
+
+  # ── Configurazione Servizio Soulseek ─────────────────────
+  services.mySlskdSuite = {
+    enable         = true;
+    musicDirectory = "/home/emoriver/musica";
+    downloadDir   = "/home/emoriver/downloads";
+    incompleteDir = "/home/emoriver/downloads/incomplete";
+    mountUnit      = "";
   };
 
   boot.loader.systemd-boot.enable = true;
@@ -91,15 +100,18 @@
 
   # ── Blocco del Risparmio Energetico (Sempre Acceso) ───────────────────────
   services.logind = {
-    extraConfig = ''
-      # Ignora lo stato di inattività del sistema (previene la sospensione)
-      IdleAction=ignore
-      
-      # Impedisce lo standby se premi accidentalmente il tasto power o chiudi lo chassis
-      PowerKey=ignore
-      SuspendKey=ignore
-      HibernateKey=ignore
-    '';
+    enable = true;
+    settings = {
+      Login = {
+        # Ignora lo stato di inattività del sistema (previene la sospensione)
+        IdleAction = "ignore";
+        
+        # Impedisce lo standby se premi accidentalmente il tasto power o chiudi lo chassis
+        PowerKey = "ignore";
+        SuspendKey = "ignore";
+        HibernateKey = "ignore";
+      };
+    };
   };
 
   # Disabilita completamente i target di sospensione di Systemd
