@@ -24,9 +24,9 @@
   # ── Configurazione Servizio MPD ──────────────────────────
   services.myMpdSuite = {
     enable         = true;
-    musicDirectory = "/home/emoriver/musica";
+    musicDirectory = "/mnt/musica";
     mountUnit      = ""; 
-    mountRoot      = "/home/emoriver";
+    mountRoot      = "/mnt";
   };
 
   # ── Configurazione Servizio Soulseek ─────────────────────
@@ -59,7 +59,7 @@
       enable = true;
       networks = {
         "aegm3" = {
-          psk = "password_1";
+          psk = "password_2";
           priority = 10;
         };
         "aegm1" = {
