@@ -32,9 +32,9 @@
   # ── Configurazione Servizio Soulseek ─────────────────────
   services.mySlskdSuite = {
     enable         = true;
-    musicDirectory = "/home/emoriver/musica";
-    downloadDir   = "/home/emoriver/downloads";
-    incompleteDir = "/home/emoriver/downloads/incomplete";
+    musicDirectory = "/mnt/musica";
+    downloadDir   = "/mnt/downloads";
+    incompleteDir = "/mnt/downloads/incomplete";
     mountUnit      = "";
   };
 
@@ -59,7 +59,7 @@
       enable = true;
       networks = {
         "aegm3" = {
-          psk = "password_2";
+          psk = "Blackhornb2021!";
           priority = 10;
         };
         "aegm1" = {
