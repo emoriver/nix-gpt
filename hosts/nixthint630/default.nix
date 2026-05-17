@@ -59,7 +59,7 @@
       enable = true;
       networks = {
         "aegm3" = {
-          psk = "Blackhornb2021!";
+          psk = "password_1";
           priority = 10;
         };
         "aegm1" = {
