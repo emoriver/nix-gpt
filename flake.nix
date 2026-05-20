@@ -13,6 +13,16 @@
     flake-utils.url = "github:numtide/flake-utils";
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+
+    noctalia = {
+      url = "github:noctalia-dev/noctalia-shell";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+
+    niri-flake = {
+      url = "github:sodiboo/niri-flake";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
   };
 
   outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, impermanence, flake-utils, ... } @ inputs:
@@ -69,7 +79,15 @@
         users = {
           carpinera = ./home/carpinera/carpinox1vm1.nix;
         };
-      };      
+      };
+      nixthint630 = {
+        system     = "x86_64-linux";
+        #impermanence = true;
+        hostModule = ./hosts/nixthint630;
+        users = {
+          emoriver = ./home/emoriver/nixthint630.nix;
+        };
+      }; 
     };
 
     mkNixos = name: cfg:
@@ -92,7 +110,7 @@
             home-manager = {
               useGlobalPkgs    = true;
               useUserPackages  = true;
-              extraSpecialArgs = { inherit pkgsUnstable; };
+              extraSpecialArgs = { inherit pkgsUnstable inputs; };
               users            = lib.mapAttrs (user: path: import path) cfg.users;
               backupFileExtension = "backup";
             };

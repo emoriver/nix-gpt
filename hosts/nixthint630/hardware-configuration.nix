@@ -8,21 +8,34 @@
     [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" ];
+  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "ehci_pci" "usbhid" "usb_storage" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/44444444-4444-4444-8888-888888888888";
-      fsType = "ext4";
+    { device = "/dev/disk/by-uuid/d947dcf2-53cf-4c0e-ba1a-54dd4b47a57d";
+      fsType = "btrfs";
+      options = [ "subvol=root" ];
     };
 
-  fileSystems."/mnt/usb_hp_musica" = {
-    device = "/dev/disk/by-uuid/c37a6a04-6e18-4030-a16d-49997c210440";
-    fsType = "ext4";
-    options = [ "nofail" "relatime" ]; # "nofail" evita che il Pi si blocchi se scordi la chiavetta
-  };    
+  fileSystems."/home" =
+    { device = "/dev/disk/by-uuid/d947dcf2-53cf-4c0e-ba1a-54dd4b47a57d";
+      fsType = "btrfs";
+      options = [ "subvol=home" ];
+    };
+
+  fileSystems."/nix" =
+    { device = "/dev/disk/by-uuid/d947dcf2-53cf-4c0e-ba1a-54dd4b47a57d";
+      fsType = "btrfs";
+      options = [ "subvol=nix" ];
+    };
+
+  fileSystems."/boot" =
+    { device = "/dev/disk/by-uuid/DED7-56A7";
+      fsType = "vfat";
+      options = [ "fmask=0022" "dmask=0022" ];
+    };
 
   /*
   # ── Mount NAS / USB esterno via SMB ───────────────────────────────────────
@@ -63,6 +76,6 @@
 
   swapDevices = [ ];
 
-  nixpkgs.hostPlatform = lib.mkDefault "aarch64-linux";
+  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }
-

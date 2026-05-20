@@ -8,6 +8,7 @@
     # pacchetti di sistema
     ../../modules/nixos/system/audio
     ../../modules/nixos/de/plasma6.nix
+    ../../modules/nixos/de/niri.nix
 
     # utenti - !! -
      ../../modules/nixos/users/emoriver.nix
@@ -38,6 +39,9 @@
     "coretemp"      # CPU temperature sensors
     "wl"            # Broadcom BCM4360 requires the proprietary wl driver
   ];
+
+  # serve per emulare arm e compilare localmente
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
   # Config for Radeon D dual card
   hardware.graphics = {
@@ -73,8 +77,8 @@
 
   # You might need this if you get insecure package warnings
   nixpkgs.config.permittedInsecurePackages = [
-    #"broadcom-sta-6.30.223.271-59-6.12.77"
-    "broadcom-sta-6.30.223.271-59-6.12.81"
+    #"broadcom-sta-6.30.223.271-59-6.12.85"
+    "broadcom-sta-6.30.223.271-59-6.12.87"
   ];
 
 
@@ -106,15 +110,31 @@
 
   # ----- impostazioni di nix -----
   nixpkgs.config.allowUnfree = true;
+
+  nixpkgs.overlays = [
+    (final: prev: {
+      niri = prev.niri.overrideAttrs (old: {
+        doCheck = false; # Salta i test unitari di Rust che falliscono sul Trashcan
+      });
+    })
+  ];
+
   nix.settings = {
     experimental-features = [ "nix-command" "flakes" ];
     auto-optimise-store = true;
     warn-dirty = false;
+    
     substituters = [
       "https://cache.nixos.org/"
-      # Aggiungi altri se li usi (es. Cachix)
+      "https://niri.cachix.org"
+      "https://noctalia.cachix.org"
     ];
-    # trusted-public-keys = [ ... ];
+
+    trusted-public-keys = [
+      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+      "niri.cachix.org-1:Wv0OmO7PsuocRKzfry9qGridkHN5sXFcBrpVOaBi8JQ="
+      "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
+    ];
   };
 
   nix.gc = {
@@ -152,20 +172,20 @@
     ssh.startAgent = true;
   };
 
+  services.gnome.gcr-ssh-agent.enable = false;
+
   environment.systemPackages = with pkgs; [
     #vim
-    git 
     curl 
     wget 
     htop 
     btop 
-    ripgrep 
-    fd 
     unzip 
     zip 
     gnupg 
     tmux
     parted
+    nh
 
     lm_sensors      # For temperature/fan monitoring
     mission-center  # Modern system monitor with thermal info

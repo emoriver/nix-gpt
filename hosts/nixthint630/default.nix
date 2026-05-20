@@ -18,27 +18,33 @@
     # utenti - !! -
     ../../modules/nixos/users/emoriver.nix
 
-    #../../modules/nixos/system/persistence/nixerrypi.nix
+    #../../modules/nixos/system/persistence/nixthint630.nix
   ];
 
-  services.myAudioSuite = {
+  # ── Configurazione Servizio MPD ──────────────────────────
+  services.myMpdSuite = {
     enable         = true;
-    musicDirectory = "/mnt/usb_hp_musica/usb_k2/musica";
-    mountUnit      = "mnt-usb_hp_musica.mount";
-    mountRoot      = "/mnt/usb_hp_musica";
+    musicDirectory = "/mnt/musica";
+    mountUnit      = ""; 
+    mountRoot      = "/mnt";
   };
+
+  # ── Configurazione Servizio Soulseek ─────────────────────
+  services.mySlskdSuite = {
+    enable         = true;
+    musicDirectory = "/mnt/musica";
+    downloadDir   = "/mnt/downloads";
+    incompleteDir = "/mnt/downloads/incomplete";
+    mountUnit      = "";
+  };
+
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
 
   # ── Identità macchina ──────────────────────────────────────────────────────
-  networking.hostName = "nixerrypi2";
+  networking.hostName = "nixthint630";
   time.timeZone       = "Europe/Rome";
   i18n.defaultLocale  = "it_IT.UTF-8";
-
-  # ── Raspberry Pi 4B ───────────────────────────────────────────────────────
-  #hardware.enableRedistributableFirmware = true;
-  boot.loader = {
-    grub.enable = false;
-    generic-extlinux-compatible.enable = true;
-  };
 
   # ── Rete ───────────────────────────────────────────────────────────────────
   # Ethernet via DHCP (consigliato per stabilità audio).
@@ -74,7 +80,7 @@
         50300  # Porta P2P Soulseek
       ];
       allowedUDPPorts = [ 
-        5353   # Utile per mDNS/Avahi (per trovare il Pi come nixerrypi2.local)
+        5353   # Utile per mDNS/Avahi
         1900   # UPnP/SSDP
         50300  # Soulseek
       ];
@@ -91,6 +97,27 @@
       '';
     };
   };
+
+  # ── Blocco del Risparmio Energetico (Sempre Acceso) ───────────────────────
+  services.logind = {
+    settings = {
+      Login = {
+        # Ignora lo stato di inattività del sistema (previene la sospensione)
+        IdleAction = "ignore";
+        
+        # Impedisce lo standby se premi accidentalmente il tasto power o chiudi lo chassis
+        PowerKey = "ignore";
+        SuspendKey = "ignore";
+        HibernateKey = "ignore";
+      };
+    };
+  };
+
+  # Disabilita completamente i target di sospensione di Systemd
+  systemd.targets.sleep.enable = false;
+  systemd.targets.suspend.enable = false;
+  systemd.targets.hibernate.enable = false;
+  systemd.targets.hybrid-sleep.enable = false;
 
   # ── Pacchetti di sistema ───────────────────────────────────────────────────
   programs = {
@@ -150,6 +177,7 @@
       "https://cache.nixos.org/"
       # Aggiungi altri se li usi (es. Cachix)
     ];
+    trusted-users = [ "root" "emoriver" ];
     # trusted-public-keys = [ ... ];
   };
 

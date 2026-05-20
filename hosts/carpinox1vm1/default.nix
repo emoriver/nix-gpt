@@ -8,6 +8,7 @@
     # pacchetti di sistema
     ../../modules/nixos/system/audio
     ../../modules/nixos/de/plasma6.nix
+    ../../modules/nixos/de/niri.nix
 
     # utenti - !! -
      ../../modules/nixos/users/carpinera.nix
@@ -18,7 +19,7 @@
     #../../modules/nixos/services/vpn.nix
   ];
   
-    # ----- boot e hardware/configurazioni di base -----
+  # ----- boot e hardware/configurazioni di base -----
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
@@ -71,12 +72,19 @@
   services.openssh = {
     enable = true;
     settings = {
-      PasswordAuthentication = false;
+      PasswordAuthentication = true;
       PermitRootLogin = "no";
     };
   };
 
   services.qemuGuest.enable = true;
+  services.xserver.videoDrivers = [ "virtio" ];
+  hardware.graphics.enable = true;
+
+  services.upower.enable = true;
+  services.power-profiles-daemon.enable = true;
+
+  security.pam.services.noctalia = {};
 
 
   # ----- programmi e pacchetti di sistema host-level  -----
@@ -85,6 +93,8 @@
     #git.enable = true;
     ssh.startAgent = true;
   };
+
+  services.gnome.gcr-ssh-agent.enable = false;
 
   environment.systemPackages = with pkgs; [
     #vim
