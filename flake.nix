@@ -65,6 +65,14 @@
           carpinera = ./home/carpinera/t4801onnixos.nix;
         };
       };
+      nixerrypi1 = {
+        system     = "aarch64-linux";
+        #impermanence = true;
+        hostModule = ./hosts/nixerrypi1;
+        users = {
+          emoriver = ./home/emoriver/nixerrypi1.nix;
+        };
+      };
       nixerrypi2 = {
         system     = "aarch64-linux";
         #impermanence = true;
