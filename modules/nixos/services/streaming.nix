@@ -10,7 +10,7 @@
   services.spotifyd = {
     enable = true;
     settings.global = {
-      device_name  = "nixerrypie2";
+      device_name  = "nixerrypi2";
       backend      = "alsa";
       device       = "hw:v15,0";
       bitrate      = 320;

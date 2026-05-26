@@ -8,7 +8,7 @@
     [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" ];
+  boot.initrd.availableKernelModules = [ "xhci_pci" "usb_storage" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
@@ -18,8 +18,16 @@
       fsType = "ext4";
     };
 
-  swapDevices = [ ];
+  zramSwap = {
+    enable        = true;
+    algorithm     = "zstd";
+    memoryPercent = 50;   # ~430MB su 1GB
+  };
+
+  swapDevices = [{
+    device = "/var/lib/swapfile";
+    size   = 1024;  # 1GB
+  }];
 
   nixpkgs.hostPlatform = lib.mkDefault "aarch64-linux";
 }
-
