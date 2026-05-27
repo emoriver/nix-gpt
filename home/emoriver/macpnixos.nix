@@ -50,19 +50,17 @@
       exiftool
       obsidian
       gimp
-      hugin
       arduino-ide
       nicotine-plus
       filezilla
       winbox
-      ripgrep 
-      fd 
       imagemagick
       yazi
     ])
     ++(with pkgsUnstable; [
       kiro
       rapidraw
+      hugin
   ]);
 
 
