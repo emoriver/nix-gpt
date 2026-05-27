@@ -56,11 +56,11 @@
       winbox
       imagemagick
       yazi
+      hugin
     ])
     ++(with pkgsUnstable; [
       kiro
       rapidraw
-      hugin
   ]);
 
 
