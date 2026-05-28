@@ -51,7 +51,13 @@
     firewall = {
       enable = true;
       allowedTCPPorts = [ 
-        22     # SSH
+        22    # SSH
+        53    # DNS UDP
+        80
+        3000
+      ];
+      allowedUDPPorts = [ 
+        53     # DNS UDP
       ];
     };
   };
@@ -76,6 +82,12 @@
     tmux
     yazi
   ];
+
+  # ── AdGuard Home — DNS Blocker Nativo ──────────────────────────────────────
+  services.adguardhome = {
+    enable = true;
+    openFirewall = false; 
+  };
 
   # ── SSH ────────────────────────────────────────────────────────────────────
   services = {
