@@ -14,14 +14,14 @@
         layout = "it"; 
       };
 
-      outputs."DisplayPort-1" = {
-        scale = 1.0;
-      };
+      #outputs."DisplayPort-1" = {
+      #  scale = 1.0;
+      #};
 
       binds = {
         "Mod+T".action.spawn = [ "foot" ];
-        "Mod+D".action.spawn = [ "noctalia-shell-ipc" "toggle" "launcher" ];
-        "Super+Alt+L".action.spawn = [ "noctalia-shell-ipc" "lock" ];
+        "Mod+D".action.spawn = [ "noctalia-shell" "ipc" "call" "launcher" "toggle"];
+        "Super+Alt+L".action.spawn = [ "noctalia-shell" "ipc" "lock" ];
         "Mod+Q".action.close-window = {};
         "Mod+Left".action.focus-column-left = {};
         "Mod+Right".action.focus-column-right = {};
@@ -34,6 +34,9 @@
         "Mod+3".action.focus-workspace = 3;
         "Mod+F".action.maximize-column = {};
         "Mod+Shift+F".action.fullscreen-window = {};
+
+        "Mod+S".action.spawn = [ "sh" "-c" "grim ~/Pictures/screenshot-$(date +%Y%m%d-%H%M%S).png" ];
+        "Mod+Shift+S".action.spawn = [ "sh" "-c" "grim -g \"$(slurp)\" ~/Pictures/screenshot-$(date +%Y%m%d-%H%M%S).png" ];      
       };
     };
   };

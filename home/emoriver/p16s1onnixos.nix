@@ -60,7 +60,7 @@
 
     ])
     ++(with pkgsUnstable; [
-      kiro
+      #kiro  # installato tramite modules/home/apps/kiro.nix
   ]);
 
 

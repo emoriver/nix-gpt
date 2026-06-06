@@ -6,7 +6,8 @@
     ../../modules/home/apps/zsh.nix
     ../../modules/home/apps/git.nix
     ../../modules/home/apps/firefox.nix
-    ../../modules/home/apps/vscodium.nix
+    #../../modules/home/apps/vscodium.nix
+    ../../modules/home/apps/kiro.nix
 
     ../../modules/home/apps/rclone/rclone.nix
     ../../modules/home/apps/rclone/rclone-sync.nix
@@ -59,7 +60,7 @@
       hugin
     ])
     ++(with pkgsUnstable; [
-      kiro
+      #kiro  # installato tramite modules/home/apps/kiro.nix
       rapidraw
   ]);
 
