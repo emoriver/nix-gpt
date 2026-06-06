@@ -96,6 +96,14 @@
           emoriver = ./home/emoriver/nixthint630.nix;
         };
       }; 
+      p16s1onnixos = {
+        system     = "x86_64-linux";
+        #impermanence = true;
+        hostModule = ./hosts/p16s1onnixos;
+        users = {
+          emoriver = ./home/emoriver/p16s1onnixos.nix;
+        };
+      };       
     };
 
     mkNixos = name: cfg:
