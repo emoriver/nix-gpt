@@ -77,8 +77,8 @@
 
   # You might need this if you get insecure package warnings
   nixpkgs.config.permittedInsecurePackages = [
-    #"broadcom-sta-6.30.223.271-59-6.12.87"
-    "broadcom-sta-6.30.223.271-59-6.12.90"
+    #"broadcom-sta-6.30.223.271-59-6.12.90"
+    "broadcom-sta-6.30.223.271-59-6.12.92"
   ];
 
 

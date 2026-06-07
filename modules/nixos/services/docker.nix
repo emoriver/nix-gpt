@@ -2,8 +2,10 @@
 
 {
   config = lib.mkIf config.enableDocker {
-    virtualisation.docker.enable = true;
-    environment.systemPackages = with pkgs; [ docker ];
+    virtualisation.docker = {
+      enable = true;
+      package = pkgs.docker_29;
+    };
   };
 
   options.enableDocker = lib.mkEnableOption "Enable Docker";
