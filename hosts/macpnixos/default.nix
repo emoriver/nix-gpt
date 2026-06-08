@@ -9,6 +9,7 @@
     ../../modules/nixos/system/audio
     ../../modules/nixos/de/plasma6.nix
     ../../modules/nixos/de/niri.nix
+    ../../modules/nixos/de/noctalia.nix
 
     # utenti - !! -
      ../../modules/nixos/users/emoriver.nix
@@ -33,7 +34,6 @@
       "amdgpu.si_support=1" 
       "radeon.cik_support=0" # Per sicurezza, disabilita anche Sea Islands
       "amdgpu.cik_support=1"
-      "mitigations=off"  # Necessario per broadcom_sta (wl) su kernel 6.18 -- rimuovere se si trova soluzione migliore
     ];
 
   boot.kernelModules = [ 
@@ -164,7 +164,6 @@
 
   # Stampa/Bluetooth (abilita se ti servono su questo host)
   services.printing.enable = true;   #CUPS
-  # hardware.bluetooth.enable = true;
 
 
   # ----- programmi e pacchetti di sistema host-level  -----

@@ -9,6 +9,7 @@
     ../../modules/nixos/system/audio
     ../../modules/nixos/de/plasma6.nix
     ../../modules/nixos/de/niri.nix
+    ../../modules/nixos/de/noctalia.nix
 
     # utenti
      ../../modules/nixos/users/emoriver.nix
@@ -121,7 +122,6 @@
 
   # Stampa/Bluetooth
   #services.printing.enable = true;   #CUPS
-  hardware.bluetooth.enable = true;
 
 
   # ----- programmi e pacchetti di sistema host-level  -----
