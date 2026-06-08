@@ -3,10 +3,10 @@
 {
   home.packages = with pkgs; [
     nil              # language server richiesto da Nix IDE
-    nixfmt-rfc-style # formatter
+    nixfmt           # formatter (rinominato da nixfmt-rfc-style in 26.05)
   ];
 
-  programs.vscode = {
+  programs.kiro = {
     enable = true;
     package = pkgsUnstable.kiro;
     profiles.default.extensions = with pkgs.vscode-extensions; [

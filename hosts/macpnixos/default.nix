@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   # ----- imports -----
@@ -27,11 +27,13 @@
   # Blacklist conflicting open-source drivers
   boot.blacklistedKernelModules = [ "b43" "bcma" "ssb" "brcmsmac" "brcmfmac" ];
 
+  # Workaround per broadcom_sta (wl) su kernel 6.18 -- disabilita le mitigations per il modulo
   boot.kernelParams = [ 
       "radeon.si_support=0" 
       "amdgpu.si_support=1" 
       "radeon.cik_support=0" # Per sicurezza, disabilita anche Sea Islands
-      "amdgpu.cik_support=1" 
+      "amdgpu.cik_support=1"
+      "mitigations=off"  # Necessario per broadcom_sta (wl) su kernel 6.18 -- rimuovere se si trova soluzione migliore
     ];
 
   boot.kernelModules = [ 
@@ -77,8 +79,8 @@
 
   # You might need this if you get insecure package warnings
   nixpkgs.config.permittedInsecurePackages = [
-    #"broadcom-sta-6.30.223.271-59-6.12.90"
-    "broadcom-sta-6.30.223.271-59-6.12.92"
+    #"broadcom-sta-6.30.223.271-59-6.12.92"
+    "broadcom-sta-6.30.223.271-59-6.18.34"
   ];
 
 
@@ -86,7 +88,7 @@
   networking = {
     hostName = "macpnixos";
     networkmanager.enable = true;
-    wireless.enable = false; # Don't conflict with NetworkManager
+    wireless.enable = lib.mkForce false; # Don't conflict with NetworkManager
     firewall = {
       enable = true;
       allowedTCPPorts = [ 22 ];
