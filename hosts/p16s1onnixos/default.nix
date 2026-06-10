@@ -47,7 +47,6 @@
   networking = {
     hostName = "p16s1onnixos";
     networkmanager.enable = true;
-    wireless.enable = false; # Don't conflict with NetworkManager
     firewall = {
       enable = true;
       allowedTCPPorts = [ 22 ];

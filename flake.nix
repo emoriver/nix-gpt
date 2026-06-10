@@ -102,6 +102,7 @@
         hostModule = ./hosts/p16s1onnixos;
         users = {
           emoriver = ./home/emoriver/p16s1onnixos.nix;
+          carpinera = ./home/carpinera/p16s1onnixos.nix;
         };
       };       
     };

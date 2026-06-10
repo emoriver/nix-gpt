@@ -22,6 +22,7 @@
       bat eza fd ripgrep fzf jq yq-go
 
       filezilla
+      dbeaver
 
       imagemagick
       yazi
