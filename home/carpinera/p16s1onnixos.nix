@@ -9,13 +9,11 @@
     #../../modules/home/apps/vscodium.nix
     ../../modules/home/apps/kiro.nix
 
-    ../../modules/home/de/noctalia.nix
-    ../../modules/home/de/niri.nix
   ];
   
   # Identità + versione HM
-  home.username = "emoriver";
-  home.homeDirectory = "/home/emoriver";
+  home.username = "carpinera";
+  home.homeDirectory = "/home/carpinera";
   home.stateVersion = "25.11";
 
   # Pacchetti utente

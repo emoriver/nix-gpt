@@ -12,7 +12,8 @@
     ../../modules/nixos/de/noctalia.nix
 
     # utenti
-     ../../modules/nixos/users/emoriver.nix
+    ../../modules/nixos/users/emoriver.nix
+    ../../modules/nixos/users/carpinera.nix
 
     # servizi
     ../../modules/nixos/services/postgresql.nix

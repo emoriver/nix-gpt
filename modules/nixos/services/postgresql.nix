@@ -16,8 +16,8 @@ in {
       dataDir = "/var/lib/postgresql";
 
       initialScript = pkgs.writeText "init.sql" ''
-        CREATE ROLE emoriver WITH LOGIN PASSWORD 'EmoPg25.';
-        CREATE DATABASE testdb WITH OWNER emoriver;
+        CREATE ROLE carpinera WITH LOGIN PASSWORD 'C4rPg25.';
+        CREATE DATABASE testdb WITH OWNER carpinera;
       '';
 
       authentication = ''
