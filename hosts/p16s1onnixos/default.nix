@@ -19,6 +19,7 @@
     ../../modules/nixos/services/postgresql.nix
     ../../modules/nixos/services/docker.nix
     #../../modules/nixos/services/vpn.nix
+    ../../modules/nixos/services/node-red.nix
   ];
   
 
