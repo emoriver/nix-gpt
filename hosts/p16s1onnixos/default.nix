@@ -20,6 +20,7 @@
     ../../modules/nixos/services/docker.nix
     #../../modules/nixos/services/vpn.nix
     ../../modules/nixos/services/node-red.nix
+    ../../modules/nixos/apps/thingsboard.nix
   ];
   
 
