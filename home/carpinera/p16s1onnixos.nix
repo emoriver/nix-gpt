@@ -6,7 +6,7 @@
     ../../modules/home/apps/zsh.nix
     ../../modules/home/apps/git.nix
     ../../modules/home/apps/firefox.nix
-    #../../modules/home/apps/vscodium.nix
+    ../../modules/home/apps/vscodium.nix
     ../../modules/home/apps/kiro.nix
 
   ];
@@ -22,7 +22,7 @@
       bat eza fd ripgrep fzf jq yq-go
 
       filezilla
-      dbeaver
+      dbeaver-bin
 
       imagemagick
       yazi
