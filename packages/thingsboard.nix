@@ -5,7 +5,7 @@ pkgs.stdenv.mkDerivation {
   version = "4.3.1.2-wrapper";
 
   # Force rebuild
-  rev = "20260612-002";
+  rev = "20260612-003";
 
   src = pkgs.fetchurl {
     url = "https://github.com/thingsboard/thingsboard/releases/download/v4.3.1.2/thingsboard-4.3.1.2.deb";
@@ -22,13 +22,14 @@ pkgs.stdenv.mkDerivation {
     mkdir -p $out/bin $out/lib
 
     cp usr/share/thingsboard/bin/thingsboard.jar $out/lib/
-    cp -r usr/share/thingsboard/conf $out/
-    cp -r usr/share/thingsboard/data $out/
+    cp -r usr/share/thingsboard/conf $out/ 2>/dev/null || true
+    cp -r usr/share/thingsboard/data $out/ 2>/dev/null || true
 
-    cat > $out/bin/thingsboard << 'SCRIPT'
-#!${pkgs.bash}/bin/bash
-${pkgs.jre}/bin/java -jar $out/lib/thingsboard.jar "$@"
-SCRIPT
+    # Create wrapper script
+    cat > $out/bin/thingsboard << EOF
+#!/bin/sh
+exec ${pkgs.jre}/bin/java -jar $out/lib/thingsboard.jar "\$@"
+EOF
     chmod +x $out/bin/thingsboard
   '';
 }
