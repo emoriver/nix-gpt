@@ -15,20 +15,6 @@ in {
       package = pkgs.postgresql;
       dataDir = "/var/lib/postgresql";
 
-      ensureUsers = [
-        {
-          name = "carpinera";
-          ensureDBOwnership = true;
-        }
-      ];
-
-      ensureDatabases = [ "testdb" ];
-
-      postInitCommands = ''
-        ALTER ROLE carpinera WITH PASSWORD 'C4rPg25.';
-        GRANT ALL ON DATABASE testdb TO carpinera;
-      '';
-
       authentication = ''
         # TYPE  DATABASE        USER            ADDRESS                 METHOD
         local   all             all                                     trust
