@@ -15,9 +15,18 @@ in {
       package = pkgs.postgresql;
       dataDir = "/var/lib/postgresql";
 
-      initialScript = pkgs.writeText "init.sql" ''
-        CREATE ROLE carpinera WITH LOGIN PASSWORD 'C4rPg25.';
-        CREATE DATABASE testdb WITH OWNER carpinera;
+      ensureUsers = [
+        {
+          name = "carpinera";
+          ensureDBOwnership = true;
+        }
+      ];
+
+      ensureDatabases = [ "testdb" ];
+
+      postInitCommands = ''
+        ALTER ROLE carpinera WITH PASSWORD 'C4rPg25.';
+        GRANT ALL ON DATABASE testdb TO carpinera;
       '';
 
       authentication = ''
