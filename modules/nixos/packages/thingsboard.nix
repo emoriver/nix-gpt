@@ -2,7 +2,7 @@
 
 pkgs.stdenv.mkDerivation {
   pname = "thingsboard";
-  version = "4.3.1.2-wrapper";
+  version = "4.3.1.2-wrapper-2";
 
   # Force rebuild
   rev = "20260612-003";
