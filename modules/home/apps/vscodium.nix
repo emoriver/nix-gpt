@@ -1,15 +1,19 @@
 {pkgs, ...}:
 
 {
+  home.packages = with pkgs; [
+    nixd
+  ];
+
   programs.vscode = {
     enable = true;
     package = pkgs.vscodium;
-    profiles.default.extensions = with pkgs.vscode-extensions; [
+    extensions = with pkgs.vscode-extensions; [
       jnoortheen.nix-ide
       continue.continue
     ];
-    profiles.default.userSettings = {
-      "nix.serverPath" = "nixd";
+    userSettings = {
+      "nix.serverPath" = "${pkgs.nixd}/bin/nixd";
     };    
   };
 
