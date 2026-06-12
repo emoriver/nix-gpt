@@ -19,8 +19,11 @@ in
 
   config = lib.mkIf cfg.enable {
 
+    users.groups.thingsboard = {};
+
     users.users.thingsboard = {
       isSystemUser = true;
+      group = "thingsboard";
       home = "/var/lib/thingsboard";
       createHome = true;
     };
