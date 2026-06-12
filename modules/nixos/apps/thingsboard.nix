@@ -8,13 +8,13 @@ in
   options.services.thingsboard = {
     enable = lib.mkEnableOption "ThingsBoard";
 
-    /*database = {
+    database = {
       host = lib.mkOption { default = "localhost"; };
       port = lib.mkOption { default = 5432; };
       name = lib.mkOption { default = "thingsboard"; };
       user = lib.mkOption { default = "tbuser"; };
       password = lib.mkOption { default = "password"; };
-    };*/
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -45,13 +45,13 @@ in
         Restart = "always";
       };
 
-      /*environment = {
+      environment = {
         DATABASE_TS_TYPE = "sql";
         SPRING_DATASOURCE_URL =
           "jdbc:postgresql://${cfg.database.host}:${toString cfg.database.port}/${cfg.database.name}";
         SPRING_DATASOURCE_USERNAME = cfg.database.user;
         SPRING_DATASOURCE_PASSWORD = cfg.database.password;
-      };*/
+      };
     };
   };
 }

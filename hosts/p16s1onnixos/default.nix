@@ -112,7 +112,7 @@
     settings = {
       PasswordAuthentication = true;
       PermitRootLogin = "no";
-      AllowUsers = [ "emoriver" ];
+      AllowUsers = [ "emoriver" "carpinera" ];
     };
   };
 
