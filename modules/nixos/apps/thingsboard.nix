@@ -1,24 +1,54 @@
-{
-  environment.systemPackages = [
-    (pkgs.stdenv.mkDerivation {
-      pname = "thingsboard";
-      version = "3.6.2";
+{ config, pkgs, lib, ... }:
 
-      src = pkgs.fetchurl {
-        url = "https://github.com/thingsboard/thingsboard/releases/download/v3.6.2/thingsboard-3.6.2.tar.gz";
-        sha256 = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+let
+  cfg = config.services.thingsboard;
+  tbPkg = pkgs.callPackage ../packages/thingsboard.nix {};
+in
+{
+  options.services.thingsboard = {
+    enable = lib.mkEnableOption "ThingsBoard";
+
+    /*database = {
+      host = lib.mkOption { default = "localhost"; };
+      port = lib.mkOption { default = 5432; };
+      name = lib.mkOption { default = "thingsboard"; };
+      user = lib.mkOption { default = "tbuser"; };
+      password = lib.mkOption { default = "password"; };
+    };*/
+  };
+
+  config = lib.mkIf cfg.enable {
+
+    users.users.thingsboard = {
+      isSystemUser = true;
+      home = "/var/lib/thingsboard";
+      createHome = true;
+    };
+
+    systemd.tmpfiles.rules = [
+      "d /var/lib/thingsboard 0755 thingsboard thingsboard -"
+    ];
+
+    systemd.services.thingsboard = {
+      description = "ThingsBoard";
+      after = [ "network.target" "postgresql.service" ];
+      wantedBy = [ "multi-user.target" ];
+
+      serviceConfig = {
+        Type = "simple";
+        User = "thingsboard";
+        WorkingDirectory = "/var/lib/thingsboard";
+        ExecStart = "${tbPkg}/bin/thingsboard";
+        Restart = "always";
       };
 
-      nativeBuildInputs = [ pkgs.makeWrapper ];
-
-      installPhase = ''
-        mkdir -p $out
-        cp -r * $out/
-
-        # wrapper script
-        makeWrapper $out/bin/thingsboard.sh $out/bin/thingsboard \
-          --set JAVA_HOME ${pkgs.jdk17}
-      '';
-    })
-  ];
+      environment = {
+        DATABASE_TS_TYPE = "sql";
+        SPRING_DATASOURCE_URL =
+          "jdbc:postgresql://${cfg.database.host}:${toString cfg.database.port}/${cfg.database.name}";
+        SPRING_DATASOURCE_USERNAME = cfg.database.user;
+        SPRING_DATASOURCE_PASSWORD = cfg.database.password;
+      };
+    };
+  };
 }

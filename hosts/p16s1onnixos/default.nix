@@ -115,15 +115,24 @@
     };
   };
 
+  # Stampa/Bluetooth
+  #services.printing.enable = true;   #CUPS
+
   services.postgresql = {
     enable = true;
   };
 
   enableDocker = true;
 
-  # Stampa/Bluetooth
-  #services.printing.enable = true;   #CUPS
+  services.thingsboard = {
+    enable = true;
 
+    /*database = {
+      name = "thingsboard";
+      user = "tbuser";
+      password = "password";
+    };*/
+  };
 
   # ----- programmi e pacchetti di sistema host-level  -----
   programs = {
