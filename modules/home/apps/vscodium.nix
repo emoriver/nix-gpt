@@ -10,10 +10,10 @@
     package = pkgs.vscodium;
     extensions = with pkgs.vscode-extensions; [
       jnoortheen.nix-ide
-      continue.continue
+      #continue.continue
     ];
     userSettings = {
-      "nix.serverPath" = "${pkgs.nixd}/bin/nixd";
+      "nix.serverPath" = "nixd";
     };    
   };
 
