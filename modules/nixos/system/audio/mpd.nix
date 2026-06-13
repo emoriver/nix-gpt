@@ -32,10 +32,9 @@ in {
       group          = "audio";
       musicDirectory = cfg.musicDirectory;
       dataDir        = "/var/lib/mpd";
-      network.listenAddress = "any";
+      network.listenAddress = "any"; # <-- Questo dice già a NixOS di configurare MPD per ascoltare ovunque sulla rete
 
       settings = {
-        # Notare le parentesi quadre [ ... ] che aprono e chiudono la lista
         audio_output = [ {
           type           = "alsa";
           name           = "DragonFly Black";
@@ -55,7 +54,9 @@ in {
         auto_update_depth                = "3";
         playlist_directory               = "/var/lib/mpd/playlists";
         save_absolute_paths_in_playlists = "no";
-        bind_to_address                  = [ "/run/mpd/socket" "0.0.0.0" ];
+        
+        bind_to_address                  = "/run/mpd/socket"; 
+        
         port                             = "6600";
       };
     };
