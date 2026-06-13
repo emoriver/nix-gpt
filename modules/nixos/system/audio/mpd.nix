@@ -34,29 +34,30 @@ in {
       dataDir        = "/var/lib/mpd";
       network.listenAddress = "any";
 
-      extraConfig = ''
-        audio_output {
-          type          "alsa"
-          name          "DragonFly Black"
-          device        "hw:v15,0"
-          mixer_type    "software"
-          auto_resample "no"
-          auto_format   "no"
-          auto_channels "no"
-          close_on_pause "yes"
-        }
-        replaygain "auto"
-        replaygain_preamp "0"
-        volume_normalization "no"
-        zeroconf_enabled "no"
-        auto_update "yes"
-        auto_update_depth "3"
-        playlist_directory "/var/lib/mpd/playlists"
-        save_absolute_paths_in_playlists "no"
-        bind_to_address "/run/mpd/socket"
-        bind_to_address "0.0.0.0"
-        port "6600"
-      '';
+      # Sostituito extraConfig con settings nativo Nix
+      settings = {
+        audio_output = {
+          type           = "alsa";
+          name           = "DragonFly Black";
+          device         = "hw:v15,0";
+          mixer_type     = "software";
+          auto_resample  = "no";
+          auto_format    = "no";
+          auto_channels  = "no";
+          close_on_pause = "yes";
+        };
+        replaygain                       = "auto";
+        replaygain_preamp                = "0";
+        volume_normalization             = "no";
+        zeroconf_enabled                 = "no";
+        auto_update                      = "yes";
+        auto_update_depth                = "3";
+        playlist_directory               = "/var/lib/mpd/playlists";
+        save_absolute_paths_in_playlists = "no";
+        # Quando un'opzione di MPD deve apparire più volte, in Nix si usa una lista:
+        bind_to_address                  = [ "/run/mpd/socket" "0.0.0.0" ];
+        port                             = "6600";
+      };
     };
 
     systemd.services.mpd = {
