@@ -32,7 +32,10 @@ in {
       group          = "audio";
       musicDirectory = cfg.musicDirectory;
       dataDir        = "/var/lib/mpd";
-      network.listenAddress = "any"; # <-- Questo dice già a NixOS di configurare MPD per ascoltare ovunque sulla rete
+      
+      # Opzioni native di NixOS: gestiscono loro la rete in modo pulito
+      network.listenAddress = "any"; 
+      network.port          = 6600;
 
       settings = {
         audio_output = [ {
@@ -54,10 +57,6 @@ in {
         auto_update_depth                = "3";
         playlist_directory               = "/var/lib/mpd/playlists";
         save_absolute_paths_in_playlists = "no";
-        
-        bind_to_address                  = "/run/mpd/socket"; 
-        
-        port                             = "6600";
       };
     };
 
