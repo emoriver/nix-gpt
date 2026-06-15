@@ -7,6 +7,7 @@
 
     # pacchetti di sistema
     ../../modules/nixos/system/audio
+    #../../modules/nixos/system/virt-manager.nix
     ../../modules/nixos/de/plasma6.nix
     ../../modules/nixos/de/niri.nix
     ../../modules/nixos/de/noctalia.nix
@@ -121,6 +122,14 @@
 
   services.postgresql = {
     enable = true;
+    
+    extensions = with pkgs.postgresq17lPackages; [
+      timescaledb
+    ];
+
+    settings = {
+      shared_preload_libraries = "timescaledb";
+    };
   };
 
   enableDocker = true;
@@ -159,6 +168,8 @@
 
     lm_sensors      # For temperature/fan monitoring
     mission-center  # Modern system monitor with thermal info
+
+    jdk21
   ];
 
   environment.etc."ipsec.d/00-global.conf".text = ''
