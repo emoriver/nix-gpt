@@ -122,10 +122,9 @@
 
   services.postgresql = {
     enable = true;
-    
-    extensions = with pkgs.postgresq17lPackages; [
-      timescaledb
-    ];
+    package = pkgs.postgresql_17;
+
+    extensions = ps: [ ps.timescaledb ];
 
     settings = {
       shared_preload_libraries = "timescaledb";
