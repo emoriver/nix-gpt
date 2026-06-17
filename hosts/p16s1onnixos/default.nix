@@ -7,7 +7,7 @@
 
     # pacchetti di sistema
     ../../modules/nixos/system/audio
-    #../../modules/nixos/system/virt-manager.nix
+    ../../modules/nixos/system/virt-manager.nix
     ../../modules/nixos/de/plasma6.nix
     ../../modules/nixos/de/niri.nix
     ../../modules/nixos/de/noctalia.nix
@@ -21,7 +21,6 @@
     ../../modules/nixos/services/docker.nix
     #../../modules/nixos/services/vpn.nix
     ../../modules/nixos/services/node-red.nix
-    ../../modules/nixos/apps/thingsboard.nix
   ];
   
 
@@ -132,16 +131,6 @@
   };
 
   enableDocker = true;
-
-  services.thingsboard = {
-    enable = true;
-
-    /*database = {
-      name = "thingsboard";
-      user = "tbuser";
-      password = "password";
-    };*/
-  };
 
   # ----- programmi e pacchetti di sistema host-level  -----
   programs = {
