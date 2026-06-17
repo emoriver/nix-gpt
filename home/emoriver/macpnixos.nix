@@ -60,6 +60,7 @@
       yazi
       hugin
       nixd
+      nixfmt
     ])
     ++(with pkgsUnstable; [
       #kiro  # installato tramite modules/home/apps/kiro.nix
