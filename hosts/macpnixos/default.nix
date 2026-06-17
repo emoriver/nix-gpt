@@ -26,9 +26,8 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   # Blacklist conflicting open-source drivers
-  boot.blacklistedKernelModules = [ "b43" "bcma" "ssb" "brcmsmac" "brcmfmac" ];
+  boot.blacklistedKernelModules = [ "b43" "bcma" "ssb" "brcmsmac" "brcmfmac" "wl" ];
 
-  # Workaround per broadcom_sta (wl) su kernel 6.18 -- disabilita le mitigations per il modulo
   boot.kernelParams = [ 
       "radeon.si_support=0" 
       "amdgpu.si_support=1" 
@@ -39,7 +38,6 @@
   boot.kernelModules = [ 
     "applesmc"      # Apple System Management Controller
     "coretemp"      # CPU temperature sensors
-    "wl"            # Broadcom BCM4360 requires the proprietary wl driver
   ];
 
   # serve per emulare arm e compilare localmente
@@ -56,10 +54,11 @@
 
       vulkan-loader
       vulkan-validation-layers
-
-      #vaapiIntel         # Anche se hai AMD, alcuni pacchetti dipendono da questi base
     ];
   };
+
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.powerOnBoot = true;
 
   services.xserver.videoDrivers = [ "amdgpu" ];
   # Fan module (!!)
@@ -71,24 +70,18 @@
     KERNEL=="ttyACM*", ATTRS{idVendor}=="16d0", ATTRS{idProduct}=="0753", MODE:="0666", ENV{ID_MM_DEVICE_IGNORE}="1"
   '';
 
-  # WiFi Configuration for BCM4360
-  hardware.enableRedistributableFirmware = true;
-
-  # Broadcom BCM4360
-  boot.extraModulePackages = with config.boot.kernelPackages; [ broadcom_sta ];
-
-  # You might need this if you get insecure package warnings
-  nixpkgs.config.permittedInsecurePackages = [
-    #"broadcom-sta-6.30.223.271-59-6.12.92"
-    "broadcom-sta-6.30.223.271-59-6.18.34"
-  ];
-
 
   # ----- rete e localizzazione -----
   networking = {
     hostName = "macpnixos";
-    networkmanager.enable = true;
-    wireless.enable = lib.mkForce false; # Don't conflict with NetworkManager
+    
+    networkmanager = {
+      enable = true;
+      wifi.backend = "iwd";   # Forza NM a usare il motore iwd, perfetto per i chip MediaTek
+    };
+
+    wireless.iwd.enable = true;       # Rimuoviamo il vecchio wireless.enable e abilitiamo iwd
+
     firewall = {
       enable = true;
       allowedTCPPorts = [ 22 ];
