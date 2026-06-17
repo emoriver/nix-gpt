@@ -1,4 +1,10 @@
-{ config, lib, pkgs, inputs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
 
 {
   imports = [
@@ -14,7 +20,7 @@
 
     ../../modules/nixos/services/streaming.nix
     ../../modules/nixos/services/soulseek.nix
-    
+
     # utenti - !! -
     ../../modules/nixos/users/emoriver.nix
 
@@ -23,19 +29,19 @@
 
   # ── Configurazione Servizio MPD ──────────────────────────
   services.myMpdSuite = {
-    enable         = true;
+    enable = true;
     musicDirectory = "/mnt/musica";
-    mountUnit      = ""; 
-    mountRoot      = "/mnt";
+    mountUnit = "";
+    mountRoot = "/mnt";
   };
 
   # ── Configurazione Servizio Soulseek ─────────────────────
   services.mySlskdSuite = {
-    enable         = true;
+    enable = true;
     musicDirectory = "/mnt/musica";
-    downloadDir   = "/mnt/downloads";
+    downloadDir = "/mnt/downloads";
     incompleteDir = "/mnt/downloads/incomplete";
-    mountUnit      = "";
+    mountUnit = "";
   };
 
   boot.loader.systemd-boot.enable = true;
@@ -43,8 +49,8 @@
 
   # ── Identità macchina ──────────────────────────────────────────────────────
   networking.hostName = "nixthint630";
-  time.timeZone       = "Europe/Rome";
-  i18n.defaultLocale  = "it_IT.UTF-8";
+  time.timeZone = "Europe/Rome";
+  i18n.defaultLocale = "it_IT.UTF-8";
 
   # ── Rete ───────────────────────────────────────────────────────────────────
   # Ethernet via DHCP (consigliato per stabilità audio).
@@ -71,27 +77,36 @@
 
     firewall = {
       enable = true;
-      allowedTCPPorts = [ 
-        22     # SSH
-        80     # myMPD web UI
-        5030   # Interfaccia Web slskd
-        6600   # MPD
-        46855  # spotifyd zeroconf
-        50300  # Porta P2P Soulseek
+      allowedTCPPorts = [
+        22 # SSH
+        80 # myMPD web UI
+        5030 # Interfaccia Web slskd
+        6600 # MPD
+        46855 # spotifyd zeroconf
+        50300 # Porta P2P Soulseek
       ];
-      allowedUDPPorts = [ 
-        5353   # Utile per mDNS/Avahi
-        1900   # UPnP/SSDP
-        50300  # Soulseek
+      allowedUDPPorts = [
+        5353 # Utile per mDNS/Avahi
+        1900 # UPnP/SSDP
+        50300 # Soulseek
       ];
       allowedTCPPortRanges = [
-        { from = 40000; to = 65535; }   # porte dinamiche
+        {
+          from = 40000;
+          to = 65535;
+        } # porte dinamiche
       ];
       allowedUDPPortRanges = [
-       { from = 57621; to = 57621; }
-       { from = 49152; to = 65535; }
+        {
+          from = 57621;
+          to = 57621;
+        }
+        {
+          from = 49152;
+          to = 65535;
+        }
       ];
-      extraCommands   = ''
+      extraCommands = ''
         iptables -A INPUT -p udp -d 224.0.0.251 -j ACCEPT
         iptables -A INPUT -p tcp --dport 46855 -j ACCEPT
       '';
@@ -104,7 +119,7 @@
       Login = {
         # Ignora lo stato di inattività del sistema (previene la sospensione)
         IdleAction = "ignore";
-        
+
         # Impedisce lo standby se premi accidentalmente il tasto power o chiudi lo chassis
         PowerKey = "ignore";
         SuspendKey = "ignore";
@@ -127,20 +142,20 @@
 
   environment.systemPackages = with pkgs; [
     htop
-    #btop 
-    git 
-    curl 
-    wget 
-    ripgrep 
-    fd 
-    unzip 
-    zip 
-    gnupg 
+    #btop
+    git
+    curl
+    wget
+    ripgrep
+    fd
+    unzip
+    zip
+    gnupg
     tmux
     yazi
 
-    ffmpeg      # decoder audio aggiuntivi
-    yt-dlp      # resolver stream SoundCloud
+    ffmpeg # decoder audio aggiuntivi
+    yt-dlp # resolver stream SoundCloud
   ];
 
   # ── SSH ────────────────────────────────────────────────────────────────────
@@ -157,11 +172,11 @@
 
     # mDNS — permette di raggiungere il Pi come rpi-player.local
     avahi = {
-      enable   = true;
+      enable = true;
       nssmdns4 = true;
       publish = {
-        enable      = true;
-        addresses   = true;
+        enable = true;
+        addresses = true;
         workstation = true;
       };
     };
@@ -170,14 +185,20 @@
   # ── Nix ────────────────────────────────────────────────────────────────────
   nixpkgs.config.allowUnfree = true;
   nix.settings = {
-    experimental-features = [ "nix-command" "flakes" ];
+    experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
     auto-optimise-store = true;
     warn-dirty = false;
     substituters = [
       "https://cache.nixos.org/"
       # Aggiungi altri se li usi (es. Cachix)
     ];
-    trusted-users = [ "root" "emoriver" ];
+    trusted-users = [
+      "root"
+      "emoriver"
+    ];
     # trusted-public-keys = [ ... ];
   };
 
