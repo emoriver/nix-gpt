@@ -8,6 +8,7 @@
     # pacchetti di sistema
     ../../modules/nixos/system/audio
     ../../modules/nixos/system/virt-manager.nix
+    ../../modules/nixos/system/virt-manager.nix
     ../../modules/nixos/de/plasma6.nix
     ../../modules/nixos/de/niri.nix
     ../../modules/nixos/de/noctalia.nix
