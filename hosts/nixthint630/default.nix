@@ -1,8 +1,5 @@
 {
-  config,
-  lib,
   pkgs,
-  inputs,
   ...
 }:
 
@@ -27,13 +24,15 @@
     #../../modules/nixos/system/persistence/nixthint630.nix
   ];
 
-  # ── Configurazione Servizio MPD ──────────────────────────
-  services.myMpdSuite = {
-    enable = true;
-    musicDirectory = "/mnt/musica";
-    mountUnit = "";
-    mountRoot = "/mnt";
-  };
+  /*
+    # ── Configurazione Servizio MPD ──────────────────────────
+    services.myMpdSuite = {
+      enable = true;
+      musicDirectory = "/mnt/musica";
+      mountUnit = "";
+      mountRoot = "/mnt";
+    };
+  */
 
   # ── Configurazione Servizio Soulseek ─────────────────────
   services.mySlskdSuite = {
