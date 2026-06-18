@@ -11,9 +11,10 @@
       # --- Shell / General ---
       shell = {
         locale = "it";
-        avatar_image = "/home/emoriver/.face";
+        #avatar_image = "/home/emoriver/.face";
       };
 
+/*
       # --- Tema ---
       theme = {
         mode = "dark";
@@ -62,6 +63,8 @@
         format = "{:%a %d/%m  %H:%M}"; # equivalente di formatHorizontal = "ddd dd/MM  HH:mm"
         vertical_format = "{:%H\n%M}"; # equivalente di formatVertical = "HH mm"
       };
+
+*/      
     };
   };
 }
