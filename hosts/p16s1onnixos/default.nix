@@ -8,6 +8,7 @@
     # pacchetti di sistema
     ../../modules/nixos/system/audio
     ../../modules/nixos/system/virt-manager.nix
+    ../../modules/nixos/system/virt-manager.nix
     ../../modules/nixos/de/plasma6.nix
     ../../modules/nixos/de/niri.nix
     ../../modules/nixos/de/noctalia.nix
@@ -19,18 +20,15 @@
     # servizi
     ../../modules/nixos/services/postgresql.nix
     ../../modules/nixos/services/docker.nix
-    #../../modules/nixos/services/vpn.nix
     ../../modules/nixos/services/node-red.nix
+    #../../modules/nixos/apps/thingsboard.nix
   ];
   
-
   # ----- boot e hardware/configurazioni di base -----
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
   hardware.enableRedistributableFirmware = true;
-
-
 
   hardware.graphics = {
     enable = true;
@@ -42,8 +40,6 @@
   };
 
   #services.xserver.videoDrivers = [ "amdgpu" ];
-
-
 
   # ----- rete e localizzazione -----
   networking = {
@@ -68,7 +64,6 @@
   };
   #location.provider = "geoclue2";
   time.timeZone = "Europe/Rome";
-
 
   # ----- impostazioni di nix -----
   nixpkgs.config.allowUnfree = true;
@@ -104,7 +99,6 @@
     dates = "weekly";
     options = "--delete-older-than 7d";
   };
-
 
   # ----- servizi di base -----
   services.openssh = {

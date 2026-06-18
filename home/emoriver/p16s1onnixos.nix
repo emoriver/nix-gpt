@@ -6,7 +6,7 @@
     ../../modules/home/apps/zsh.nix
     ../../modules/home/apps/git.nix
     ../../modules/home/apps/firefox.nix
-    #../../modules/home/apps/vscodium.nix
+    ../../modules/home/apps/vscodium.nix
     ../../modules/home/apps/kiro.nix
 
     ../../modules/home/de/noctalia.nix

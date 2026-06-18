@@ -34,6 +34,17 @@
     };
   */
 
+  # ── Configurazione Servizio MPD ──────────────────────────
+  /*
+    services.myMpdSuite = {
+      enable = true;
+      musicDirectory = "/mnt/musica";
+      mountUnit = "";
+      mountRoot = "/mnt";
+    };
+  */
+  systemd.services.mympd.serviceConfig.BindReadOnlyPaths = [ "/mnt" ];
+
   # ── Configurazione Servizio Soulseek ─────────────────────
   services.mySlskdSuite = {
     enable = true;
@@ -63,10 +74,6 @@
     wireless = {
       enable = true;
       networks = {
-        "aegm3" = {
-          psk = "password_1";
-          priority = 10;
-        };
         "aegm1" = {
           psk = "password_2";
           priority = 5;
