@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   # ----- imports -----
@@ -23,7 +23,7 @@
     ../../modules/nixos/services/node-red.nix
     #../../modules/nixos/apps/thingsboard.nix
   ];
-  
+
   # ----- boot e hardware/configurazioni di base -----
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -35,9 +35,10 @@
     enable32Bit = true; # Essenziale per app a 32 bit e Wine/Steam
     extraPackages = with pkgs; [
 
-
     ];
   };
+
+  hardware.bluetooth.enable = true;
 
   #services.xserver.videoDrivers = [ "amdgpu" ];
 
@@ -57,7 +58,7 @@
     extraLocaleSettings = {
       LC_TIME = "it_IT.UTF-8";
     };
-    supportedLocales =  [
+    supportedLocales = [
       "en_US.UTF-8/UTF-8"
       "it_IT.UTF-8/UTF-8"
     ];
@@ -77,10 +78,13 @@
   ];
 
   nix.settings = {
-    experimental-features = [ "nix-command" "flakes" ];
+    experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
     auto-optimise-store = true;
     warn-dirty = false;
-    
+
     substituters = [
       "https://cache.nixos.org/"
       "https://niri.cachix.org"
@@ -106,7 +110,10 @@
     settings = {
       PasswordAuthentication = true;
       PermitRootLogin = "no";
-      AllowUsers = [ "emoriver" "carpinera" ];
+      AllowUsers = [
+        "emoriver"
+        "carpinera"
+      ];
     };
   };
 
@@ -137,19 +144,19 @@
 
   environment.systemPackages = with pkgs; [
     #vim
-    curl 
-    wget 
-    htop 
-    btop 
-    unzip 
-    zip 
-    gnupg 
+    curl
+    wget
+    htop
+    btop
+    unzip
+    zip
+    gnupg
     tmux
     parted
     nh
 
-    lm_sensors      # For temperature/fan monitoring
-    mission-center  # Modern system monitor with thermal info
+    lm_sensors # For temperature/fan monitoring
+    mission-center # Modern system monitor with thermal info
 
     jdk21
   ];
