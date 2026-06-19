@@ -1,4 +1,8 @@
-{ config, lib, pkgs, pkgsUnstable,... }:
+{
+  pkgs,
+  pkgsUnstable,
+  ...
+}:
 
 {
   # Import delle app Home-Manager (moduli)
@@ -9,10 +13,10 @@
     ../../modules/home/apps/vscodium.nix
     ../../modules/home/apps/kiro.nix
 
-    ../../modules/home/de/noctalia.nix
     ../../modules/home/de/niri.nix
+    ../../modules/home/de/noctalia.nix
   ];
-  
+
   # Identità + versione HM
   home.username = "emoriver";
   home.homeDirectory = "/home/emoriver";
@@ -21,7 +25,13 @@
   # Pacchetti utente
   home.packages =
     (with pkgs; [
-      bat eza fd ripgrep fzf jq yq-go
+      bat
+      eza
+      fd
+      ripgrep
+      fzf
+      jq
+      yq-go
 
       filezilla
 
@@ -30,10 +40,9 @@
 
       nixd
     ])
-    ++(with pkgsUnstable; [
+    ++ (with pkgsUnstable; [
       #kiro  # installato tramite modules/home/apps/kiro.nix
-  ]);
-
+    ]);
 
   # Esempio di file utente gestito da HM
   #home.file.".config/myapp/config.toml".text = ''
