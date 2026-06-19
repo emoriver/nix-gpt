@@ -1,22 +1,22 @@
 { inputs, pkgs, ... }:
 
 {
-  # Gestore inattività: spegne lo schermo dopo 5 min, sospende dopo 10 min
   services.swayidle = {
     enable = true;
     timeouts = [
       {
-        timeout = 300; # 5 minuti → spegni schermo
+        timeout = 300;
         command = "${pkgs.niri}/bin/niri msg action power-off-monitors";
         resumeCommand = "${pkgs.niri}/bin/niri msg action power-on-monitors";
       }
       {
-        timeout = 600; # 10 minuti → sospendi
+        timeout = 600;
         command = "${pkgs.systemd}/bin/systemctl suspend";
       }
     ];
     events = {
-      lock = "noctalia-shell ipc lock";
+      # Usiamo il nuovo CLI anche qui per il lock
+      lock = "noctalia-cli session lock"; 
     };
   };
 
@@ -24,7 +24,8 @@
     package = pkgs.niri;
     settings = {
       spawn-at-startup = [
-        { command = [ "noctalia-shell" ]; }
+        # CORREZIONE: Qui ora si avvia "noctalia", non più noctalia-shell
+        { command = [ "noctalia" ]; }
         {
           command = [
             "gnome-keyring-daemon"
@@ -54,10 +55,6 @@
       ];
 
       debug.honor-xdg-activation-with-invalid-serial = true;
-
-      #outputs."DisplayPort-1" = {
-      #  scale = 1.0;
-      #};
 
       binds = {
         "Mod+T".action.spawn = [ "foot" ];
