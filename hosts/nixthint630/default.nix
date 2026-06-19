@@ -134,6 +134,15 @@
     };
   };
 
+  systemd.services.wifi-powersave-off = {
+    wantedBy = [ "multi-user.target" ];
+    after = [ "network.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "${pkgs.iw}/bin/iw dev wlp2s0 set power_save off";
+    };
+  };
+
   # Disabilita completamente i target di sospensione di Systemd
   systemd.targets.sleep.enable = false;
   systemd.targets.suspend.enable = false;
