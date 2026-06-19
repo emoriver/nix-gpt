@@ -1,6 +1,7 @@
 { inputs, pkgs, ... }:
 
 {
+  # Gestore inattività
   services.swayidle = {
     enable = true;
     timeouts = [
@@ -15,8 +16,8 @@
       }
     ];
     events = {
-      # Usiamo il nuovo CLI anche qui per il lock
-      lock = "noctalia-cli session lock"; 
+      # CORREZIONE V5 per swayidle: il comando di blocco centralizzato
+      lock = "noctalia msg session-lock"; 
     };
   };
 
@@ -24,8 +25,7 @@
     package = pkgs.niri;
     settings = {
       spawn-at-startup = [
-        # CORREZIONE: Qui ora si avvia "noctalia", non più noctalia-shell
-        { command = [ "noctalia" ]; }
+        { command = [ "noctalia" ]; } # Questo avvia la shell vera e propria
         {
           command = [
             "gnome-keyring-daemon"
@@ -59,14 +59,15 @@
       binds = {
         "Mod+T".action.spawn = [ "foot" ];
         "Mod+D".action.spawn = [
-          "noctalia-cli"
+          "noctalia"
+          "panel-toggle"
+          "msg"
           "launcher"
-          "toggle"
         ];
         "Super+Alt+L".action.spawn = [
-          "noctalia-cli"
-          "session"
-          "lock"
+          "noctalia"
+          "msg"
+          "session-lock"
         ];
         "Mod+Q".action.close-window = { };
 
