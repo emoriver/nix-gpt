@@ -10,16 +10,18 @@
   };
 
   systemd.services.mympd = {
+    after = [
+      "home-manager-emoriver.service"
+      "mpd.service"
+    ];
+    wants = [ "home-manager-emoriver.service" ];
     environment.MPD_HOST = "/run/user/1000/mpd/socket";
     serviceConfig = {
       User = lib.mkForce "emoriver";
       Group = lib.mkForce "users";
       DynamicUser = lib.mkForce false;
       ProtectHome = lib.mkForce "no";
-      BindReadOnlyPaths = [
-        "/mnt"
-        "/run/user/1000/mpd"
-      ];
+      BindReadOnlyPaths = [ "/mnt" ];
       StateDirectory = lib.mkForce "";
       RuntimeDirectory = lib.mkForce "";
     };
