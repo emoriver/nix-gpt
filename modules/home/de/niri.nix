@@ -62,15 +62,13 @@
       binds = {
         "Mod+T".action.spawn = [ "foot" ];
         "Mod+D".action.spawn = [
-          "noctalia"
-          "ipc"
-          "call"
+          "noctalia-cli"
           "launcher"
           "toggle"
         ];
         "Super+Alt+L".action.spawn = [
-          "noctalia"
-          "ipc"
+          "noctalia-cli"
+          "session"
           "lock"
         ];
         "Mod+Q".action.close-window = { };
