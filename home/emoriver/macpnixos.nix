@@ -1,4 +1,10 @@
-{ config, lib, pkgs, pkgsUnstable,... }:
+{
+  config,
+  lib,
+  pkgs,
+  pkgsUnstable,
+  ...
+}:
 
 {
   # Import delle app Home-Manager (moduli)
@@ -16,7 +22,7 @@
     ../../modules/home/de/noctalia.nix
     ../../modules/home/de/niri.nix
   ];
-  
+
   # Identità + versione HM
   home.username = "emoriver";
   home.homeDirectory = "/home/emoriver";
@@ -28,22 +34,31 @@
 
   apps.rcloneSync = {
     enable = true;
-    remoteName = "onedrive_personale";         # nome del remote configurato
-    targetDir = "/home/emoriver/OneDriveSync";  # cartella locale
-    frequency = "hourly";            # oppure "daily", "weekly", ecc.
+    remoteName = "onedrive_personale"; # nome del remote configurato
+    targetDir = "/home/emoriver/OneDriveSync"; # cartella locale
+    frequency = "hourly"; # oppure "daily", "weekly", ecc.
   };
 
   apps.rcloneMount = {
     enable = true;
-    remoteName = "onedrive_personale";               # nome del remote configurato
+    remoteName = "onedrive_personale"; # nome del remote configurato
     mountPoint = "/home/emoriver/OneDrive"; # cartella locale
-    extraOptions = [ "--vfs-cache-mode" "writes" ]; # opzioni rclone mount
+    extraOptions = [
+      "--vfs-cache-mode"
+      "writes"
+    ]; # opzioni rclone mount
   };
 
   # Pacchetti utente (se vuoi aggiunte "sciolte")
   home.packages =
     (with pkgs; [
-      bat eza fd ripgrep fzf jq yq-go
+      bat
+      eza
+      fd
+      ripgrep
+      fzf
+      jq
+      yq-go
       spotify
       keepassxc
       #mailspring
@@ -61,12 +76,12 @@
       hugin
       nixd
       nixfmt
+      angryipscanner
     ])
-    ++(with pkgsUnstable; [
+    ++ (with pkgsUnstable; [
       #kiro  # installato tramite modules/home/apps/kiro.nix
       rapidraw
-  ]);
-
+    ]);
 
   # Esempio di file utente gestito da HM
   #home.file.".config/myapp/config.toml".text = ''
