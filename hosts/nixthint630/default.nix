@@ -21,28 +21,13 @@
     # utenti - !! -
     ../../modules/nixos/users/emoriver.nix
 
+    ../../modules/nixos/services/samba.nix
+    ../../modules/nixos/services/navidrome.nix
+
     #../../modules/nixos/system/persistence/nixthint630.nix
   ];
 
-  /*
-    # ── Configurazione Servizio MPD ──────────────────────────
-    services.myMpdSuite = {
-      enable = true;
-      musicDirectory = "/mnt/musica";
-      mountUnit = "";
-      mountRoot = "/mnt";
-    };
-  */
-
   # ── Configurazione Servizio MPD ──────────────────────────
-  /*
-    services.myMpdSuite = {
-      enable = true;
-      musicDirectory = "/mnt/musica";
-      mountUnit = "";
-      mountRoot = "/mnt";
-    };
-  */
   systemd.services.mympd.serviceConfig.BindReadOnlyPaths = [ "/mnt" ];
 
   # ── Configurazione Servizio Soulseek ─────────────────────
@@ -52,6 +37,23 @@
     downloadDir = "/mnt/downloads";
     incompleteDir = "/mnt/downloads/incomplete";
     mountUnit = "";
+  };
+
+  # ── Configurazione Servizio Samba ────────────────────────
+  services.mySambaSuite = {
+    enable = true;
+    workgroup = "WORKGROUP";
+    srvString = "nixthint630";
+    netbiosName = "nixthint630";
+    publicPath = "/mnt";
+    privatePath = "";
+  };
+
+  # ── Configurazione Servizio Navidrome ────────────────────
+  services.myNavidromeSuite = {
+    enable = true;
+    musicDirectory = "/mnt/musica";
+    port = 4533;
   };
 
   boot.loader.systemd-boot.enable = true;
