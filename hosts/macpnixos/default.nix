@@ -59,10 +59,12 @@
 
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
-
+  
   services.xserver.videoDrivers = [ "amdgpu" ];
   # Fan module (!!)
   services.mbpfan.enable = true;
+  
+  services.upower.enable = true;
 
   # Regole per Digispark ATtiny85 (Micronucleus)
   services.udev.extraRules = ''

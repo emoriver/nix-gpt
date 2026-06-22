@@ -3,68 +3,55 @@
 {
   imports = [ inputs.noctalia.homeModules.default ];
 
-  # v5: l'opzione si chiama programs.noctalia (non più programs.noctalia-shell)
-  # La struttura settings è ora TOML — vedi https://docs.noctalia.dev/v5
   programs.noctalia = {
     enable = true;
     settings = {
-      # --- Shell / General ---
+      # --- Configurazione Generale v5 ---
       shell = {
         locale = "it";
-        #avatar_image = "/home/emoriver/.face";
       };
 
-/*
-      # --- Tema ---
+      # --- Tema v5 ---
       theme = {
         mode = "dark";
         source = "builtin";
-        builtin = "Monochrome";  # equivalente di colorSchemes.predefinedScheme = "Monochrome"
+        builtin = "Monochrome"; 
       };
 
-      # --- Bar principale ---
+      # --- Gestione Sfondi Automatica ---
+      wallpaper = {
+        general = {
+          enabled = true;
+        };
+      };
+
+      # --- Barra Principale v5 ---
       bar.main = {
         position = "top";
-        thickness = 28;          # "compact" in v4 corrisponde a una barra sottile
-        radius = 8;              # equivalente approssimativo di radiusRatio = 0.2
+        thickness = 30;
+        radius = 8;
         margin_edge = 0;
-        start = [ "control-center" "sysmon" "network" "bluetooth" ];
+        # Moduli base nativi della v5
+        start = [ "control-center" "network" "bluetooth" ];
         center = [ "workspaces" ];
         end = [ "battery" "clock" ];
       };
 
-      # --- Widget: control-center (sostituisce ControlCenter con useDistroLogo) ---
-      "widget.control-center" = {
-        # useDistroLogo non esiste più in v5; usa custom_image se vuoi il logo distro
-      };
-
-      # --- Widget: sysmon (sostituisce SystemMonitor) ---
-      "widget.sysmon" = {
-        type = "sysmon";
-        stat = "cpu_usage";
-      };
-
-      # --- Widget: workspaces (sostituisce Workspace) ---
+      # --- Definizione singoli Widget v5 ---
       "widget.workspaces" = {
-        display = "none";       # labelMode = "none" in v4
-        hide_when_empty = false; # hideUnoccupied = false in v4
+        display = "icon";       
+        hide_when_empty = false;
       };
 
-      # --- Widget: battery ---
       "widget.battery" = {
         type = "battery";
         device = "auto";
-        show_label = false;      # alwaysShowPercentage = false in v4
-        warning_threshold = 20;
+        show_label = true;
       };
 
-      # --- Widget: clock ---
       "widget.clock" = {
-        format = "{:%a %d/%m  %H:%M}"; # equivalente di formatHorizontal = "ddd dd/MM  HH:mm"
-        vertical_format = "{:%H\n%M}"; # equivalente di formatVertical = "HH mm"
+        format = "{:%a %d/%m  %H:%M}";
       };
-
-*/      
     };
   };
 }

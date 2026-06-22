@@ -42,6 +42,9 @@
 
   #services.xserver.videoDrivers = [ "amdgpu" ];
 
+  services.upower.enable = true;
+  services.power-profiles-daemon.enable = true;  # power-profiles-daemon gestisce i profili energetici (bilanciato, risparmio, performance)
+
   # ----- rete e localizzazione -----
   networking = {
     hostName = "p16s1onnixos";

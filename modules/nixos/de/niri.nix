@@ -5,7 +5,6 @@
   programs.niri = {
     enable = true;
     package = pkgs.niri;
-    #xwayland = true;
   };
 
   xdg.portal = {
@@ -18,22 +17,20 @@
     };
   };
 
-environment.systemPackages = with pkgs; [
-  foot
-  #fuzzel
-  grim
-  slurp
-  wl-clipboard
-  xwayland-satellite
-  gnome-keyring
-  libsecret  # libreria per accedere al keyring
-];
+  environment.systemPackages = with pkgs; [
+    foot
+    grim
+    slurp
+    wl-clipboard
+    xwayland-satellite
+    gnome-keyring
+    libsecret
+  ];
 
-services.gnome.gnome-keyring.enable = true;
-security.pam.services.niri.enableGnomeKeyring = true;
-security.pam.services.login.enableGnomeKeyring = true;
+  services.gnome.gnome-keyring.enable = true;
+  security.pam.services.niri.enableGnomeKeyring = true;
+  security.pam.services.login.enableGnomeKeyring = true;
 
-  # Abilita xwayland-satellite come servizio systemd utente
   systemd.user.services.xwayland-satellite = {
     description = "Xwayland outside your Wayland compositor";
     wantedBy = [ "graphical-session.target" ];

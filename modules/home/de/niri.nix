@@ -1,7 +1,6 @@
 { inputs, pkgs, ... }:
 
 {
-  # Gestore inattività
   services.swayidle = {
     enable = true;
     timeouts = [
@@ -16,8 +15,8 @@
       }
     ];
     events = {
-      # CORREZIONE V5 per swayidle: il comando di blocco centralizzato
-      lock = "noctalia msg session-lock"; 
+      # CORREZIONE V5: Comando centralizzato per il lock via IPC
+      lock = "noctalia msg session session-lock"; 
     };
   };
 
@@ -25,7 +24,7 @@
     package = pkgs.niri;
     settings = {
       spawn-at-startup = [
-        { command = [ "noctalia" ]; } # Questo avvia la shell vera e propria
+        { command = [ "noctalia" ]; } # Avvia l'ambiente v5
         {
           command = [
             "gnome-keyring-daemon"
@@ -43,12 +42,8 @@
 
       window-rules = [
         {
-          # Angoli arrotondati
           geometry-corner-radius = {
-            top-left = 16.0;
-            top-right = 16.0;
-            bottom-left = 16.0;
-            bottom-right = 16.0;
+            top-left = 16.0; top-right = 16.0; bottom-left = 16.0; bottom-right = 16.0;
           };
           clip-to-geometry = true;
         }
@@ -58,19 +53,18 @@
 
       binds = {
         "Mod+T".action.spawn = [ "foot" ];
-        "Mod+D".action.spawn = [
-          "noctalia"
-          "panel-toggle"
-          "msg"
-          "launcher"
-        ];
-        "Super+Alt+L".action.spawn = [
-          "noctalia"
-          "msg"
-          "session-lock"
-        ];
+        
+        # --- BINDING DI NOCTALIA V5 ---
+        # 1. Corretto l'ordine sequenziale dei comandi IPC ("msg panel-toggle launcher")
+        # 2. Trasformati in stringhe singole per evitare che Niri spacchi gli argomenti
+        "Mod+D".action.spawn = "noctalia msg panel-toggle launcher";
+        
+        # 3. Sostituito Super+Alt+L con Mod+Alt+L (Sintassi nativa Niri per mostrare il tasto nello specchietto)
+        "Mod+Alt+L".action.spawn = "noctalia msg session session-lock";
+        
         "Mod+Q".action.close-window = { };
 
+        # --- Navigazione Finestre ---
         "Mod+Left".action.focus-column-left = { };
         "Mod+Right".action.focus-column-right = { };
         "Mod+Up".action.focus-window-up = { };
@@ -80,6 +74,7 @@
         "Mod+Shift+Left".action.move-column-left = { };
         "Mod+Shift+Right".action.move-column-right = { };
 
+        # --- Workspace e Finestre ---
         "Mod+1".action.focus-workspace = 1;
         "Mod+2".action.focus-workspace = 2;
         "Mod+3".action.focus-workspace = 3;
@@ -88,6 +83,7 @@
         "Mod+Comma".action.consume-window-into-column = { };
         "Mod+Period".action.expel-window-from-column = { };
 
+        # --- Screenshot ---
         "Mod+S".action.screenshot = { };
         "Mod+Shift+S".action.screenshot-screen = { };
         "Mod+Alt+S".action.screenshot-window = { };
