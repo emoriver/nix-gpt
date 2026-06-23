@@ -1,4 +1,4 @@
-{ inputs, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   services.swayidle = {
@@ -15,8 +15,7 @@
       }
     ];
     events = {
-      # CORREZIONE V5: Comando centralizzato per il lock via IPC
-      lock = "noctalia msg session session-lock"; 
+      lock = "noctalia msg session session-lock";
     };
   };
 
@@ -43,7 +42,10 @@
       window-rules = [
         {
           geometry-corner-radius = {
-            top-left = 16.0; top-right = 16.0; bottom-left = 16.0; bottom-right = 16.0;
+            top-left = 8.0;
+            top-right = 8.0;
+            bottom-left = 8.0;
+            bottom-right = 8.0;
           };
           clip-to-geometry = true;
         }
@@ -53,15 +55,18 @@
 
       binds = {
         "Mod+T".action.spawn = [ "foot" ];
-        
-        # --- BINDING DI NOCTALIA V5 ---
-        # 1. Corretto l'ordine sequenziale dei comandi IPC ("msg panel-toggle launcher")
-        # 2. Trasformati in stringhe singole per evitare che Niri spacchi gli argomenti
-        "Mod+D".action.spawn = "noctalia msg panel-toggle launcher";
-        
-        # 3. Sostituito Super+Alt+L con Mod+Alt+L (Sintassi nativa Niri per mostrare il tasto nello specchietto)
-        "Mod+Alt+L".action.spawn = "noctalia msg session session-lock";
-        
+        "Mod+D".action.spawn = [
+          "noctalia"
+          "msg"
+          "panel-toggle"
+          "launcher"
+        ];
+        "Mod+Alt+L".action.spawn = [
+          "noctalia"
+          "msg"
+          "session"
+          "session-lock"
+        ];
         "Mod+Q".action.close-window = { };
 
         # --- Navigazione Finestre ---

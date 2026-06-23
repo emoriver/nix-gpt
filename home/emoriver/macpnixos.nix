@@ -77,6 +77,7 @@
       nixd
       nixfmt
       angryipscanner
+      zed-editor
     ])
     ++ (with pkgsUnstable; [
       #kiro  # installato tramite modules/home/apps/kiro.nix
