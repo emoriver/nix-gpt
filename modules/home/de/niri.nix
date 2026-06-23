@@ -1,6 +1,10 @@
-{ pkgs, ... }:
+{ inputs, pkgs, ... }:
 
 {
+  imports = [ 
+    inputs.niri-flake.homeModules.niri # <-- Agganciamo Sodiboo in Home Manager!
+  ];
+
   services.swayidle = {
     enable = true;
     timeouts = [
@@ -23,7 +27,7 @@
     package = pkgs.niri;
     settings = {
       spawn-at-startup = [
-        { command = [ "noctalia" ]; } # Avvia l'ambiente v5
+        { command = [ "noctalia" ]; } 
         {
           command = [
             "gnome-keyring-daemon"
@@ -38,6 +42,29 @@
       input.keyboard.xkb = {
         layout = "it";
       };
+
+      layer-rules = [
+        {
+          matches = [
+            { namespace = "noctalia"; }
+          ];
+          
+          geometry-corner-radius = {
+            top-left = 8.0;
+            top-right = 8.0;
+            bottom-left = 8.0;
+            bottom-right = 8.0;
+          };
+          
+          background-effect = {
+            type = "blur";
+            blur = {
+              method = "gaussian";
+              radius = 8.0;
+            };
+          };
+        }
+      ];
 
       window-rules = [
         {
@@ -55,18 +82,8 @@
 
       binds = {
         "Mod+T".action.spawn = [ "foot" ];
-        "Mod+D".action.spawn = [
-          "noctalia"
-          "msg"
-          "panel-toggle"
-          "launcher"
-        ];
-        "Mod+Alt+L".action.spawn = [
-          "noctalia"
-          "msg"
-          "session"
-          "session-lock"
-        ];
+        "Mod+D".action.spawn = [ "noctalia" "msg" "panel-toggle" "launcher" ];
+        "Mod+Alt+L".action.spawn = [ "noctalia" "msg" "session" "session-lock" ];
         "Mod+Q".action.close-window = { };
 
         # --- Navigazione Finestre ---
