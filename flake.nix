@@ -111,7 +111,14 @@
           emoriver = ./home/emoriver/p16s1onnixos.nix;
           carpinera = ./home/carpinera/p16s1onnixos.nix;
         };
-      };       
+      };
+      nixct-ndred-82 = {
+        system     = "x86_64-linux";
+        hostModule = ./hosts/nixct-ndred-82;
+        users = {
+          emoriver = ./home/carpinera/nixct-ndred-82.nix;
+        };
+      };
     };
 
     mkNixos = name: cfg:
