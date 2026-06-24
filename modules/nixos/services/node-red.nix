@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 let
   nodeRedPlugins = import ./node-red-packages/default.nix {
@@ -11,7 +11,9 @@ in
     port = 1880;
   };
 
-  environment.systemPackages = [
-    nodeRedPlugins
-  ];
+  systemd.services.node-red = {
+    environment = {
+      NODE_PATH = "${nodeRedPlugins}/lib/node_modules/node-red-env/node_modules";
+    };
+  };
 }
