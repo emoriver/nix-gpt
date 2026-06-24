@@ -35,9 +35,8 @@
               }
           }
           touchpad {
-              natural-scroll true
-              tap   // tap per click sx
-              click-method "fingers"    // click sx con 1 dito, dx con 2 dita
+              natural-scroll 
+              tap
           }
       }
 

@@ -135,6 +135,31 @@
 
   enableDocker = true;
 
+  systemd.services.thingsboard = {
+    description = "ThingsBoard IoT Platform";
+    after = [
+      "network.target"
+      "postgresql.service"
+    ];
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      User = "thingsboard";
+      EnvironmentFile = "/var/lib/thingsboard/conf/thingsboard.env";
+      ExecStart =
+        "${pkgs.jdk21}/bin/java "
+        + "-Dplatform=deb "
+        + "-Dinstall.data_dir=/usr/share/thingsboard/thingsboard/data "
+        + "-XX:+UseG1GC -XX:MaxGCPauseMillis=500 "
+        + "-Dloader.path=/usr/share/thingsboard/thingsboard/conf,/usr/share/thingsboard/thingsboard/extensions "
+        + "-Dspring.config.location=file:/usr/share/thingsboard/thingsboard/conf/thingsboard.yml "
+        + "-jar /usr/share/thingsboard/thingsboard/bin/thingsboard.jar";
+      WorkingDirectory = "/usr/share/thingsboard";
+      SuccessExitStatus = 143;
+      #Restart = "always";
+      #RestartSec = 30;
+    };
+  };
+
   # ----- programmi e pacchetti di sistema host-level  -----
   programs = {
     zsh.enable = true;
