@@ -142,10 +142,13 @@
         ];
       };
   in
+  let
+    systems = [ "x86_64-linux" "aarch64-linux" ];
+  in
   {
     nixosConfigurations = lib.mapAttrs mkNixos hosts;
 
-    packages = flake-utils.lib.eachDefaultSystem (system: {
+    packages = lib.genAttrs systems (system: {
       nodeRedPackages = mkNodeRedPackages system;
     });
   };
