@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 let
   nodeRedPlugins = import ./node-red-packages/default.nix {
