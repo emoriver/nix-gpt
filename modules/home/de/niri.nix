@@ -1,10 +1,6 @@
-{ inputs, pkgs, ... }:
+{ pkgs, ... }:
 
 {
-  imports = [ 
-    inputs.niri-flake.homeModules.niri # <-- Agganciamo Sodiboo in Home Manager!
-  ];
-
   services.swayidle = {
     enable = true;
     timeouts = [
@@ -25,91 +21,68 @@
 
   programs.niri = {
     package = pkgs.niri;
-    settings = {
-      spawn-at-startup = [
-        { command = [ "noctalia" ]; } 
-        {
-          command = [
-            "gnome-keyring-daemon"
-            "--start"
-            "--components=secrets"
-          ];
-        }
-      ];
+    
+    # Usiamo 'config' invece di 'settings'. Questo inietta KDL puro saltando ogni tipo di controllo di Nix!
+    config = ''
+      spawn-at-startup { command "noctalia"; }
+      spawn-at-startup { command "gnome-keyring-daemon" "--start" "--components=secrets"; }
 
-      prefer-no-csd = true;
+      prefer-no-csd
 
-      input.keyboard.xkb = {
-        layout = "it";
-      };
+      input {
+          keyboard {
+              xkb {
+                  layout "it"
+              }
+          }
+      }
 
-      layer-rules = [
-        {
-          matches = [
-            { namespace = "noctalia"; }
-          ];
+      // REGOLA PER NOCTALIA CON BLUR DEFINITIVO
+      layer-rule {
+          match namespace="noctalia"
           
-          geometry-corner-radius = {
-            top-left = 8.0;
-            top-right = 8.0;
-            bottom-left = 8.0;
-            bottom-right = 8.0;
-          };
+          geometry-corner-radius top-left=8 top-right=8 bottom-left=8 bottom-right=8
           
-          background-effect = {
-            type = "blur";
-            blur = {
-              method = "gaussian";
-              radius = 8.0;
-            };
-          };
-        }
-      ];
+          background-effect type="blur" {
+              method "gaussian"
+              radius 8
+          }
+      }
 
-      window-rules = [
-        {
-          geometry-corner-radius = {
-            top-left = 8.0;
-            top-right = 8.0;
-            bottom-left = 8.0;
-            bottom-right = 8.0;
-          };
-          clip-to-geometry = true;
-        }
-      ];
+      window-rule {
+          geometry-corner-radius top-left=8 top-right=8 bottom-left=8 bottom-right=8
+          clip-to-geometry
+      }
 
-      debug.honor-xdg-activation-with-invalid-serial = true;
+      binds {
+          "Mod+T" { spawn "foot"; }
+          "Mod+D" { spawn "noctalia" "msg" "panel-toggle" "launcher"; }
+          "Mod+Alt+L" { spawn "noctalia" "msg" "session" "session-lock"; }
+          "Mod+Q" { close-window; }
 
-      binds = {
-        "Mod+T".action.spawn = [ "foot" ];
-        "Mod+D".action.spawn = [ "noctalia" "msg" "panel-toggle" "launcher" ];
-        "Mod+Alt+L".action.spawn = [ "noctalia" "msg" "session" "session-lock" ];
-        "Mod+Q".action.close-window = { };
+          "Mod+Left"  { focus-column-left; }
+          "Mod+Right" { focus-column-right; }
+          "Mod+Up"    { focus-window-up; }
+          "Mod+Down"  { focus-window-down; }
+          
+          "Mod+Shift+Up"    { focus-workspace-up; }
+          "Mod+Shift+Down"  { focus-workspace-down; }
+          "Mod+Shift+Left"  { move-column-left; }
+          "Mod+Shift+Right" { move-column-right; }
 
-        # --- Navigazione Finestre ---
-        "Mod+Left".action.focus-column-left = { };
-        "Mod+Right".action.focus-column-right = { };
-        "Mod+Up".action.focus-window-up = { };
-        "Mod+Down".action.focus-window-down = { };
-        "Mod+Shift+Up".action.focus-workspace-up = { };
-        "Mod+Shift+Down".action.focus-workspace-down = { };
-        "Mod+Shift+Left".action.move-column-left = { };
-        "Mod+Shift+Right".action.move-column-right = { };
+          "Mod+1" { focus-workspace 1; }
+          "Mod+2" { focus-workspace 2; }
+          "Mod+3" { focus-workspace 3; }
+          
+          "Mod+F"       { maximize-column; }
+          "Mod+Shift+F" { fullscreen-window; }
+          "Mod+Comma"   { consume-window-into-column; }
+          "Mod+Period"  { expel-window-from-column; }
 
-        # --- Workspace e Finestre ---
-        "Mod+1".action.focus-workspace = 1;
-        "Mod+2".action.focus-workspace = 2;
-        "Mod+3".action.focus-workspace = 3;
-        "Mod+F".action.maximize-column = { };
-        "Mod+Shift+F".action.fullscreen-window = { };
-        "Mod+Comma".action.consume-window-into-column = { };
-        "Mod+Period".action.expel-window-from-column = { };
-
-        # --- Screenshot ---
-        "Mod+S".action.screenshot = { };
-        "Mod+Shift+S".action.screenshot-screen = { };
-        "Mod+Alt+S".action.screenshot-window = { };
-      };
-    };
+          "Mod+S"       { screenshot; }
+          "Mod+Shift+S" { screenshot-screen; }
+          "Mod+Alt+S"   { screenshot-window; }
+      }
+    '';
   };
 }

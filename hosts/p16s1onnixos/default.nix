@@ -11,7 +11,6 @@
     ../../modules/nixos/system/virt-manager.nix
     ../../modules/nixos/de/plasma6.nix
     ../../modules/nixos/de/niri.nix
-    ../../modules/nixos/de/noctalia.nix
 
     # utenti
     ../../modules/nixos/users/emoriver.nix
