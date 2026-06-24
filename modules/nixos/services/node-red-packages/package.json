@@ -1,5 +1,6 @@
 {
   "name": "node-red-env",
+  "version": "1.0.0",
   "dependencies": {
     "node-red-contrib-opcua": "*",
     "node-red-contrib-modbus": "*"

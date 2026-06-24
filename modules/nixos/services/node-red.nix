@@ -12,6 +12,6 @@ in
   };
 
   environment.systemPackages = [
-    nodeRedPlugins.nodeDependencies
+    nodeRedPlugins
   ];
 }
