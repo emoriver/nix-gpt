@@ -55,8 +55,6 @@
 
   security.pam.services.sshd.allowNullPassword = false;
 
-  enableDocker = true;
-
 
   # ----- programmi e pacchetti di sistema host-level  -----
   programs = {
