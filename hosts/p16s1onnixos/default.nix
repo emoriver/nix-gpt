@@ -50,8 +50,11 @@
     networkmanager.enable = true;
     firewall = {
       enable = true;
-      allowedTCPPorts = [ 22 ];
-      allowedTCPPorts = [ 1880 ];  # node-red
+      allowedTCPPorts = [ 
+        22 # SSH
+        1880 # Node-RED
+      ];
+
       # allowedUDPPorts = [ ];
     };
   };
