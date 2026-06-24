@@ -29,8 +29,15 @@
   let
     lib = nixpkgs.lib;
 
-    # pkgsUnstable ora è una funzione che accetta system
-    # così ogni host ottiene i pacchetti compilati per la sua architettura
+    mkNodeRedPackages = system:   # Packages per Node-RED (buildNpmPackage)
+      let
+        pkgs = import nixpkgs {
+          inherit system;
+        };
+      in import ./modules/nixos/services/node-red-packages/default.nix {
+        inherit pkgs;
+      };
+
     mkPkgsUnstable = system: import nixpkgs-unstable {
       inherit system;
       config.allowUnfree = true;
@@ -137,5 +144,9 @@
   in
   {
     nixosConfigurations = lib.mapAttrs mkNixos hosts;
+
+    packages = flake-utils.lib.eachDefaultSystem (system: {
+      nodeRedPackages = mkNodeRedPackages system;
+    });
   };
 }
