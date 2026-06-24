@@ -41,7 +41,8 @@
           
           geometry-corner-radius 8
           
-          background-effect type="blur" {
+          background-effect {
+              blur
               method "gaussian"
               radius 8
           }
