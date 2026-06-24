@@ -51,6 +51,7 @@
     firewall = {
       enable = true;
       allowedTCPPorts = [ 22 ];
+      allowedTCPPorts = [ 1880 ];  # node-red
       # allowedUDPPorts = [ ];
     };
   };
