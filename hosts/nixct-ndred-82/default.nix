@@ -48,7 +48,7 @@
       PasswordAuthentication = true;
       KbdInteractiveAuthentication = false;
       UsePAM = true;
-      AllowUsers = [ "emoriver" ];
+      AllowUsers = [ "carpinera" ];
       PermitEmptyPasswords = "no";
     };
   };
