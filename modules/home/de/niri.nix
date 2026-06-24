@@ -33,12 +33,11 @@
               xkb {
                   layout "it"
               }
+          touchpad {
+              natural-scroll true
           }
       }
 
-      // --- CONFIGURAZIONE BLUR DA DOCS NOCTALIA V4 ---
-      
-      // Blocco blur globale che definisce la forza del gaussian blur
       blur {
           passes 2
           offset 3.0
@@ -46,17 +45,15 @@
           saturation 1.0
       }
 
-      // Attiva il blur su tutte le finestre/superfici (Noctalia incluso)
       window-rule {
           geometry-corner-radius 8
-          clip-to-geometry
+          clip-to-geometry true
           background-effect {
               blur true
               xray false
           }
       }
 
-      // Regola specifica per non avere l'effetto X-ray sulle superfici Noctalia
       layer-rule {
           match namespace="^noctalia-(background|launcher-overlay|dock)-.*$"
           geometry-corner-radius 8
