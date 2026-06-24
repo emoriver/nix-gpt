@@ -22,7 +22,7 @@
       #  };
       #};
 
-      bar.main = {
+      bar.default = {
         enable = false;
       };
 

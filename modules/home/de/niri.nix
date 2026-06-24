@@ -33,6 +33,7 @@
               xkb {
                   layout "it"
               }
+          }
           touchpad {
               natural-scroll true
           }
