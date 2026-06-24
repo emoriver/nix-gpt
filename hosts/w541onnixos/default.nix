@@ -28,7 +28,7 @@
     hostName = "w541onnixos";
     hostId = "f6118264";
     networkmanager.enable = true;
-    wireless.enable = false; # Don't conflict with NetworkManager
+    #wireless.enable = false; # Don't conflict with NetworkManager
     firewall = {
       enable = true;
       allowedTCPPorts = [ 22 ];
