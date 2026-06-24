@@ -4,6 +4,9 @@ let
   nodeRedPlugins = import ./node-red-packages/default.nix {
     inherit pkgs;
   };
+
+  nodeModulesPath = "${nodeRedPlugins}/lib/node_modules/node-red-env/node_modules";
+
 in
 {
   services.node-red = {
@@ -11,9 +14,12 @@ in
     port = 1880;
   };
 
-  systemd.services.node-red = {
-    environment = {
-      NODE_PATH = "${nodeRedPlugins}/lib/node_modules/node-red-env/node_modules";
-    };
-  };
+  systemd.tmpfiles.rules = [
+    "d /var/lib/node-red/node_modules 0755 node-red node-red -"
+    "L+ /var/lib/node-red/node_modules/node-red-contrib-opcua - - - - ${nodeModulesPath}/node-red-contrib-opcua"
+    "L+ /var/lib/node-red/node_modules/node-red-contrib-modbus - - - - ${nodeModulesPath}/node-red-contrib-modbus"
+    
+    # plug-in futuri
+    #"L+ /var/lib/node-red/node_modules/<nome> - - - - ${nodeModulesPath}/<nome>"
+  ];
 }
