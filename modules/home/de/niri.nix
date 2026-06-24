@@ -36,21 +36,36 @@
           }
       }
 
-      layer-rule {
-          match namespace="noctalia"
-          
-          geometry-corner-radius 8
-          
-          background-effect "blur" {
-              method "gaussian"
-              radius 8
-          }
+      // --- CONFIGURAZIONE BLUR DA DOCS NOCTALIA V4 ---
+      
+      // Blocco blur globale che definisce la forza del gaussian blur
+      blur {
+          passes 2
+          offset 3.0
+          noise 0.03
+          saturation 1.0
       }
 
+      // Attiva il blur su tutte le finestre/superfici (Noctalia incluso)
       window-rule {
           geometry-corner-radius 8
           clip-to-geometry
+          background-effect {
+              blur true
+              xray false
+          }
       }
+
+      // Regola specifica per non avere l'effetto X-ray sulle superfici Noctalia
+      layer-rule {
+          match namespace="^noctalia-(background|launcher-overlay|dock)-.*$"
+          geometry-corner-radius 8
+          background-effect {
+              xray false
+          }
+      }
+
+      // -------------------------------------------------
 
       binds {
           "Mod+T" { spawn "foot"; }
