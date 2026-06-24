@@ -22,10 +22,9 @@
   programs.niri = {
     package = pkgs.niri;
     
-    # Usiamo 'config' invece di 'settings'. Questo inietta KDL puro saltando ogni tipo di controllo di Nix!
     config = ''
-      spawn-at-startup { command "noctalia"; }
-      spawn-at-startup { command "gnome-keyring-daemon" "--start" "--components=secrets"; }
+      spawn-at-startup "noctalia"
+      spawn-at-startup "gnome-keyring-daemon" "--start" "--components=secrets"
 
       prefer-no-csd
 
@@ -37,11 +36,10 @@
           }
       }
 
-      // REGOLA PER NOCTALIA CON BLUR DEFINITIVO
       layer-rule {
           match namespace="noctalia"
           
-          geometry-corner-radius top-left=8 top-right=8 bottom-left=8 bottom-right=8
+          geometry-corner-radius 8
           
           background-effect type="blur" {
               method "gaussian"
@@ -50,7 +48,7 @@
       }
 
       window-rule {
-          geometry-corner-radius top-left=8 top-right=8 bottom-left=8 bottom-right=8
+          geometry-corner-radius 8
           clip-to-geometry
       }
 

@@ -5,7 +5,7 @@
     enable = true;
     profiles.default.extensions = with pkgs.vscode-extensions; [
       jnoortheen.nix-ide
-      continue.continue
+      #continue.continue
     ];
     profiles.default.userSettings = {
       "nix.serverPath" = "nixd";
