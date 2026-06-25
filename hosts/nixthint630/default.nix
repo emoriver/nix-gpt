@@ -77,6 +77,10 @@
       enable = true;
       networks = {
         "aegm1" = {
+          psk = "password_1";
+          priority = 10;
+        };
+        "aegm3" = {
           psk = "password_2";
           priority = 5;
         };
