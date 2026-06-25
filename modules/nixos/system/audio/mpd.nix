@@ -13,8 +13,10 @@
     after = [
       "home-manager-emoriver.service"
       "mpd.service"
+      "user@1000.service"
     ];
-    wants = [ "home-manager-emoriver.service" ];
+    #wants = [ "home-manager-emoriver.service" ];
+    wants = [ "user@1000.service" ];
     environment.MPD_HOST = "/run/user/1000/mpd/socket";
     serviceConfig = {
       User = lib.mkForce "emoriver";

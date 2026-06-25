@@ -1,6 +1,4 @@
 {
-  config,
-  lib,
   pkgs,
   pkgsUnstable,
   ...
@@ -47,6 +45,17 @@
       "--vfs-cache-mode"
       "writes"
     ]; # opzioni rclone mount
+  };
+
+  xdg.mimeApps = {
+    enable = true;
+    defaultApplications = {
+      "image/jpeg" = [ "org.kde.gwenview.desktop" ];
+      "image/png" = [ "org.kde.gwenview.desktop" ];
+      "image/webp" = [ "org.kde.gwenview.desktop" ];
+      "image/tiff" = [ "org.kde.gwenview.desktop" ];
+      #"image/x-adobe-dng" = [ "rawtherapee.desktop" ];
+    };
   };
 
   # Pacchetti utente (se vuoi aggiunte "sciolte")

@@ -21,7 +21,7 @@
 
   programs.niri = {
     package = pkgs.niri;
-    
+
     config = ''
       spawn-at-startup "noctalia"
       spawn-at-startup "gnome-keyring-daemon" "--start" "--components=secrets"
@@ -57,11 +57,18 @@
       }
 
       layer-rule {
-          match namespace="^noctalia-(background|launcher-overlay|dock)-.*$"
-          geometry-corner-radius 8
-          background-effect {
-              xray false
-          }
+          //match namespace="^noctalia-(background|launcher-overlay|dock)-.*$"
+          //geometry-corner-radius 8
+          //background-effect {
+          //    xray false
+          //}
+          match namespace="^noctalia-backdrop"
+          place-within-backdrop true
+      }
+
+      debug {
+        // Allows notification actions and window activation from Noctalia.
+        honor-xdg-activation-with-invalid-serial
       }
 
       // -------------------------------------------------
