@@ -74,7 +74,7 @@
       // -------------------------------------------------
 
       binds {
-          "Mod+T" { spawn "foot"; }
+          "Mod+T" { spawn "ghostty"; }
           "Mod+D" { spawn "noctalia" "msg" "panel-toggle" "launcher"; }
           "Mod+Alt+L" { spawn "noctalia" "msg" "session" "session-lock"; }
           "Mod+Q" { close-window; }

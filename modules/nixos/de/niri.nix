@@ -18,7 +18,6 @@
   };
 
   environment.systemPackages = with pkgs; [
-    foot
     grim
     slurp
     wl-clipboard

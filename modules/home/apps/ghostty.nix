@@ -1,16 +1,13 @@
 { config, pkgs, ... }:
 
 {
-  programs.ghostty = {
+programs.ghostty = {
     enable = true;
-    enableZshIntegration = true;
+    enableZshIntegration = true; 
     
     settings = {
       theme = "tokyonight-night";
-      
-      # 🚀 Il trucco magico: pesca il nome direttamente dal tuo modulo font!
       font-family = config.fontProfiles.monospace.name;
-      
       font-size = 11;
       window-padding-x = 10;
       window-padding-y = 10;
