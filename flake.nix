@@ -119,6 +119,13 @@
           carpinera = ./home/carpinera/nixct-ndred-82.nix;
         };
       };
+      nixct-build-83 = {
+        system     = "x86_64-linux";
+        hostModule = ./hosts/nixct-build-83;
+        users = {
+          carpinera = ./home/carpinera/nixct-build-83.nix;
+        };
+      };      
     };
 
     mkNixos = name: cfg:
