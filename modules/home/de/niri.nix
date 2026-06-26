@@ -56,6 +56,12 @@
           }
       }
 
+      window-rule {
+          match app-id="com.mitchellh.ghostty"
+          draw-border-with-background false
+          opacity 0.9
+      }
+
       layer-rule {
           //match namespace="^noctalia-(background|launcher-overlay|dock)-.*$"
           //geometry-corner-radius 8

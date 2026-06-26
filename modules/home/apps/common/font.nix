@@ -1,20 +1,15 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
-  programs.ghostty = {
+  fontProfiles = {
     enable = true;
-    enableZshIntegration = true;
-    
-    settings = {
-      theme = "tokyonight-night";
-      
-      # 🚀 Il trucco magico: pesca il nome direttamente dal tuo modulo font!
-      font-family = config.fontProfiles.monospace.name;
-      
-      font-size = 11;
-      window-padding-x = 10;
-      window-padding-y = 10;
-      command = "${pkgs.zsh}/bin/zsh";
+    monospace = {
+      name = "FiraMono Nerd Font";
+      package = pkgs.nerd-fonts.fira-mono;
+    };
+    regular = {
+      name = "Fira Sans";
+      package = pkgs.fira;
     };
   };
 }

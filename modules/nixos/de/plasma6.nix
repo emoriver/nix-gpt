@@ -4,21 +4,21 @@
   services.xserver.enable = true; # Requiered for SDDM and KDE Plasma 6 even if you use Wayland
   services.xserver.videoDrivers = [ "amdgpu" ];
   services.xserver.xkb = {
-      layout = "it";
-      variant = "";
+    layout = "it";
+    variant = "";
   };
 
   services.displayManager.sddm = {
     enable = true;
-    wayland.enable = true;  # Enable if using Wayland
-    
+    wayland.enable = true; # Enable if using Wayland
+
     #package = pkgs.kdePackages.sddm;  # Use KDE 6 version
-    theme = "breeze"; 
-    
+    theme = "breeze";
+
     settings = {
       Theme = {
         Current = "breeze";
-        Background = "/etc/nixos/wallpapers/dark_mnt.png";  # Put your image path here
+        Background = "/etc/nixos/wallpapers/dark_mnt.png"; # Put your image path here
       };
     };
   };
@@ -28,7 +28,8 @@
   # Strumenti KDE + utility Wayland
   environment.systemPackages = with pkgs; [
     # --- KDE Apps / Utils ---
-    kdePackages.discover        # GUI per flatpak/aggiornamenti (con fwupd backend)
+    kdePackages.gwenview
+    kdePackages.discover # GUI per flatpak/aggiornamenti (con fwupd backend)
     kdePackages.kcalc
     kdePackages.kcharselect
     kdePackages.kcolorchooser
@@ -36,8 +37,8 @@
     kdePackages.ksystemlog
     kdePackages.isoimagewriter
     kdePackages.partitionmanager
-    kdePackages.sddm-kcm        # Configuration module for SDDM
-    kdePackages.filelight 
+    kdePackages.sddm-kcm # Configuration module for SDDM
+    kdePackages.filelight
     kdePackages.kdenlive
 
     # --- Altri tool utili ---
