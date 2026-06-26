@@ -18,6 +18,7 @@
   home.packages = with pkgs; [
     bat eza fd ripgrep fzf jq yq-go
 
+    tmux
   ];
 
   # Esempio di file utente gestito da HM
