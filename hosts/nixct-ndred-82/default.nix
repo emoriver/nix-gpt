@@ -18,6 +18,57 @@
     privileged = true;
   };
 
+  # ---------- Rete ----------
+  networking = {
+    firewall = {
+      enable = true;
+      allowedTCPPorts = [
+        22 # SSH
+        1880 # node-red
+      ];
+/*      
+      allowedUDPPorts = [
+        5353 # Utile per mDNS/Avahi
+        1900 # UPnP/SSDP
+        50300 # Soulseek
+      ];
+      allowedTCPPortRanges = [
+        {
+          from = 40000;
+          to = 65535;
+        } # porte dinamiche
+      ];
+      allowedUDPPortRanges = [
+        {
+          from = 57621;
+          to = 57621;
+        }
+        {
+          from = 49152;
+          to = 65535;
+        }
+      ];
+*/
+    };
+  };
+
+
+  # ----- servizi di base -----
+  services.openssh = {
+    enable = true;
+    #openFirewall = true;
+    settings = {
+      PermitRootLogin = "no";
+      PasswordAuthentication = true;
+      KbdInteractiveAuthentication = false;
+      UsePAM = true;
+      AllowUsers = [ "carpinera" ];
+      PermitEmptyPasswords = "no";
+    };
+  };
+
+  security.pam.services.sshd.allowNullPassword = false;
+
 
   # ----- impostazioni di nix -----
   nixpkgs.config.allowUnfree = true;
@@ -37,23 +88,6 @@
     dates = "weekly";
     options = "--delete-older-than 7d";
   };
-
-
-  # ----- servizi di base -----
-  services.openssh = {
-    enable = true;
-    openFirewall = true;
-    settings = {
-      PermitRootLogin = "no";
-      PasswordAuthentication = true;
-      KbdInteractiveAuthentication = false;
-      UsePAM = true;
-      AllowUsers = [ "carpinera" ];
-      PermitEmptyPasswords = "no";
-    };
-  };
-
-  security.pam.services.sshd.allowNullPassword = false;
 
 
   # ----- programmi e pacchetti di sistema host-level  -----
