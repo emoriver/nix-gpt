@@ -28,6 +28,8 @@
       window-padding-balance = true;
       window-decoration = false;
 
+      audible-bell = true;
+
       command = "${pkgs.zsh}/bin/zsh";
     };
   };

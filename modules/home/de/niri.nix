@@ -15,7 +15,7 @@
       }
     ];
     events = {
-      lock = "noctalia msg session session-lock";
+      lock = "noctalia msg session lock";
     };
   };
 
@@ -82,7 +82,8 @@
       binds {
           "Mod+T" { spawn "ghostty"; }
           "Mod+D" { spawn "noctalia" "msg" "panel-toggle" "launcher"; }
-          "Mod+Alt+L" { spawn "noctalia" "msg" "session" "session-lock"; }
+          "Mod+R" { spawn "thunar"; }
+          "Mod+Alt+L" { spawn "noctalia" "msg" "session" "lock"; }
           "Mod+Q" { close-window; }
 
           "Mod+Left"  { focus-column-left; }

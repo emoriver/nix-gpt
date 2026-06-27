@@ -48,17 +48,6 @@
     ]; # opzioni rclone mount
   };
 
-  xdg.mimeApps = {
-    enable = true;
-    defaultApplications = {
-      "image/jpeg" = [ "org.kde.gwenview.desktop" ];
-      "image/png" = [ "org.kde.gwenview.desktop" ];
-      "image/webp" = [ "org.kde.gwenview.desktop" ];
-      "image/tiff" = [ "org.kde.gwenview.desktop" ];
-      #"image/x-adobe-dng" = [ "rawtherapee.desktop" ];
-    };
-  };
-
   # Pacchetti utente (se vuoi aggiunte "sciolte")
   home.packages =
     (with pkgs; [
@@ -88,6 +77,10 @@
       nixfmt
       angryipscanner
       zed-editor
+      thunar
+      tumbler
+      libgsf
+      ffmpegthumbnailer
     ])
     ++ (with pkgsUnstable; [
       #kiro  # installato tramite modules/home/apps/kiro.nix
@@ -99,6 +92,22 @@
   #  # Config specifica per host__1__
   #  enabled = true
   #'';
+
+  /*
+    systemd.user.services.tumblerd = {
+      Unit = {
+        Description = "Tumbler thumbnail service";
+        PartOf = [ "graphical-session.target" ];
+      };
+      Install = {
+        WantedBy = [ "graphical-session.target" ];
+      };
+      Service = {
+        ExecStart = "${pkgs.tumbler}/lib/tumbler-1/tumblerd";
+        Restart = "on-failure";
+      };
+    };
+  */
 
   systemd.user.startServices = "sd-switch";
 }
