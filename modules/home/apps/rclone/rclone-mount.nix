@@ -1,8 +1,14 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.apps.rcloneMount;
-in {
+in
+{
   options.apps.rcloneMount = {
     enable = lib.mkEnableOption "Abilita il mount automatico di OneDrive con rclone";
     remoteName = lib.mkOption {
@@ -17,7 +23,10 @@ in {
     };
     extraOptions = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default = [ "--vfs-cache-mode" "writes" ];
+      default = [
+        "--vfs-cache-mode"
+        "writes"
+      ];
       description = "Opzioni aggiuntive da passare a rclone mount";
     };
   };
@@ -29,6 +38,7 @@ in {
       Unit = {
         Description = "Mount OneDrive con rclone";
         After = [ "network-online.target" ];
+        Wants = [ "network-online.target" ];
       };
       Service = {
         ExecStart = ''

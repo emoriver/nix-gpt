@@ -6,15 +6,8 @@
 
     enableZshIntegration = true;
 
-    #themes = {
-    #  tokyonight_night = {
-    #    url = "https://raw.githubusercontent.com/tokyo-night/tokyo-night.nvim/main/extras/ghostty/tokyonight_night";
-    #    sha256 = "sha256-R8w6jGvG6+9fKThK8P0wTscwI5Pj5uQj9kM0Xk9H3mY="; # Se dà errore di hash al rebuild, te lo correggerà Nix stesso
-    #  };
-    #};
-
     settings = {
-      #theme = "tokyonight_night";
+      theme = "Tomorrow Night Eighties";
       #font-family = "JetBrainsMono Nerd Font";
       font-family = "FiraMono Nerd Font";
       font-size = 10;
@@ -28,7 +21,7 @@
       window-padding-balance = true;
       window-decoration = false;
 
-      audible-bell = true;
+      bell-features = "audio";
 
       command = "${pkgs.zsh}/bin/zsh";
     };
