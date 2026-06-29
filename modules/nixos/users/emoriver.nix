@@ -14,8 +14,8 @@
       "git"
       "video"
       "sudo"
-      "docker"
-    ]; # aggiungi "docker" se lo usi
+      "docker"    # se in uso
+    ]; 
     shell = pkgs.zsh;
 
     #initialPassword = "nixos";
@@ -23,6 +23,8 @@
 
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMW7C8X/k4K9qmbvrOWorpDz0v1lPcvBTA9psCtWIOtQ emoriver@live.it"
+
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAR56Aa22c+Q+Uj+7V7skB6ZldUnfvbxy2dqZIAXbH4D emoriver@barronera"
     ];
   };
 }
