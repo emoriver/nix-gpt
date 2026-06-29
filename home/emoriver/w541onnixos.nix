@@ -24,7 +24,10 @@
     #thunderbird
     #rawtherapee
     #exiftool
-    remmina
+    remmina      
+    thunar
+    tumbler
+    brightnessctl
   ];
 
   # Esempio di file utente gestito da HM
