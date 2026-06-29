@@ -7,6 +7,10 @@
     ../../modules/home/apps/git.nix
     ../../modules/home/apps/firefox.nix
     ../../modules/home/apps/vscodium.nix
+    ../../modules/home/apps/ghostty.nix
+
+    ../../modules/home/de/niri.nix
+    ../../modules/home/de/noctalia.nix
 
   ];
   
@@ -24,7 +28,10 @@
     #thunderbird
     #rawtherapee
     #exiftool
+    nixd
+    nixfmt
     remmina
+    winbox
   ];
 
   # Esempio di file utente gestito da HM

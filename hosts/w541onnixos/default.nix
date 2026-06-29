@@ -12,16 +12,48 @@
     ../../modules/nixos/system/audio
     ../../modules/nixos/system/virt-manager.nix
     ../../modules/nixos/de/plasma6.nix
+    ../../modules/nixos/de/niri.nix
 
     # utenti - !! -
-     ../../modules/nixos/users/emoriver.nix
+    ../../modules/nixos/users/emoriver.nix
 
     # servizi
     #../../modules/nixos/services/postgresql.nix
     #../../modules/nixos/services/docker.nix
     #../../modules/nixos/services/vpn.nix
   ];
-  
+
+  # Grafica ibrida Intel + Nvidia
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true;
+  };
+
+  services.xserver.videoDrivers = [ "nvidia" ];
+
+  hardware.nvidia = {
+    modesetting.enable = true;
+    powerManagement.enable = true;
+    powerManagement.finegrained = true; # spegne la GPU quando non usata
+    open = false;
+    nvidiaSettings = true;
+    prime = {
+      offload = {
+        enable = true;
+        enableOffloadCmd = true; # abilita il comando nvidia-offload
+      };
+      intelBusId = "PCI:0:2:0";
+      nvidiaBusId = "PCI:1:0:0";
+    };
+  };
+
+  # Nvidia power management - Quadro K2100M
+  services.udev.extraRules = ''
+    ACTION=="bind", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x030200", TEST=="power/control", ATTR{power/control}="auto"
+  '';
+
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.powerOnBoot = true;
 
   # ----- rete e localizzazione -----
   networking = {
@@ -42,7 +74,7 @@
     };
 
     interfaces = {
-      "enp0s25".useDHCP = false;     # L'interfaccia fisica non deve avere IP
+      "enp0s25".useDHCP = false; # L'interfaccia fisica non deve avere IP
       "br0" = {
         useDHCP = true;
 
@@ -54,7 +86,7 @@
       };
     };
 
-    firewall.trustedInterfaces = [ "br0" ];       # Fondamentale per far passare il traffico della VM verso la CPU Siemens
+    firewall.trustedInterfaces = [ "br0" ]; # Fondamentale per far passare il traffico della VM verso la CPU Siemens
   };
 
   i18n = {
@@ -62,7 +94,7 @@
     extraLocaleSettings = {
       LC_TIME = "it_IT.UTF-8";
     };
-    supportedLocales =  [
+    supportedLocales = [
       "en_US.UTF-8/UTF-8"
       "it_IT.UTF-8/UTF-8"
     ];
@@ -70,11 +102,13 @@
   #location.provider = "geoclue2";
   time.timeZone = "Europe/Rome";
 
-
   # ----- impostazioni di nix -----
   nixpkgs.config.allowUnfree = true;
   nix.settings = {
-    experimental-features = [ "nix-command" "flakes" ];
+    experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
     auto-optimise-store = true;
     warn-dirty = false;
     substituters = [
@@ -90,7 +124,6 @@
     options = "--delete-older-than 7d";
   };
 
-
   # ----- servizi di base -----
   services.openssh = {
     enable = true;
@@ -100,10 +133,8 @@
     };
   };
 
-  # Stampa/Bluetooth (abilita se ti servono su questo host)
-  services.printing.enable = true;   #CUPS
-  hardware.bluetooth.enable = true;
-
+  # Stampa
+  services.printing.enable = true; # CUPS
 
   # ----- programmi e pacchetti di sistema host-level  -----
   programs = {
@@ -112,18 +143,20 @@
     ssh.startAgent = true;
   };
 
+  services.gnome.gcr-ssh-agent.enable = false;
+
   environment.systemPackages = with pkgs; [
     #vim
-    git 
-    curl 
-    wget 
-    htop 
-    btop 
-    ripgrep 
-    fd 
-    unzip 
-    zip 
-    gnupg 
+    git
+    curl
+    wget
+    htop
+    btop
+    ripgrep
+    fd
+    unzip
+    zip
+    gnupg
     tmux
   ];
 
