@@ -6,7 +6,7 @@ pkgs.buildNpmPackage {
 
   src = ./.;
 
-  npmDepsHash = "sha256-V9Y8SSRbPIxUncQc68Bk/wYXbmAohsYqnuW/6ElcUbs=";
+  npmDepsHash = "sha256-LffDLT83JJrCfAs+LeuPmqsFruKJHFx4mDa9UNc9kB0=";
 
   dontNpmBuild = true;
 }
