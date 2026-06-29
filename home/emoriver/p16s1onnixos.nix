@@ -40,6 +40,9 @@
       yazi
 
       nixd
+
+      thunar
+      tumbler
     ])
     ++ (with pkgsUnstable; [
       #kiro  # installato tramite modules/home/apps/kiro.nix
