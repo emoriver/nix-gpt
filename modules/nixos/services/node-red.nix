@@ -18,7 +18,8 @@ in
     "d /var/lib/node-red/node_modules 0755 node-red node-red -"
     "L+ /var/lib/node-red/node_modules/node-red-contrib-opcua - - - - ${nodeModulesPath}/node-red-contrib-opcua"
     "L+ /var/lib/node-red/node_modules/node-red-contrib-modbus - - - - ${nodeModulesPath}/node-red-contrib-modbus"
-    
+    "L+ /var/lib/node-red/node_modules/@node-red-contrib-themes - - - - ${nodeModulesPath}/@node-red-contrib-themes"
+
     # plug-in futuri
     #"L+ /var/lib/node-red/node_modules/<nome> - - - - ${nodeModulesPath}/<nome>"
   ];
