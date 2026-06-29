@@ -4,6 +4,6 @@
   "dependencies": {
     "node-red-contrib-opcua": "*",
     "node-red-contrib-modbus": "*",
-    "node-red-contrib-themes/theme-collection": "*"
+    "@node-red-contrib-themes/theme-collection": "*"
   }
 }
